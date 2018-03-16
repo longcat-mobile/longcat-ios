@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+        <file>qml/Core/GamePage.qml</file>
+        <file>qml/Core/Game/AnimatedLayer.qml</file>
+    </qresource>
+</RCC>

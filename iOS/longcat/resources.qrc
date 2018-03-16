@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/images/game/background.png</file>
+        <file>resources/images/game/layer_bush.png</file>
+        <file>resources/images/game/layer_clouds.png</file>
+        <file>resources/images/game/layer_grass.png</file>
+        <file>resources/images/game/layer_ground.png</file>
+    </qresource>
+</RCC>
