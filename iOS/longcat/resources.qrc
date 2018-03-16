@@ -1,6 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>resources/images/game/background.png</file>
+        <file>resources/images/game/cat_bottom.png</file>
+        <file>resources/images/game/cat_middle.png</file>
+        <file>resources/images/game/cat_top.png</file>
         <file>resources/images/game/layer_bush.png</file>
         <file>resources/images/game/layer_clouds.png</file>
         <file>resources/images/game/layer_grass.png</file>

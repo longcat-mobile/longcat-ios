@@ -3,5 +3,6 @@
         <file>qml/main.qml</file>
         <file>qml/Core/GamePage.qml</file>
         <file>qml/Core/Game/AnimatedLayer.qml</file>
+        <file>qml/Core/Game/Cat.qml</file>
     </qresource>
 </RCC>
