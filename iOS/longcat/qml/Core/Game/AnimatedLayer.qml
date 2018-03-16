@@ -51,10 +51,6 @@ Rectangle {
 
         property bool geometrySettled: false
 
-        onSourceChanged: {
-            geometrySettled = false;
-        }
-
         onPaintedWidthChanged: {
             if (!geometrySettled && width > 0 && height > 0 && paintedWidth > 0 && paintedHeight > 0) {
                 geometrySettled = true;
@@ -82,7 +78,6 @@ Rectangle {
         id:       rightImage
         x:        0
         y:        0
-        z:        1
         width:    parent.width
         height:   parent.height
         source:   imageSource
@@ -90,10 +85,6 @@ Rectangle {
         mirror:   true
 
         property bool geometrySettled: false
-
-        onSourceChanged: {
-            geometrySettled = false;
-        }
 
         onPaintedWidthChanged: {
             if (!geometrySettled && width > 0 && height > 0 && paintedWidth > 0 && paintedHeight > 0) {
