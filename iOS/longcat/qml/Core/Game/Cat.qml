@@ -26,7 +26,7 @@ Column {
         SequentialAnimation {
             id: enlargeCatAnimation
 
-            PropertyAnimation {
+            NumberAnimation {
                 target:   middleImage
                 property: "height"
                 from:     middleImage.sourceSize.height * cat.imageScale
@@ -34,7 +34,7 @@ Column {
                 duration: 250
             }
 
-            PropertyAnimation {
+            NumberAnimation {
                 target:   middleImage
                 property: "height"
                 from:     512 * cat.imageScale
