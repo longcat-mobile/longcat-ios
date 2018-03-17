@@ -5,11 +5,16 @@ import "Game"
 Item {
     id: gamePage
 
-    property bool appInForeground: Qt.application.active
-    property bool pageActive:      false
-    property bool gamePaused:      !appInForeground || !pageActive
+    property bool appInForeground:  Qt.application.active
+    property bool pageActive:       false
+    property bool gameEnded:        false
+    property bool gamePaused:       !appInForeground || !pageActive || gameEnded
 
-    property int bannerViewHeight: AdMobHelper.bannerViewHeight
+    property int bannerViewHeight:  AdMobHelper.bannerViewHeight
+    property int gameDifficulty:    1
+    property int maxGameDifficulty: 10
+
+    property real gameStartTime:    (new Date()).getTime()
 
     Rectangle {
         id:           backgroundRectangle
@@ -50,7 +55,7 @@ Item {
                 z:               1
                 movementEnabled: true
                 movementPaused:  gamePage.gamePaused
-                movementSpeed:   1
+                movementSpeed:   1 * (1.0 + gamePage.gameDifficulty / 5.0)
                 imageSource:     "qrc:/resources/images/game/layer_clouds.png"
             }
 
@@ -60,7 +65,7 @@ Item {
                 z:               2
                 movementEnabled: true
                 movementPaused:  gamePage.gamePaused
-                movementSpeed:   2
+                movementSpeed:   2 * (1.0 + gamePage.gameDifficulty / 5.0)
                 imageSource:     "qrc:/resources/images/game/layer_bush.png"
             }
 
@@ -70,7 +75,7 @@ Item {
                 z:               3
                 movementEnabled: true
                 movementPaused:  gamePage.gamePaused
-                movementSpeed:   4
+                movementSpeed:   4 * (1.0 + gamePage.gameDifficulty / 5.0)
                 imageSource:     "qrc:/resources/images/game/layer_grass.png"
             }
 
@@ -80,7 +85,7 @@ Item {
                 z:               4
                 movementEnabled: true
                 movementPaused:  gamePage.gamePaused
-                movementSpeed:   8
+                movementSpeed:   8 * (1.0 + gamePage.gameDifficulty / 5.0)
                 imageSource:     "qrc:/resources/images/game/layer_ground.png"
             }
 
@@ -90,9 +95,9 @@ Item {
                 z:                     5
                 movementEnabled:       true
                 movementPaused:        gamePage.gamePaused
-                movementSpeed:         8
+                movementSpeed:         8 * (1.0 + gamePage.gameDifficulty / 5.0)
                 suspensionHeight:      1200
-                suspendedObjectsCount: 3
+                suspendedObjectsCount: 5 + (gamePage.gameDifficulty / 2)
                 imageSource:           "qrc:/resources/images/game/layer_rope.png"
             }
 
@@ -103,14 +108,52 @@ Item {
                 anchors.bottomMargin:     115 * imageScale
                 z:                        6
                 stretchTo:                512
-                energy:                   10
+                energy:                   100
                 maxEnergy:                100
                 imageScale:               backgroundImage.imageScale
                 intersectionShare:        0.25
 
+                onEnergyChanged: {
+                    if (energy <= 0) {
+                        gamePage.gameEnded = true;
+                    }
+                }
+
                 onCatEnlarged: {
                     ropeLayer.checkCatIntersections(cat);
                 }
+
+                onCatConsumedObject: {
+                    if (object_energy > 0) {
+                        scoreText.score = scoreText.score + object_energy;
+                    }
+                }
+            }
+        }
+
+        Text {
+            id:                  scoreText
+            anchors.top:         parent.top
+            anchors.right:       parent.right
+            anchors.topMargin:   Math.max(gamePage.bannerViewHeight + 8, 34)
+            z:                   10
+            text:                "000000"
+            color:               "yellow"
+            horizontalAlignment: Text.AlignRight
+            verticalAlignment:   Text.AlignVCenter
+            font.family:         "Courier"
+            font.pixelSize:      32
+
+            property int score: 0
+
+            onScoreChanged: {
+                var score_text = score + "";
+
+                while (score_text.length < 6) {
+                    score_text = "0" + score_text;
+                }
+
+                text = score_text;
             }
         }
 
@@ -160,6 +203,21 @@ Item {
             onClicked: {
                 cat.enlargeCat();
             }
+        }
+    }
+
+    Timer {
+        id:       gameTimer
+        running:  !gamePage.gamePaused
+        interval: 1000
+        repeat:   true
+
+        onTriggered: {
+            var seconds = ((new Date()).getTime() - gamePage.gameStartTime) / 1000;
+
+            cat.energy = cat.energy - 5;
+
+            gamePage.gameDifficulty = Math.min(seconds / 5, gamePage.maxGameDifficulty);
         }
     }
 }

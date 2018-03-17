@@ -123,8 +123,7 @@ Rectangle {
     }
 
     SequentialAnimation {
-        id:    movementAnimation
-        loops: Animation.Infinite
+        id: movementAnimation
 
         onRunningChanged: {
             if (running) {
@@ -133,6 +132,12 @@ Rectangle {
                 } else {
                     resume();
                 }
+            }
+        }
+
+        onStopped: {
+            if (animatedLayer.movementEnabled) {
+                start();
             }
         }
 

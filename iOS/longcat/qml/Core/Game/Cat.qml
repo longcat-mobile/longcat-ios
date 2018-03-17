@@ -10,7 +10,12 @@ Column {
     property real imageScale:        1.0
     property real intersectionShare: 1.0
 
-    signal catEnlarged();
+    signal catEnlarged()
+    signal catConsumedObject(int object_energy)
+
+    onEnergyChanged: {
+        energy = Math.max(0, Math.min(energy, maxEnergy));
+    }
 
     function enlargeCat() {
         enlargeCatAnimation.start();
@@ -30,6 +35,8 @@ Column {
                 }
 
                 energy = Math.max(0, Math.min(energy + object.energy, maxEnergy));
+
+                catConsumedObject(object.energy);
             }
         }
     }
