@@ -37,17 +37,19 @@ Rectangle {
     function adjustImagePositions() {
         movementAnimation.stop();
 
-        imageWidth  = Math.min(leftImage.width,  rightImage.width);
-        imageHeight = Math.min(leftImage.height, rightImage.height);
+        if (leftImage.geometrySettled && rightImage.geometrySettled) {
+            imageWidth  = Math.min(leftImage.width,  rightImage.width);
+            imageHeight = Math.min(leftImage.height, rightImage.height);
 
-        rightImage.x = (width  - imageWidth)  / 2;
-        leftImage.x  = rightImage.x - imageWidth;
+            rightImage.x = (width - imageWidth)  / 2;
+            leftImage.x  = rightImage.x - imageWidth;
 
-        rightImage.y = (height - imageHeight) / 2;
-        leftImage.y  = (height - imageHeight) / 2;
+            rightImage.y = (height - imageHeight) / 2;
+            leftImage.y  = (height - imageHeight) / 2;
 
-        if (movementEnabled) {
-            movementAnimation.start();
+            if (movementEnabled) {
+                movementAnimation.start();
+            }
         }
     }
 
