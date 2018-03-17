@@ -8,5 +8,8 @@
         <file>resources/images/game/layer_clouds.png</file>
         <file>resources/images/game/layer_grass.png</file>
         <file>resources/images/game/layer_ground.png</file>
+        <file>resources/images/game/layer_rope.png</file>
+        <file>resources/images/game/object_bad_0.png</file>
+        <file>resources/images/game/object_good_0.png</file>
     </qresource>
 </RCC>

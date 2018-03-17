@@ -7,6 +7,7 @@ Item {
 
     property bool appInForeground: Qt.application.active
     property bool pageActive:      false
+    property bool gamePaused:      !appInForeground || !pageActive
 
     onAppInForegroundChanged: {
         if (appInForeground && pageActive) {
@@ -56,7 +57,7 @@ Item {
                 anchors.fill:    parent
                 z:               1
                 movementEnabled: true
-                movementPaused:  !gamePage.appInForeground || !gamePage.pageActive
+                movementPaused:  gamePage.gamePaused
                 movementSpeed:   1
                 imageSource:     "qrc:/resources/images/game/layer_clouds.png"
             }
@@ -66,7 +67,7 @@ Item {
                 anchors.fill:    parent
                 z:               2
                 movementEnabled: true
-                movementPaused:  !gamePage.appInForeground || !gamePage.pageActive
+                movementPaused:  gamePage.gamePaused
                 movementSpeed:   2
                 imageSource:     "qrc:/resources/images/game/layer_bush.png"
             }
@@ -76,7 +77,7 @@ Item {
                 anchors.fill:    parent
                 z:               3
                 movementEnabled: true
-                movementPaused:  !gamePage.appInForeground || !gamePage.pageActive
+                movementPaused:  gamePage.gamePaused
                 movementSpeed:   4
                 imageSource:     "qrc:/resources/images/game/layer_grass.png"
             }
@@ -86,9 +87,21 @@ Item {
                 anchors.fill:    parent
                 z:               4
                 movementEnabled: true
-                movementPaused:  !gamePage.appInForeground || !gamePage.pageActive
+                movementPaused:  gamePage.gamePaused
                 movementSpeed:   8
                 imageSource:     "qrc:/resources/images/game/layer_ground.png"
+            }
+
+            AnimatedRopeLayer {
+                id:                    ropeLayer
+                anchors.fill:          parent
+                z:                     5
+                movementEnabled:       true
+                movementPaused:        gamePage.gamePaused
+                movementSpeed:         8
+                suspensionHeight:      1200
+                suspendedObjectsCount: 3
+                imageSource:           "qrc:/resources/images/game/layer_rope.png"
             }
 
             Cat {
@@ -96,9 +109,14 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.bottom:           parent.bottom
                 anchors.bottomMargin:     115 * imageScale
-                z:                        5
+                z:                        6
                 stretchTo:                512
                 imageScale:               backgroundImage.imageScale
+                intersectionShare:        0.25
+
+                onCatEnlarged: {
+                    ropeLayer.checkCatIntersections(cat);
+                }
             }
         }
 

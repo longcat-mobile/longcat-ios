@@ -3,12 +3,25 @@ import QtQuick 2.9
 Column {
     id: cat
 
-    property int stretchTo:   0
+    property int stretchTo:          0
 
-    property real imageScale: 1.0
+    property real imageScale:        1.0
+    property real intersectionShare: 1.0
+
+    signal catEnlarged();
 
     function enlargeCat() {
         enlargeCatAnimation.start();
+    }
+
+    function checkIntersection(object) {
+        var cat_rect    = Qt.rect((width - width * intersectionShare) / 2, 0, width * intersectionShare, height);
+        var object_rect = mapFromItem(object, 0, 0, object.width, object.height);
+
+        if (!(cat_rect.x + cat_rect.width  < object_rect.x || object_rect.x + object_rect.width  < cat_rect.x ||
+              cat_rect.y + cat_rect.height < object_rect.y || object_rect.y + object_rect.height < cat_rect.y)) {
+            console.debug("INTERSECTS");
+        }
     }
 
     Image {
@@ -34,6 +47,12 @@ Column {
                 from:     middleImage.sourceSize.height * cat.imageScale
                 to:       cat.stretchTo * cat.imageScale
                 duration: 250
+            }
+
+            ScriptAction {
+                script: {
+                    cat.catEnlarged();
+                }
             }
 
             NumberAnimation {
