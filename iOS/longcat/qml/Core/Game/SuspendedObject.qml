@@ -4,17 +4,17 @@ Image {
     id:       suspendedObject
     fillMode: Image.PreserveAspectFit
 
-    property real imageScale:   1.0
+    property int energy:      0
 
-    property string objectType: ""
+    property real imageScale: 1.0
 
     Component.onCompleted: {
         if (Math.random() < 0.5) {
-            objectType = "GOOD";
-            source     = "qrc:/resources/images/game/object_good_0.png";
+            energy = 10;
+            source = "qrc:/resources/images/game/object_good_0.png";
         } else {
-            objectType = "BAD";
-            source     = "qrc:/resources/images/game/object_bad_0.png";
+            energy = -10;
+            source = "qrc:/resources/images/game/object_bad_0.png";
         }
 
         width  = sourceSize.width  * imageScale;

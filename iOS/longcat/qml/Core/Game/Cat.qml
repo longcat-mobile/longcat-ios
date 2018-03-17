@@ -4,6 +4,8 @@ Column {
     id: cat
 
     property int stretchTo:          0
+    property int energy:             0
+    property int maxEnergy:          0
 
     property real imageScale:        1.0
     property real intersectionShare: 1.0
@@ -20,9 +22,13 @@ Column {
 
         if (!(cat_rect.x + cat_rect.width  < object_rect.x || object_rect.x + object_rect.width  < cat_rect.x ||
               cat_rect.y + cat_rect.height < object_rect.y || object_rect.y + object_rect.height < cat_rect.y)) {
-            if (object.objectType === "BAD") {
+            if (object.energy < 0) {
                 catDamagedAnimation.start();
             }
+
+            energy = Math.max(0, Math.min(energy + object.energy, maxEnergy));
+
+            console.debug(energy);
         }
     }
 

@@ -111,6 +111,8 @@ Item {
                 anchors.bottomMargin:     115 * imageScale
                 z:                        6
                 stretchTo:                512
+                energy:                   50
+                maxEnergy:                100
                 imageScale:               backgroundImage.imageScale
                 intersectionShare:        0.25
 
