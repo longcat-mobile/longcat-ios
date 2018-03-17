@@ -24,6 +24,16 @@ Rectangle {
         }
     }
 
+    onMovementPausedChanged: {
+        if (movementAnimation.running) {
+            if (movementPaused) {
+                movementAnimation.pause();
+            } else {
+                movementAnimation.resume();
+            }
+        }
+    }
+
     function adjustImagePositions() {
         movementAnimation.stop();
 
@@ -111,9 +121,18 @@ Rectangle {
     }
 
     SequentialAnimation {
-        id:     movementAnimation
-        loops:  Animation.Infinite
-        paused: animatedLayer.movementPaused
+        id:    movementAnimation
+        loops: Animation.Infinite
+
+        onRunningChanged: {
+            if (running) {
+                if (animatedLayer.movementPaused) {
+                    pause();
+                } else {
+                    resume();
+                }
+            }
+        }
 
         ParallelAnimation {
             NumberAnimation {
