@@ -93,6 +93,7 @@ Item {
                 anchors.bottom:           parent.bottom
                 anchors.bottomMargin:     115 * imageScale
                 z:                        5
+                stretchTo:                512
                 imageScale:               backgroundImage.imageScale
             }
         }

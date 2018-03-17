@@ -3,6 +3,8 @@ import QtQuick 2.9
 Column {
     id: cat
 
+    property int stretchTo:   0
+
     property real imageScale: 1.0
 
     function enlargeCat() {
@@ -30,14 +32,14 @@ Column {
                 target:   middleImage
                 property: "height"
                 from:     middleImage.sourceSize.height * cat.imageScale
-                to:       512 * cat.imageScale
+                to:       cat.stretchTo * cat.imageScale
                 duration: 250
             }
 
             NumberAnimation {
                 target:   middleImage
                 property: "height"
-                from:     512 * cat.imageScale
+                from:     cat.stretchTo * cat.imageScale
                 to:       middleImage.sourceSize.height * cat.imageScale
                 duration: 250
             }

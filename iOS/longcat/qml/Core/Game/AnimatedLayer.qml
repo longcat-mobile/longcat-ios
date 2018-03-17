@@ -5,6 +5,7 @@ Rectangle {
     color: "transparent"
 
     property bool movementEnabled: false
+    property bool movementPaused:  false
 
     property int movementSpeed:    0
 
@@ -110,8 +111,9 @@ Rectangle {
     }
 
     SequentialAnimation {
-        id:    movementAnimation
-        loops: Animation.Infinite
+        id:     movementAnimation
+        loops:  Animation.Infinite
+        paused: animatedLayer.movementPaused
 
         ParallelAnimation {
             NumberAnimation {
