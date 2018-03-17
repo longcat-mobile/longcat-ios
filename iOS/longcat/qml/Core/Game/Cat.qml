@@ -20,11 +20,14 @@ Column {
 
         if (!(cat_rect.x + cat_rect.width  < object_rect.x || object_rect.x + object_rect.width  < cat_rect.x ||
               cat_rect.y + cat_rect.height < object_rect.y || object_rect.y + object_rect.height < cat_rect.y)) {
-            console.debug("INTERSECTS");
+            if (object.objectType === "BAD") {
+                catDamagedAnimation.start();
+            }
         }
     }
 
     Image {
+        id:       topImage
         width:    sourceSize.width  * cat.imageScale
         height:   sourceSize.height * cat.imageScale
         source:   "qrc:/resources/images/game/cat_top.png"
@@ -66,9 +69,31 @@ Column {
     }
 
     Image {
+        id:       bottomImage
         width:    sourceSize.width  * cat.imageScale
         height:   sourceSize.height * cat.imageScale
         source:   "qrc:/resources/images/game/cat_bottom.png"
         fillMode: Image.PreserveAspectFit
+    }
+
+    SequentialAnimation {
+        id:    catDamagedAnimation
+        loops: 3
+
+        NumberAnimation {
+            targets:  [topImage, middleImage, bottomImage]
+            property: "opacity"
+            from:     1.0
+            to:       0.0
+            duration: 75
+        }
+
+        NumberAnimation {
+            targets:  [topImage, middleImage, bottomImage]
+            property: "opacity"
+            from:     0.0
+            to:       1.0
+            duration: 75
+        }
     }
 }
