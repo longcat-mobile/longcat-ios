@@ -3,6 +3,8 @@ import QtQuick 2.9
 Column {
     id: cat
 
+    property bool alive:             true
+
     property int stretchTo:          0
     property int energy:             0
     property int maxEnergy:          0
@@ -15,28 +17,36 @@ Column {
 
     onEnergyChanged: {
         energy = Math.max(0, Math.min(energy, maxEnergy));
+
+        if (energy <= 0) {
+            alive = false;
+        }
     }
 
     function enlargeCat() {
-        enlargeCatAnimation.start();
+        if (alive) {
+            enlargeCatAnimation.start();
+        }
     }
 
     function checkIntersection(object) {
-        var cat_rect    = Qt.rect((width - width * intersectionShare) / 2, 0, width * intersectionShare, height);
-        var object_rect = mapFromItem(object, 0, 0, object.width, object.height);
+        if (alive) {
+            var cat_rect    = Qt.rect((width - width * intersectionShare) / 2, 0, width * intersectionShare, height);
+            var object_rect = mapFromItem(object, 0, 0, object.width, object.height);
 
-        if (!object.consumed) {
-            if (!(cat_rect.x + cat_rect.width  < object_rect.x || object_rect.x + object_rect.width  < cat_rect.x ||
-                  cat_rect.y + cat_rect.height < object_rect.y || object_rect.y + object_rect.height < cat_rect.y)) {
-                object.consume();
+            if (!object.consumed) {
+                if (!(cat_rect.x + cat_rect.width  < object_rect.x || object_rect.x + object_rect.width  < cat_rect.x ||
+                      cat_rect.y + cat_rect.height < object_rect.y || object_rect.y + object_rect.height < cat_rect.y)) {
+                    object.consume();
 
-                if (object.energy < 0) {
-                    catDamagedAnimation.start();
+                    if (object.energy < 0) {
+                        catDamagedAnimation.start();
+                    }
+
+                    energy = energy + object.energy;
+
+                    catConsumedObject(object.energy);
                 }
-
-                energy = Math.max(0, Math.min(energy + object.energy, maxEnergy));
-
-                catConsumedObject(object.energy);
             }
         }
     }

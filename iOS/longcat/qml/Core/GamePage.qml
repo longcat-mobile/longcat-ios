@@ -113,8 +113,8 @@ Item {
                 imageScale:               backgroundImage.imageScale
                 intersectionShare:        0.25
 
-                onEnergyChanged: {
-                    if (energy <= 0) {
+                onAliveChanged: {
+                    if (!alive) {
                         gamePage.gameEnded = true;
                     }
                 }
