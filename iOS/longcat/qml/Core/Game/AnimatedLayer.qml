@@ -4,18 +4,18 @@ Rectangle {
     id:    animatedLayer
     color: "transparent"
 
-    property bool movementEnabled: false
-    property bool movementPaused:  false
+    property bool running:       false
+    property bool paused:        false
 
-    property int movementSpeed:    0
+    property int speed:          0
 
-    property real imageWidth:      0.0
-    property real imageHeight:     0.0
+    property real imageWidth:    0.0
+    property real imageHeight:   0.0
 
-    property string imageSource:   ""
+    property string imageSource: ""
 
-    onMovementEnabledChanged: {
-        if (movementEnabled) {
+    onRunningChanged: {
+        if (running) {
             if (leftImage.geometrySettled && rightImage.geometrySettled) {
                 movementAnimation.start();
             }
@@ -24,9 +24,9 @@ Rectangle {
         }
     }
 
-    onMovementPausedChanged: {
+    onPausedChanged: {
         if (movementAnimation.running) {
-            if (movementPaused) {
+            if (paused) {
                 movementAnimation.pause();
             } else {
                 movementAnimation.resume();
@@ -47,7 +47,7 @@ Rectangle {
             rightImage.y = (height - imageHeight) / 2;
             leftImage.y  = (height - imageHeight) / 2;
 
-            if (movementEnabled) {
+            if (running) {
                 movementAnimation.start();
             }
         }
@@ -127,7 +127,7 @@ Rectangle {
 
         onRunningChanged: {
             if (running) {
-                if (animatedLayer.movementPaused) {
+                if (animatedLayer.paused) {
                     pause();
                 } else {
                     resume();
@@ -136,7 +136,7 @@ Rectangle {
         }
 
         onStopped: {
-            if (animatedLayer.movementEnabled) {
+            if (animatedLayer.running) {
                 start();
             }
         }
@@ -147,7 +147,7 @@ Rectangle {
                 property: "x"
                 from:     (animatedLayer.width - animatedLayer.imageWidth) / 2 - animatedLayer.imageWidth
                 to:       (animatedLayer.width - animatedLayer.imageWidth) / 2
-                duration: animatedLayer.imageWidth / animatedLayer.movementSpeed * 100
+                duration: animatedLayer.imageWidth / animatedLayer.speed * 100
             }
 
             NumberAnimation {
@@ -155,7 +155,7 @@ Rectangle {
                 property: "x"
                 from:     (animatedLayer.width - animatedLayer.imageWidth) / 2
                 to:       (animatedLayer.width - animatedLayer.imageWidth) / 2 + animatedLayer.imageWidth
-                duration: animatedLayer.imageWidth / animatedLayer.movementSpeed * 100
+                duration: animatedLayer.imageWidth / animatedLayer.speed * 100
             }
         }
 
@@ -165,7 +165,7 @@ Rectangle {
                 property: "x"
                 from:     (animatedLayer.width - animatedLayer.imageWidth) / 2
                 to:       (animatedLayer.width - animatedLayer.imageWidth) / 2 + animatedLayer.imageWidth
-                duration: animatedLayer.imageWidth / animatedLayer.movementSpeed * 100
+                duration: animatedLayer.imageWidth / animatedLayer.speed * 100
             }
 
             NumberAnimation {
@@ -173,7 +173,7 @@ Rectangle {
                 property: "x"
                 from:     (animatedLayer.width - animatedLayer.imageWidth) / 2 - animatedLayer.imageWidth
                 to:       (animatedLayer.width - animatedLayer.imageWidth) / 2
-                duration: animatedLayer.imageWidth / animatedLayer.movementSpeed * 100
+                duration: animatedLayer.imageWidth / animatedLayer.speed * 100
             }
         }
     }

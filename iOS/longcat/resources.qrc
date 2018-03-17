@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>resources/images/game/background.png</file>
+        <file>resources/images/game/button_restart.png</file>
         <file>resources/images/game/cat_bottom.png</file>
         <file>resources/images/game/cat_middle.png</file>
         <file>resources/images/game/cat_top.png</file>

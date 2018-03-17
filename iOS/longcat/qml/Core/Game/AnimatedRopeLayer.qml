@@ -4,10 +4,10 @@ Rectangle {
     id:    animatedRopeLayer
     color: "transparent"
 
-    property bool movementEnabled:      false
-    property bool movementPaused:       false
+    property bool running:              false
+    property bool paused:               false
 
-    property int movementSpeed:         0
+    property int speed:                 0
     property int suspensionHeight:      0
     property int suspendedObjectsCount: 0
 
@@ -16,19 +16,24 @@ Rectangle {
 
     property string imageSource:        ""
 
-    onMovementEnabledChanged: {
-        if (movementEnabled) {
+    onRunningChanged: {
+        if (running) {
             if (leftImage.geometrySettled && rightImage.geometrySettled) {
                 movementAnimation.start();
+
+                leftImage.placeSuspendedObjects();
             }
         } else {
             movementAnimation.stop();
+
+            leftImage.clearSuspendedObjects();
+            rightImage.clearSuspendedObjects();
         }
     }
 
-    onMovementPausedChanged: {
+    onPausedChanged: {
         if (movementAnimation.running) {
-            if (movementPaused) {
+            if (paused) {
                 movementAnimation.pause();
             } else {
                 movementAnimation.resume();
@@ -59,7 +64,7 @@ Rectangle {
             rightImage.y = (height - imageHeight) / 2;
             leftImage.y  = (height - imageHeight) / 2;
 
-            if (movementEnabled) {
+            if (running) {
                 movementAnimation.start();
             }
         }
@@ -124,6 +129,12 @@ Rectangle {
                 console.log(component.errorString());
             }
         }
+
+        function clearSuspendedObjects() {
+            for (var i = children.length - 1; i >= 0; i--) {
+                children[i].destroy();
+            }
+        }
     }
 
     Image {
@@ -182,6 +193,12 @@ Rectangle {
                 console.log(component.errorString());
             }
         }
+
+        function clearSuspendedObjects() {
+            for (var i = children.length - 1; i >= 0; i--) {
+                children[i].destroy();
+            }
+        }
     }
 
     SequentialAnimation {
@@ -189,7 +206,7 @@ Rectangle {
 
         onRunningChanged: {
             if (running) {
-                if (animatedRopeLayer.movementPaused) {
+                if (animatedRopeLayer.paused) {
                     pause();
                 } else {
                     resume();
@@ -198,7 +215,7 @@ Rectangle {
         }
 
         onStopped: {
-            if (animatedRopeLayer.movementEnabled) {
+            if (animatedRopeLayer.running) {
                 start();
             }
         }
@@ -209,7 +226,7 @@ Rectangle {
                 property: "x"
                 from:     (animatedRopeLayer.width - animatedRopeLayer.imageWidth) / 2 - animatedRopeLayer.imageWidth
                 to:       (animatedRopeLayer.width - animatedRopeLayer.imageWidth) / 2
-                duration: animatedRopeLayer.imageWidth / animatedRopeLayer.movementSpeed * 100
+                duration: animatedRopeLayer.imageWidth / animatedRopeLayer.speed * 100
             }
 
             NumberAnimation {
@@ -217,7 +234,7 @@ Rectangle {
                 property: "x"
                 from:     (animatedRopeLayer.width - animatedRopeLayer.imageWidth) / 2
                 to:       (animatedRopeLayer.width - animatedRopeLayer.imageWidth) / 2 + animatedRopeLayer.imageWidth
-                duration: animatedRopeLayer.imageWidth / animatedRopeLayer.movementSpeed * 100
+                duration: animatedRopeLayer.imageWidth / animatedRopeLayer.speed * 100
             }
         }
 
@@ -233,7 +250,7 @@ Rectangle {
                 property: "x"
                 from:     (animatedRopeLayer.width - animatedRopeLayer.imageWidth) / 2
                 to:       (animatedRopeLayer.width - animatedRopeLayer.imageWidth) / 2 + animatedRopeLayer.imageWidth
-                duration: animatedRopeLayer.imageWidth / animatedRopeLayer.movementSpeed * 100
+                duration: animatedRopeLayer.imageWidth / animatedRopeLayer.speed * 100
             }
 
             NumberAnimation {
@@ -241,7 +258,7 @@ Rectangle {
                 property: "x"
                 from:     (animatedRopeLayer.width - animatedRopeLayer.imageWidth) / 2 - animatedRopeLayer.imageWidth
                 to:       (animatedRopeLayer.width - animatedRopeLayer.imageWidth) / 2
-                duration: animatedRopeLayer.imageWidth / animatedRopeLayer.movementSpeed * 100
+                duration: animatedRopeLayer.imageWidth / animatedRopeLayer.speed * 100
             }
         }
 

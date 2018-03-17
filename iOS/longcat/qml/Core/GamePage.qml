@@ -7,14 +7,26 @@ Item {
 
     property bool appInForeground:  Qt.application.active
     property bool pageActive:       false
+    property bool gameRunning:      true
     property bool gameEnded:        false
     property bool gamePaused:       !appInForeground || !pageActive || gameEnded
 
     property int bannerViewHeight:  AdMobHelper.bannerViewHeight
     property int gameDifficulty:    1
     property int maxGameDifficulty: 10
+    property int gameScore:         0
 
     property real gameStartTime:    (new Date()).getTime()
+
+    onGameScoreChanged: {
+        var score = gameScore + "";
+
+        while (score.length < 6) {
+            score = "0" + score;
+        }
+
+        scoreText.text = score;
+    }
 
     Rectangle {
         id:           backgroundRectangle
@@ -50,52 +62,52 @@ Item {
             }
 
             AnimatedLayer {
-                id:              cloudsLayer
-                anchors.fill:    parent
-                z:               1
-                movementEnabled: true
-                movementPaused:  gamePage.gamePaused
-                movementSpeed:   1 * (1.0 + gamePage.gameDifficulty / 5.0)
-                imageSource:     "qrc:/resources/images/game/layer_clouds.png"
+                id:           cloudsLayer
+                anchors.fill: parent
+                z:            1
+                running:      gamePage.gameRunning
+                paused:       gamePage.gamePaused
+                speed:        1 * (1.0 + gamePage.gameDifficulty / 5.0)
+                imageSource:  "qrc:/resources/images/game/layer_clouds.png"
             }
 
             AnimatedLayer {
-                id:              bushLayer
-                anchors.fill:    parent
-                z:               2
-                movementEnabled: true
-                movementPaused:  gamePage.gamePaused
-                movementSpeed:   2 * (1.0 + gamePage.gameDifficulty / 5.0)
-                imageSource:     "qrc:/resources/images/game/layer_bush.png"
+                id:           bushLayer
+                anchors.fill: parent
+                z:            2
+                running:      gamePage.gameRunning
+                paused:       gamePage.gamePaused
+                speed:        2 * (1.0 + gamePage.gameDifficulty / 5.0)
+                imageSource:  "qrc:/resources/images/game/layer_bush.png"
             }
 
             AnimatedLayer {
-                id:              grassLayer
-                anchors.fill:    parent
-                z:               3
-                movementEnabled: true
-                movementPaused:  gamePage.gamePaused
-                movementSpeed:   4 * (1.0 + gamePage.gameDifficulty / 5.0)
-                imageSource:     "qrc:/resources/images/game/layer_grass.png"
+                id:           grassLayer
+                anchors.fill: parent
+                z:            3
+                running:      gamePage.gameRunning
+                paused:       gamePage.gamePaused
+                speed:        4 * (1.0 + gamePage.gameDifficulty / 5.0)
+                imageSource:  "qrc:/resources/images/game/layer_grass.png"
             }
 
             AnimatedLayer {
-                id:              groundLayer
-                anchors.fill:    parent
-                z:               4
-                movementEnabled: true
-                movementPaused:  gamePage.gamePaused
-                movementSpeed:   8 * (1.0 + gamePage.gameDifficulty / 5.0)
-                imageSource:     "qrc:/resources/images/game/layer_ground.png"
+                id:           groundLayer
+                anchors.fill: parent
+                z:            4
+                running:      gamePage.gameRunning
+                paused:       gamePage.gamePaused
+                speed:        8 * (1.0 + gamePage.gameDifficulty / 5.0)
+                imageSource:  "qrc:/resources/images/game/layer_ground.png"
             }
 
             AnimatedRopeLayer {
                 id:                    ropeLayer
                 anchors.fill:          parent
                 z:                     5
-                movementEnabled:       true
-                movementPaused:        gamePage.gamePaused
-                movementSpeed:         8 * (1.0 + gamePage.gameDifficulty / 5.0)
+                running:               gamePage.gameRunning
+                paused:                gamePage.gamePaused
+                speed:                 8 * (1.0 + gamePage.gameDifficulty / 5.0)
                 suspensionHeight:      1200
                 suspendedObjectsCount: 5 + (gamePage.gameDifficulty / 2)
                 imageSource:           "qrc:/resources/images/game/layer_rope.png"
@@ -125,7 +137,7 @@ Item {
 
                 onCatConsumedObject: {
                     if (object_energy > 0) {
-                        scoreText.score = scoreText.score + object_energy;
+                        gamePage.gameScore = gamePage.gameScore + object_energy;
                     }
                 }
             }
@@ -143,18 +155,6 @@ Item {
             verticalAlignment:   Text.AlignVCenter
             font.family:         "Courier"
             font.pixelSize:      32
-
-            property int score: 0
-
-            onScoreChanged: {
-                var score_text = score + "";
-
-                while (score_text.length < 6) {
-                    score_text = "0" + score_text;
-                }
-
-                text = score_text;
-            }
         }
 
         Rectangle {
@@ -202,6 +202,34 @@ Item {
 
             onClicked: {
                 cat.enlargeCat();
+            }
+        }
+
+        Image {
+            anchors.right:        parent.right
+            anchors.bottom:       parent.bottom
+            anchors.rightMargin:  8
+            anchors.bottomMargin: 16
+            width:                sourceSize.width  * backgroundImage.imageScale
+            height:               sourceSize.height * backgroundImage.imageScale
+            z:                    20
+            source:               "qrc:/resources/images/game/button_restart.png"
+
+            MouseArea {
+                anchors.fill: parent
+
+                onClicked: {
+                    gamePage.gameRunning    = false;
+                    gamePage.gameEnded      = false;
+                    gamePage.gameDifficulty = 1;
+                    gamePage.gameScore      = 0;
+                    gamePage.gameStartTime  = (new Date()).getTime();
+
+                    cat.alive  = true;
+                    cat.energy = cat.maxEnergy;
+
+                    gamePage.gameRunning = true;
+                }
             }
         }
     }
