@@ -5,18 +5,19 @@ import "Game"
 Item {
     id: gamePage
 
-    property bool appInForeground:  Qt.application.active
-    property bool pageActive:       false
-    property bool gameRunning:      true
-    property bool gameEnded:        false
-    property bool gamePaused:       !appInForeground || !pageActive || gameEnded
+    property bool appInForeground:    Qt.application.active
+    property bool pageActive:         false
+    property bool interstitialActive: AdMobHelper.interstitialActive
+    property bool gameRunning:        true
+    property bool gameEnded:          false
+    property bool gamePaused:         !appInForeground || !pageActive || interstitialActive || gameEnded
 
-    property int bannerViewHeight:  AdMobHelper.bannerViewHeight
-    property int gameDifficulty:    1
-    property int maxGameDifficulty: 10
-    property int gameScore:         0
+    property int bannerViewHeight:    AdMobHelper.bannerViewHeight
+    property int gameDifficulty:      1
+    property int maxGameDifficulty:   10
+    property int gameScore:           0
 
-    property real gameStartTime:    (new Date()).getTime()
+    property real gameStartTime:      (new Date()).getTime()
 
     onGameScoreChanged: {
         var score = gameScore + "";
@@ -229,6 +230,8 @@ Item {
                     cat.energy = cat.maxEnergy;
 
                     gamePage.gameRunning = true;
+
+                    AdMobHelper.showInterstitial();
                 }
             }
         }
