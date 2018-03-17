@@ -9,15 +9,7 @@ Item {
     property bool pageActive:      false
     property bool gamePaused:      !appInForeground || !pageActive
 
-    onAppInForegroundChanged: {
-        if (appInForeground && pageActive) {
-        }
-    }
-
-    onPageActiveChanged: {
-        if (appInForeground && pageActive) {
-        }
-    }
+    property int bannerViewHeight: AdMobHelper.bannerViewHeight
 
     Rectangle {
         id:           backgroundRectangle
@@ -111,7 +103,7 @@ Item {
                 anchors.bottomMargin:     115 * imageScale
                 z:                        6
                 stretchTo:                512
-                energy:                   50
+                energy:                   10
                 maxEnergy:                100
                 imageScale:               backgroundImage.imageScale
                 intersectionShare:        0.25
@@ -122,8 +114,48 @@ Item {
             }
         }
 
+        Rectangle {
+            anchors.right:          parent.right
+            anchors.verticalCenter: parent.verticalCenter
+            width:                  parent.width  / 10
+            height:                 parent.height / 3
+            z:                      10
+            radius:                 8
+            border.width:           4
+            border.color:           "black"
+
+            gradient: Gradient {
+                GradientStop {
+                    position: 0.0
+                    color:    "green"
+                }
+
+                GradientStop {
+                    position: 0.5
+                    color:    "yellow"
+                }
+
+                GradientStop {
+                    position: 1.0
+                    color:    "red"
+                }
+            }
+
+            Rectangle {
+                anchors.left:    parent.left
+                anchors.right:   parent.right
+                anchors.top:     parent.top
+                anchors.margins: parent.border.width
+                height:          cat.maxEnergy > 0 ? (parent.height - parent.border.width * 2) *
+                                                     (1.0 - cat.energy / cat.maxEnergy) :
+                                                     parent.height - parent.border.width * 2
+                color:           "lightgray"
+            }
+        }
+
         MouseArea {
             anchors.fill: parent
+            z:            15
 
             onClicked: {
                 cat.enlargeCat();
