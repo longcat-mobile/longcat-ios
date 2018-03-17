@@ -15,9 +15,26 @@ Item {
     property int bannerViewHeight:    AdMobHelper.bannerViewHeight
     property int gameDifficulty:      1
     property int maxGameDifficulty:   10
+    property int gameElapsedTime:     0
     property int gameScore:           0
 
-    property real gameStartTime:      (new Date()).getTime()
+    onGameElapsedTimeChanged: {
+        var hrs = Math.floor(gameElapsedTime / 3600);
+        var mns = Math.floor((gameElapsedTime - hrs * 3600) / 60);
+        var scs = Math.floor(gameElapsedTime - hrs * 3600 - mns * 60);
+
+        if (hrs < 10) {
+            hrs = "0" + hrs;
+        }
+        if (mns < 10) {
+            mns = "0" + mns;
+        }
+        if (scs < 10) {
+            scs = "0" + scs;
+        }
+
+        timerText.text = "%1:%2:%3".arg(hrs).arg(mns).arg(scs);
+    }
 
     onGameScoreChanged: {
         var score = gameScore + "";
@@ -145,6 +162,20 @@ Item {
         }
 
         Text {
+            id:                  timerText
+            anchors.top:         parent.top
+            anchors.left:        parent.left
+            anchors.topMargin:   Math.max(gamePage.bannerViewHeight + 8, 34)
+            z:                   10
+            text:                "00:00:00"
+            color:               "yellow"
+            horizontalAlignment: Text.AlignRight
+            verticalAlignment:   Text.AlignVCenter
+            font.family:         "Courier"
+            font.pointSize:      24
+        }
+
+        Text {
             id:                  scoreText
             anchors.top:         parent.top
             anchors.right:       parent.right
@@ -155,7 +186,7 @@ Item {
             horizontalAlignment: Text.AlignRight
             verticalAlignment:   Text.AlignVCenter
             font.family:         "Courier"
-            font.pixelSize:      32
+            font.pointSize:      24
         }
 
         Rectangle {
@@ -220,11 +251,11 @@ Item {
                 anchors.fill: parent
 
                 onClicked: {
-                    gamePage.gameRunning    = false;
-                    gamePage.gameEnded      = false;
-                    gamePage.gameDifficulty = 1;
-                    gamePage.gameScore      = 0;
-                    gamePage.gameStartTime  = (new Date()).getTime();
+                    gamePage.gameRunning     = false;
+                    gamePage.gameEnded       = false;
+                    gamePage.gameDifficulty  = 1;
+                    gamePage.gameElapsedTime = 0;
+                    gamePage.gameScore       = 0;
 
                     cat.alive  = true;
                     cat.energy = cat.maxEnergy;
@@ -244,11 +275,11 @@ Item {
         repeat:   true
 
         onTriggered: {
-            var seconds = ((new Date()).getTime() - gamePage.gameStartTime) / 1000;
+            gamePage.gameElapsedTime = gamePage.gameElapsedTime + 1;
 
             cat.energy = cat.energy - 5;
 
-            gamePage.gameDifficulty = Math.min(seconds / 5, gamePage.maxGameDifficulty);
+            gamePage.gameDifficulty = Math.min(gamePage.gameElapsedTime / 5, gamePage.maxGameDifficulty);
         }
     }
 }
