@@ -6,41 +6,52 @@
 
 #ifdef __OBJC__
 @class BannerViewDelegate;
+@class InterstitialDelegate;
 #endif
 
 class AdMobHelper : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(int bannerViewHeight READ bannerViewHeight NOTIFY bannerViewHeightChanged)
+    Q_PROPERTY(bool interstitialReady  READ interstitialReady)
+    Q_PROPERTY(bool interstitialActive READ interstitialActive NOTIFY interstitialActiveChanged)
+    Q_PROPERTY(int  bannerViewHeight   READ bannerViewHeight   NOTIFY bannerViewHeightChanged)
 
 public:
     static const QString ADMOB_APP_ID,
                          ADMOB_BANNERVIEW_UNIT_ID,
+                         ADMOB_INTERSTITIAL_UNIT_ID,
                          ADMOB_TEST_DEVICE_ID;
 
     explicit AdMobHelper(QObject *parent = 0);
     virtual ~AdMobHelper();
 
+    bool interstitialReady() const;
+    bool interstitialActive() const;
     int  bannerViewHeight() const;
 
     Q_INVOKABLE void initialize();
     Q_INVOKABLE void showBannerView();
     Q_INVOKABLE void hideBannerView();
+    Q_INVOKABLE void showInterstitial();
 
+    static void setInterstitialActive(const bool &active);
     static void setBannerViewHeight(const int &height);
 
 signals:
+    void interstitialActiveChanged(bool interstitialActive);
     void bannerViewHeightChanged(int bannerViewHeight);
 
 private:
-    bool                Initialized;
-    int                 BannerViewHeight;
-    static AdMobHelper *Instance;
+    bool                  Initialized, InterstitialActive;
+    int                   BannerViewHeight;
+    static AdMobHelper   *Instance;
 #ifdef __OBJC__
-    BannerViewDelegate *BannerViewDelegateInstance;
+    BannerViewDelegate   *BannerViewDelegateInstance;
+    InterstitialDelegate *InterstitialDelegateInstance;
 #else
-    void               *BannerViewDelegateInstance;
+    void                 *BannerViewDelegateInstance;
+    void                 *InterstitialDelegateInstance;
 #endif
 };
 
