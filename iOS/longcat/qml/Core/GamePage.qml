@@ -52,10 +52,12 @@ Item {
         color:        "black"
 
         Image {
-            id:           backgroundImage
-            anchors.fill: parent
-            source:       "qrc:/resources/images/game/background.png"
-            fillMode:     Image.PreserveAspectCrop
+            id:               backgroundImage
+            anchors.centerIn: parent
+            width:            parent.width
+            height:           parent.height
+            source:           "qrc:/resources/images/game/background.png"
+            fillMode:         Image.PreserveAspectCrop
 
             property bool geometrySettled: false
 
@@ -126,7 +128,7 @@ Item {
                 running:               gamePage.gameRunning
                 paused:                gamePage.gamePaused
                 speed:                 8 * (1.0 + gamePage.gameDifficulty / 5.0)
-                suspensionHeight:      1200
+                suspensionHeight:      720
                 suspendedObjectsCount: 5 + (gamePage.gameDifficulty / 2)
                 imageSource:           "qrc:/resources/images/game/layer_rope.png"
             }

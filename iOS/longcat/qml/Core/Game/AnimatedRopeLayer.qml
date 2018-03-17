@@ -11,17 +11,17 @@ Rectangle {
     property int suspensionHeight:      0
     property int suspendedObjectsCount: 0
 
-    property real imageWidth:           0.0
-    property real imageHeight:          0.0
+    property real imageWidth:           Math.min(leftImage.width,  rightImage.width)
+    property real imageHeight:          Math.min(leftImage.height, rightImage.height)
 
     property string imageSource:        ""
 
     onRunningChanged: {
         if (running) {
-            if (leftImage.geometrySettled && rightImage.geometrySettled) {
-                movementAnimation.start();
-
+            if (imageWidth > 0 && imageHeight > 0) {
                 leftImage.placeSuspendedObjects();
+
+                movementAnimation.start();
             }
         } else {
             movementAnimation.stop();
@@ -41,6 +41,26 @@ Rectangle {
         }
     }
 
+    onImageWidthChanged: {
+        if (imageWidth > 0 && imageHeight > 0) {
+            if (running) {
+                leftImage.placeSuspendedObjects();
+
+                movementAnimation.restart();
+            }
+        }
+    }
+
+    onImageHeightChanged: {
+        if (imageWidth > 0 && imageHeight > 0) {
+            if (running) {
+                leftImage.placeSuspendedObjects();
+
+                movementAnimation.restart();
+            }
+        }
+    }
+
     function checkCatIntersections(cat) {
         for (var i = 0; i < leftImage.children.length; i++) {
             cat.checkIntersection(leftImage.children[i]);
@@ -48,25 +68,6 @@ Rectangle {
 
         for (var j = 0; j < rightImage.children.length; j++) {
             cat.checkIntersection(rightImage.children[j]);
-        }
-    }
-
-    function adjustImagePositions() {
-        movementAnimation.stop();
-
-        if (leftImage.geometrySettled && rightImage.geometrySettled) {
-            imageWidth  = Math.min(leftImage.width,  rightImage.width);
-            imageHeight = Math.min(leftImage.height, rightImage.height);
-
-            rightImage.x = (width - imageWidth)  / 2;
-            leftImage.x  = rightImage.x - imageWidth;
-
-            rightImage.y = (height - imageHeight) / 2;
-            leftImage.y  = (height - imageHeight) / 2;
-
-            if (running) {
-                movementAnimation.start();
-            }
         }
     }
 
@@ -79,35 +80,7 @@ Rectangle {
         source:   imageSource
         fillMode: Image.PreserveAspectCrop
 
-        property bool geometrySettled: false
-
-        property real imageScale:      sourceSize.width > 0.0 ? paintedWidth / sourceSize.width : 1.0
-
-        onPaintedWidthChanged: {
-            if (!geometrySettled && width > 0 && height > 0 && paintedWidth > 0 && paintedHeight > 0) {
-                geometrySettled = true;
-
-                width  = Math.floor(paintedWidth);
-                height = Math.floor(paintedHeight);
-
-                animatedRopeLayer.adjustImagePositions();
-
-                placeSuspendedObjects();
-            }
-        }
-
-        onPaintedHeightChanged: {
-            if (!geometrySettled && width > 0 && height > 0 && paintedWidth > 0 && paintedHeight > 0) {
-                geometrySettled = true;
-
-                width  = Math.floor(paintedWidth);
-                height = Math.floor(paintedHeight);
-
-                animatedRopeLayer.adjustImagePositions();
-
-                placeSuspendedObjects();
-            }
-        }
+        property real imageScale: sourceSize.width > 0.0 ? paintedWidth / sourceSize.width : 1.0
 
         function placeSuspendedObjects() {
             for (var i = children.length - 1; i >= 0; i--) {
@@ -122,7 +95,7 @@ Rectangle {
                         var suspended_object = component.createObject(leftImage, {imageScale: imageScale});
 
                         suspended_object.x = (width / animatedRopeLayer.suspendedObjectsCount) * j;
-                        suspended_object.y = height - animatedRopeLayer.suspensionHeight * imageScale;
+                        suspended_object.y = animatedRopeLayer.suspensionHeight * imageScale;
                     }
                 }
             } else {
@@ -147,31 +120,7 @@ Rectangle {
         fillMode: Image.PreserveAspectCrop
         mirror:   true
 
-        property bool geometrySettled: false
-
-        property real imageScale:      sourceSize.width > 0.0 ? paintedWidth / sourceSize.width : 1.0
-
-        onPaintedWidthChanged: {
-            if (!geometrySettled && width > 0 && height > 0 && paintedWidth > 0 && paintedHeight > 0) {
-                geometrySettled = true;
-
-                width  = Math.floor(paintedWidth);
-                height = Math.floor(paintedHeight);
-
-                animatedRopeLayer.adjustImagePositions();
-            }
-        }
-
-        onPaintedHeightChanged: {
-            if (!geometrySettled && width > 0 && height > 0 && paintedWidth > 0 && paintedHeight > 0) {
-                geometrySettled = true;
-
-                width  = Math.floor(paintedWidth);
-                height = Math.floor(paintedHeight);
-
-                animatedRopeLayer.adjustImagePositions();
-            }
-        }
+        property real imageScale: sourceSize.width > 0.0 ? paintedWidth / sourceSize.width : 1.0
 
         function placeSuspendedObjects() {
             for (var i = children.length - 1; i >= 0; i--) {
@@ -186,7 +135,7 @@ Rectangle {
                         var suspended_object = component.createObject(rightImage, {imageScale: imageScale});
 
                         suspended_object.x = (width / animatedRopeLayer.suspendedObjectsCount) * j;
-                        suspended_object.y = height - animatedRopeLayer.suspensionHeight * imageScale;
+                        suspended_object.y = animatedRopeLayer.suspensionHeight * imageScale;
                     }
                 }
             } else {

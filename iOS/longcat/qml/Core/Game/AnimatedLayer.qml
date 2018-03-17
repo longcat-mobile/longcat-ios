@@ -9,14 +9,14 @@ Rectangle {
 
     property int speed:          0
 
-    property real imageWidth:    0.0
-    property real imageHeight:   0.0
+    property real imageWidth:    Math.min(leftImage.width,  rightImage.width)
+    property real imageHeight:   Math.min(leftImage.height, rightImage.height)
 
     property string imageSource: ""
 
     onRunningChanged: {
         if (running) {
-            if (leftImage.geometrySettled && rightImage.geometrySettled) {
+            if (imageWidth > 0 && imageHeight > 0) {
                 movementAnimation.start();
             }
         } else {
@@ -34,21 +34,18 @@ Rectangle {
         }
     }
 
-    function adjustImagePositions() {
-        movementAnimation.stop();
-
-        if (leftImage.geometrySettled && rightImage.geometrySettled) {
-            imageWidth  = Math.min(leftImage.width,  rightImage.width);
-            imageHeight = Math.min(leftImage.height, rightImage.height);
-
-            rightImage.x = (width - imageWidth)  / 2;
-            leftImage.x  = rightImage.x - imageWidth;
-
-            rightImage.y = (height - imageHeight) / 2;
-            leftImage.y  = (height - imageHeight) / 2;
-
+    onImageWidthChanged: {
+        if (imageWidth > 0 && imageHeight > 0) {
             if (running) {
-                movementAnimation.start();
+                movementAnimation.restart();
+            }
+        }
+    }
+
+    onImageHeightChanged: {
+        if (imageWidth > 0 && imageHeight > 0) {
+            if (running) {
+                movementAnimation.restart();
             }
         }
     }
@@ -61,30 +58,6 @@ Rectangle {
         height:   parent.height
         source:   imageSource
         fillMode: Image.PreserveAspectCrop
-
-        property bool geometrySettled: false
-
-        onPaintedWidthChanged: {
-            if (!geometrySettled && width > 0 && height > 0 && paintedWidth > 0 && paintedHeight > 0) {
-                geometrySettled = true;
-
-                width  = Math.floor(paintedWidth);
-                height = Math.floor(paintedHeight);
-
-                animatedLayer.adjustImagePositions();
-            }
-        }
-
-        onPaintedHeightChanged: {
-            if (!geometrySettled && width > 0 && height > 0 && paintedWidth > 0 && paintedHeight > 0) {
-                geometrySettled = true;
-
-                width  = Math.floor(paintedWidth);
-                height = Math.floor(paintedHeight);
-
-                animatedLayer.adjustImagePositions();
-            }
-        }
     }
 
     Image {
@@ -96,30 +69,6 @@ Rectangle {
         source:   imageSource
         fillMode: Image.PreserveAspectCrop
         mirror:   true
-
-        property bool geometrySettled: false
-
-        onPaintedWidthChanged: {
-            if (!geometrySettled && width > 0 && height > 0 && paintedWidth > 0 && paintedHeight > 0) {
-                geometrySettled = true;
-
-                width  = Math.floor(paintedWidth);
-                height = Math.floor(paintedHeight);
-
-                animatedLayer.adjustImagePositions();
-            }
-        }
-
-        onPaintedHeightChanged: {
-            if (!geometrySettled && width > 0 && height > 0 && paintedWidth > 0 && paintedHeight > 0) {
-                geometrySettled = true;
-
-                width  = Math.floor(paintedWidth);
-                height = Math.floor(paintedHeight);
-
-                animatedLayer.adjustImagePositions();
-            }
-        }
     }
 
     SequentialAnimation {
