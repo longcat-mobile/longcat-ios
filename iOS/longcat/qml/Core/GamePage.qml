@@ -56,6 +56,7 @@ Item {
                 anchors.fill:    parent
                 z:               1
                 movementEnabled: true
+                movementPaused:  !gamePage.appInForeground || !gamePage.pageActive
                 movementSpeed:   1
                 imageSource:     "qrc:/resources/images/game/layer_clouds.png"
             }
@@ -65,6 +66,7 @@ Item {
                 anchors.fill:    parent
                 z:               2
                 movementEnabled: true
+                movementPaused:  !gamePage.appInForeground || !gamePage.pageActive
                 movementSpeed:   2
                 imageSource:     "qrc:/resources/images/game/layer_bush.png"
             }
@@ -74,6 +76,7 @@ Item {
                 anchors.fill:    parent
                 z:               3
                 movementEnabled: true
+                movementPaused:  !gamePage.appInForeground || !gamePage.pageActive
                 movementSpeed:   4
                 imageSource:     "qrc:/resources/images/game/layer_grass.png"
             }
@@ -83,6 +86,7 @@ Item {
                 anchors.fill:    parent
                 z:               4
                 movementEnabled: true
+                movementPaused:  !gamePage.appInForeground || !gamePage.pageActive
                 movementSpeed:   8
                 imageSource:     "qrc:/resources/images/game/layer_ground.png"
             }
