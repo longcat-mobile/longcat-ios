@@ -55,24 +55,24 @@ Image {
             energy         = 10;
             source         = "qrc:/resources/images/game/objects/fish.png";
         } else if (random_number < 0.58) {
-            energy         = -20;
-            source         = "qrc:/resources/images/game/objects/ghost.png";
-        } else if (random_number < 0.66) {
             energy         = 5;
             source         = "qrc:/resources/images/game/objects/icecream.png";
-        } else if (random_number < 0.75) {
+        } else if (random_number < 0.66) {
             energy         = 15;
             source         = "qrc:/resources/images/game/objects/meat.png";
-        } else if (random_number < 0.83) {
+        } else if (random_number < 0.75) {
             energy         = 10;
             source         = "qrc:/resources/images/game/objects/milk.png";
-        } else if (random_number < 0.92) {
+        } else if (random_number < 0.83) {
             energy         = -10;
             source         = "qrc:/resources/images/game/objects/mushroom.png";
             consumedSource = "qrc:/resources/images/game/objects/mushroom_consumed.png";
-        } else {
+        } else if (random_number < 0.92) {
             energy         = 5;
             source         = "qrc:/resources/images/game/objects/oreo.png";
+        } else {
+            energy         = -20;
+            source         = "qrc:/resources/images/game/objects/skull.png";
         }
 
         width  = sourceSize.width  * imageScale;

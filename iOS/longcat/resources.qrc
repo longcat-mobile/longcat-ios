@@ -7,13 +7,13 @@
         <file>resources/images/game/objects/cherry.png</file>
         <file>resources/images/game/objects/chicken.png</file>
         <file>resources/images/game/objects/fish.png</file>
-        <file>resources/images/game/objects/ghost.png</file>
         <file>resources/images/game/objects/icecream.png</file>
         <file>resources/images/game/objects/meat.png</file>
         <file>resources/images/game/objects/milk.png</file>
         <file>resources/images/game/objects/mushroom.png</file>
         <file>resources/images/game/objects/mushroom_consumed.png</file>
         <file>resources/images/game/objects/oreo.png</file>
+        <file>resources/images/game/objects/skull.png</file>
         <file>resources/images/game/background.png</file>
         <file>resources/images/game/button_restart.png</file>
         <file>resources/images/game/button_share.png</file>
