@@ -19,6 +19,8 @@ Column {
         energy = Math.max(0, Math.min(energy, maxEnergy));
 
         if (energy <= 0) {
+            alive = false;
+
             catDeadAnimation.start();
         }
     }
@@ -49,11 +51,11 @@ Column {
                       cat_rect.y + cat_rect.height < object_rect.y || object_rect.y + object_rect.height < cat_rect.y)) {
                     object.consume();
 
-                    if (object.energy < 0) {
+                    energy = energy + object.energy;
+
+                    if (alive && object.energy < 0) {
                         catDamagedAnimation.start();
                     }
-
-                    energy = energy + object.energy;
 
                     catConsumedObject(object.energy);
                 }
@@ -132,12 +134,6 @@ Column {
 
     SequentialAnimation {
         id: catDeadAnimation
-
-        ScriptAction {
-            script: {
-                cat.alive = false;
-            }
-        }
 
         SequentialAnimation {
             loops: 5
