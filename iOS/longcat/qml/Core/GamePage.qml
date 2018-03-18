@@ -105,7 +105,7 @@ Item {
                 z:            1
                 running:      gamePage.gameRunning
                 paused:       gamePage.gamePaused
-                speed:        1 * (1.0 + gamePage.gameDifficulty / 5.0)
+                speed:        1 * (1.0 + gamePage.gameDifficulty / 6.5)
                 imageSource:  "qrc:/resources/images/game/layer_clouds.png"
             }
 
@@ -115,7 +115,7 @@ Item {
                 z:            2
                 running:      gamePage.gameRunning
                 paused:       gamePage.gamePaused
-                speed:        3 * (1.0 + gamePage.gameDifficulty / 5.0)
+                speed:        3 * (1.0 + gamePage.gameDifficulty / 6.5)
                 imageSource:  "qrc:/resources/images/game/layer_bush.png"
             }
 
@@ -125,7 +125,7 @@ Item {
                 z:            3
                 running:      gamePage.gameRunning
                 paused:       gamePage.gamePaused
-                speed:        6 * (1.0 + gamePage.gameDifficulty / 5.0)
+                speed:        6 * (1.0 + gamePage.gameDifficulty / 6.5)
                 imageSource:  "qrc:/resources/images/game/layer_grass.png"
             }
 
@@ -135,7 +135,7 @@ Item {
                 z:            4
                 running:      gamePage.gameRunning
                 paused:       gamePage.gamePaused
-                speed:        12 * (1.0 + gamePage.gameDifficulty / 5.0)
+                speed:        12 * (1.0 + gamePage.gameDifficulty / 6.5)
                 imageSource:  "qrc:/resources/images/game/layer_ground.png"
             }
 
@@ -145,7 +145,7 @@ Item {
                 z:                     5
                 running:               gamePage.gameRunning
                 paused:                gamePage.gamePaused
-                speed:                 12 * (1.0 + gamePage.gameDifficulty / 5.0)
+                speed:                 12 * (1.0 + gamePage.gameDifficulty / 6.5)
                 suspensionHeight:      720
                 suspendedObjectsCount: 3 + (gamePage.gameDifficulty / 3)
                 imageSource:           "qrc:/resources/images/game/layer_rope.png"
