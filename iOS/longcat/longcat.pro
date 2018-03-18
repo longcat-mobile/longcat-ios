@@ -6,10 +6,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += src/main.cpp
 
 OBJECTIVE_SOURCES += \
+    src/sharehelper.mm \
     src/admobhelper.mm \
     src/storehelper.mm
 
 HEADERS += \
+    src/sharehelper.h \
     src/admobhelper.h \
     src/storehelper.h
 

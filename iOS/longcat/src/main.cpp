@@ -5,6 +5,7 @@
 #include <QtQml/QQmlContext>
 
 #include "admobhelper.h"
+#include "sharehelper.h"
 #include "storehelper.h"
 
 int main(int argc, char *argv[])
@@ -19,6 +20,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     engine.rootContext()->setContextProperty(QStringLiteral("AdMobHelper"), new AdMobHelper(&app));
+    engine.rootContext()->setContextProperty(QStringLiteral("ShareHelper"), new ShareHelper(&app));
     engine.rootContext()->setContextProperty(QStringLiteral("StoreHelper"), new StoreHelper(&app));
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));

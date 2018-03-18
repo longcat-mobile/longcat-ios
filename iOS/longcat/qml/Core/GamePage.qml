@@ -1,4 +1,5 @@
 import QtQuick 2.9
+import QtQuick.Controls 2.2
 
 import "Game"
 
@@ -8,9 +9,10 @@ Item {
     property bool appInForeground:    Qt.application.active
     property bool pageActive:         false
     property bool interstitialActive: AdMobHelper.interstitialActive
+    property bool shareViewActive:    false
     property bool gameRunning:        true
     property bool gameEnded:          false
-    property bool gamePaused:         !appInForeground || !pageActive || interstitialActive || gameEnded
+    property bool gamePaused:         !appInForeground || !pageActive || interstitialActive || shareViewActive || gameEnded
 
     property int bannerViewHeight:    AdMobHelper.bannerViewHeight
     property int gameDifficulty:      1
@@ -44,6 +46,22 @@ Item {
         }
 
         scoreText.text = score;
+    }
+
+    function captureImage() {
+        if (!gamePage.grabToImage(function (result) {
+            result.saveToFile(ShareHelper.imageFilePath);
+
+            shareViewActive = true;
+
+            ShareHelper.showShareToView(ShareHelper.imageFilePath);
+        })) {
+            console.log("grabToImage() failed");
+        }
+    }
+
+    function shareToViewCompleted() {
+        shareViewActive = false;
     }
 
     Rectangle {
@@ -240,6 +258,25 @@ Item {
         }
 
         Image {
+            anchors.left:         parent.left
+            anchors.bottom:       parent.bottom
+            anchors.leftMargin:   8
+            anchors.bottomMargin: 16
+            width:                sourceSize.width  * backgroundImage.imageScale
+            height:               sourceSize.height * backgroundImage.imageScale
+            z:                    20
+            source:               "qrc:/resources/images/game/button_share.png"
+
+            MouseArea {
+                anchors.fill: parent
+
+                onClicked: {
+                    gamePage.captureImage();
+                }
+            }
+        }
+
+        Image {
             anchors.right:        parent.right
             anchors.bottom:       parent.bottom
             anchors.rightMargin:  8
@@ -283,5 +320,9 @@ Item {
 
             gamePage.gameDifficulty = Math.min(gamePage.gameElapsedTime / 5, gamePage.maxGameDifficulty);
         }
+    }
+
+    Component.onCompleted: {
+        ShareHelper.shareToViewCompleted.connect(shareToViewCompleted);
     }
 }
