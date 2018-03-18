@@ -78,8 +78,8 @@ Window {
         }
     }
 
-    GamePage {
-        id: gamePage
+    MainPage {
+        id: mainPage
     }
 
     MouseArea {
@@ -92,6 +92,6 @@ Window {
     Component.onCompleted: {
         AdMobHelper.initialize();
 
-        mainStackView.push(gamePage);
+        mainStackView.push(mainPage);
     }
 }

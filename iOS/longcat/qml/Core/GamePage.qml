@@ -271,7 +271,7 @@ Item {
                 anchors.fill: parent
 
                 onClicked: {
-                    console.debug("BACK");
+                    mainStackView.pop(StackView.Immediate);
                 }
             }
         }
