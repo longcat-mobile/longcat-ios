@@ -19,7 +19,7 @@ Column {
         energy = Math.max(0, Math.min(energy, maxEnergy));
 
         if (energy <= 0) {
-            alive = false;
+            catDeadAnimation.start();
         }
     }
 
@@ -27,6 +27,16 @@ Column {
         if (alive) {
             enlargeCatAnimation.start();
         }
+    }
+
+    function reviveCat() {
+        catDeadAnimation.stop();
+
+        opacity = 1.0;
+        visible = true;
+
+        energy = maxEnergy;
+        alive  = true;
     }
 
     function checkIntersection(object) {
@@ -52,7 +62,6 @@ Column {
     }
 
     Image {
-        id:       topImage
         width:    sourceSize.width  * cat.imageScale
         height:   sourceSize.height * cat.imageScale
         source:   "qrc:/resources/images/game/cat_top.png"
@@ -94,7 +103,6 @@ Column {
     }
 
     Image {
-        id:       bottomImage
         width:    sourceSize.width  * cat.imageScale
         height:   sourceSize.height * cat.imageScale
         source:   "qrc:/resources/images/game/cat_bottom.png"
@@ -106,7 +114,7 @@ Column {
         loops: 3
 
         NumberAnimation {
-            targets:  [topImage, middleImage, bottomImage]
+            target:   cat
             property: "opacity"
             from:     1.0
             to:       0.0
@@ -114,11 +122,58 @@ Column {
         }
 
         NumberAnimation {
-            targets:  [topImage, middleImage, bottomImage]
+            target:   cat
             property: "opacity"
             from:     0.0
             to:       1.0
             duration: 75
+        }
+    }
+
+    SequentialAnimation {
+        id: catDeadAnimation
+
+        ScriptAction {
+            script: {
+                cat.alive = false;
+            }
+        }
+
+        SequentialAnimation {
+            loops: 5
+
+            NumberAnimation {
+                target:   cat
+                property: "opacity"
+                from:     1.0
+                to:       0.0
+                duration: 75
+            }
+
+            NumberAnimation {
+                target:   cat
+                property: "opacity"
+                from:     0.0
+                to:       1.0
+                duration: 75
+            }
+        }
+
+        SequentialAnimation {
+            NumberAnimation {
+                target:   cat
+                property: "opacity"
+                from:     1.0
+                to:       0.0
+                duration: 75
+            }
+        }
+
+        ScriptAction {
+            script: {
+                cat.visible = false;
+                cat.opacity = 1.0;
+            }
         }
     }
 }

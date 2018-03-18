@@ -52,7 +52,7 @@ Rectangle {
 
     Image {
         id:       leftImage
-        x:        0
+        x:        0 - animatedLayer.imageWidth
         y:        0
         width:    parent.width
         height:   parent.height
@@ -94,16 +94,16 @@ Rectangle {
             NumberAnimation {
                 target:   leftImage
                 property: "x"
-                from:     (animatedLayer.width - animatedLayer.imageWidth) / 2 - animatedLayer.imageWidth
-                to:       (animatedLayer.width - animatedLayer.imageWidth) / 2
+                from:     0 - animatedLayer.imageWidth
+                to:       0
                 duration: animatedLayer.imageWidth / animatedLayer.speed * 100
             }
 
             NumberAnimation {
                 target:   rightImage
                 property: "x"
-                from:     (animatedLayer.width - animatedLayer.imageWidth) / 2
-                to:       (animatedLayer.width - animatedLayer.imageWidth) / 2 + animatedLayer.imageWidth
+                from:     0
+                to:       animatedLayer.imageWidth
                 duration: animatedLayer.imageWidth / animatedLayer.speed * 100
             }
         }
@@ -112,16 +112,16 @@ Rectangle {
             NumberAnimation {
                 target:   leftImage
                 property: "x"
-                from:     (animatedLayer.width - animatedLayer.imageWidth) / 2
-                to:       (animatedLayer.width - animatedLayer.imageWidth) / 2 + animatedLayer.imageWidth
+                from:     0
+                to:       animatedLayer.imageWidth
                 duration: animatedLayer.imageWidth / animatedLayer.speed * 100
             }
 
             NumberAnimation {
                 target:   rightImage
                 property: "x"
-                from:     (animatedLayer.width - animatedLayer.imageWidth) / 2 - animatedLayer.imageWidth
-                to:       (animatedLayer.width - animatedLayer.imageWidth) / 2
+                from:     0 - animatedLayer.imageWidth
+                to:       0
                 duration: animatedLayer.imageWidth / animatedLayer.speed * 100
             }
         }

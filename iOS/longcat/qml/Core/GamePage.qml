@@ -313,8 +313,7 @@ Item {
                         gamePage.gameElapsedTime = 0;
                         gamePage.gameScore       = 0;
 
-                        cat.alive  = true;
-                        cat.energy = cat.maxEnergy;
+                        cat.reviveCat();
 
                         gamePage.gameRunning = true;
 
