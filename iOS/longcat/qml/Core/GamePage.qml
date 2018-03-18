@@ -212,9 +212,9 @@ Item {
         Rectangle {
             anchors.right:          parent.right
             anchors.verticalCenter: parent.verticalCenter
+            z:                      10
             width:                  parent.width  / 10
             height:                 parent.height / 3
-            z:                      10
             radius:                 8
             border.width:           4
             border.color:           "black"
@@ -262,46 +262,64 @@ Item {
             anchors.bottom:       parent.bottom
             anchors.leftMargin:   8
             anchors.bottomMargin: 16
+            z:                    20
             width:                sourceSize.width  * backgroundImage.imageScale
             height:               sourceSize.height * backgroundImage.imageScale
-            z:                    20
-            source:               "qrc:/resources/images/game/button_capture.png"
+            source:               "qrc:/resources/images/game/button_back.png"
 
             MouseArea {
                 anchors.fill: parent
 
                 onClicked: {
-                    gamePage.captureImage();
+                    console.debug("BACK");
                 }
             }
         }
 
-        Image {
+        Column {
             anchors.right:        parent.right
             anchors.bottom:       parent.bottom
             anchors.rightMargin:  8
             anchors.bottomMargin: 16
-            width:                sourceSize.width  * backgroundImage.imageScale
-            height:               sourceSize.height * backgroundImage.imageScale
             z:                    20
-            source:               "qrc:/resources/images/game/button_restart.png"
+            spacing:              16
 
-            MouseArea {
-                anchors.fill: parent
+            Image {
+                width:  sourceSize.width  * backgroundImage.imageScale
+                height: sourceSize.height * backgroundImage.imageScale
+                source: "qrc:/resources/images/game/button_capture.png"
 
-                onClicked: {
-                    gamePage.gameRunning     = false;
-                    gamePage.gameEnded       = false;
-                    gamePage.gameDifficulty  = 1;
-                    gamePage.gameElapsedTime = 0;
-                    gamePage.gameScore       = 0;
+                MouseArea {
+                    anchors.fill: parent
 
-                    cat.alive  = true;
-                    cat.energy = cat.maxEnergy;
+                    onClicked: {
+                        gamePage.captureImage();
+                    }
+                }
+            }
 
-                    gamePage.gameRunning = true;
+            Image {
+                width:  sourceSize.width  * backgroundImage.imageScale
+                height: sourceSize.height * backgroundImage.imageScale
+                source: "qrc:/resources/images/game/button_restart.png"
 
-                    AdMobHelper.showInterstitial();
+                MouseArea {
+                    anchors.fill: parent
+
+                    onClicked: {
+                        gamePage.gameRunning     = false;
+                        gamePage.gameEnded       = false;
+                        gamePage.gameDifficulty  = 1;
+                        gamePage.gameElapsedTime = 0;
+                        gamePage.gameScore       = 0;
+
+                        cat.alive  = true;
+                        cat.energy = cat.maxEnergy;
+
+                        gamePage.gameRunning = true;
+
+                        AdMobHelper.showInterstitial();
+                    }
                 }
             }
         }
