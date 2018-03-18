@@ -24,13 +24,11 @@ Item {
         }
 
         Image {
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom:           parent.bottom
-            anchors.bottomMargin:     16
-            z:                        10
-            width:                    sourceSize.width  * backgroundImage.imageScale
-            height:                   sourceSize.height * backgroundImage.imageScale
-            source:                   "qrc:/resources/images/main/button_play.png"
+            anchors.centerIn: parent
+            z:                10
+            width:            sourceSize.width  * backgroundImage.imageScale
+            height:           sourceSize.height * backgroundImage.imageScale
+            source:           "qrc:/resources/images/main/button_play.png"
 
             MouseArea {
                 anchors.fill: parent
