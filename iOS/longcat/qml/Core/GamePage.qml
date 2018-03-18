@@ -265,7 +265,7 @@ Item {
             width:                sourceSize.width  * backgroundImage.imageScale
             height:               sourceSize.height * backgroundImage.imageScale
             z:                    20
-            source:               "qrc:/resources/images/game/button_share.png"
+            source:               "qrc:/resources/images/game/button_capture.png"
 
             MouseArea {
                 anchors.fill: parent
