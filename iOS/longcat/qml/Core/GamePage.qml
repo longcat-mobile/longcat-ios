@@ -373,7 +373,9 @@ Item {
 
                         gamePage.gameRunning = true;
 
-                        AdMobHelper.showInterstitial();
+                        if (Math.random() < 0.30) {
+                            AdMobHelper.showInterstitial();
+                        }
                     }
                 }
             }
