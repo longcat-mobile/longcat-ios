@@ -7,6 +7,7 @@
 #include "admobhelper.h"
 #include "sharehelper.h"
 #include "storehelper.h"
+#include "gamecenterhelper.h"
 
 int main(int argc, char *argv[])
 {
@@ -22,6 +23,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty(QStringLiteral("AdMobHelper"), new AdMobHelper(&app));
     engine.rootContext()->setContextProperty(QStringLiteral("ShareHelper"), new ShareHelper(&app));
     engine.rootContext()->setContextProperty(QStringLiteral("StoreHelper"), new StoreHelper(&app));
+    engine.rootContext()->setContextProperty(QStringLiteral("GameCenterHelper"), new GameCenterHelper(&app));
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 

@@ -8,12 +8,14 @@ SOURCES += src/main.cpp
 OBJECTIVE_SOURCES += \
     src/sharehelper.mm \
     src/admobhelper.mm \
-    src/storehelper.mm
+    src/storehelper.mm \
+    src/gamecenterhelper.mm
 
 HEADERS += \
     src/sharehelper.h \
     src/admobhelper.h \
-    src/storehelper.h
+    src/storehelper.h \
+    src/gamecenterhelper.h
 
 RESOURCES += \
     qml.qrc \
@@ -40,6 +42,7 @@ ios {
                 -framework CFNetwork \
                 -framework CoreMotion \
                 -framework CoreTelephony \
+                -framework GameKit \
                 -framework GLKit \
                 -framework MediaPlayer \
                 -framework MessageUI \
