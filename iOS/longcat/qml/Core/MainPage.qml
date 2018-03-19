@@ -1,11 +1,24 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
+import QtMultimedia 5.9
 
 Item {
     id: mainPage
 
     property bool appInForeground: Qt.application.active
     property bool pageActive:      false
+
+    SoundEffect {
+        id:     musicSoundEffect
+        volume: 0.5
+        muted:  !mainPage.appInForeground || !mainPage.pageActive
+        loops:  SoundEffect.Infinite
+        source: "qrc:/resources/sound/main/music.wav"
+
+        Component.onCompleted: {
+            play();
+        }
+    }
 
     Rectangle {
         id:           backgroundRectangle

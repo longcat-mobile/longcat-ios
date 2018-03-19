@@ -88,24 +88,40 @@ Rectangle {
         id:     genericAudio
         volume: 1.0
         source: "qrc:/resources/sound/game/objects/generic.wav"
+
+        onError: {
+            console.log(errorString);
+        }
     }
 
     Audio {
         id:     bombAudio
         volume: 1.0
         source: "qrc:/resources/sound/game/objects/bomb.wav"
+
+        onError: {
+            console.log(errorString);
+        }
     }
 
     Audio {
         id:     mushroomAudio
         volume: 1.0
         source: "qrc:/resources/sound/game/objects/mushroom.wav"
+
+        onError: {
+            console.log(errorString);
+        }
     }
 
     Audio {
         id:     skullAudio
         volume: 1.0
         source: "qrc:/resources/sound/game/objects/skull.wav"
+
+        onError: {
+            console.log(errorString);
+        }
     }
 
     Image {

@@ -65,10 +65,26 @@ Item {
         shareViewActive = false;
     }
 
+    SoundEffect {
+        id:     musicSoundEffect
+        volume: 0.5
+        muted:  gamePage.gamePaused
+        loops:  SoundEffect.Infinite
+        source: "qrc:/resources/sound/game/music.wav"
+
+        Component.onCompleted: {
+            play();
+        }
+    }
+
     Audio {
         id:     gameOverAudio
         volume: 1.0
         source: "qrc:/resources/sound/game/game_over.wav"
+
+        onError: {
+            console.log(errorString);
+        }
     }
 
     Rectangle {
