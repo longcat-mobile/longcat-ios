@@ -323,6 +323,8 @@ Item {
                 anchors.fill: parent
 
                 onClicked: {
+                    StoreHelper.requestReview();
+
                     mainStackView.pop(StackView.Immediate);
                 }
             }
