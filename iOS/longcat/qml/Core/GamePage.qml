@@ -191,6 +191,8 @@ Item {
                         gamePage.gameEnded = true;
 
                         gameOverAudio.play();
+
+                        GameCenterHelper.reportScore(gamePage.gameScore);
                     }
                 }
 

@@ -31,6 +31,8 @@
         <file>resources/images/game/layer_ground.png</file>
         <file>resources/images/game/layer_objects.png</file>
         <file>resources/images/main/background.png</file>
+        <file>resources/images/main/button_leaderboard.png</file>
+        <file>resources/images/main/button_leaderboard_disabled.png</file>
         <file>resources/images/main/button_play.png</file>
         <file>resources/sound/game/objects/bomb.wav</file>
         <file>resources/sound/game/objects/generic.wav</file>

@@ -36,23 +36,45 @@ Item {
             property real imageScale: sourceSize.width > 0.0 ? paintedWidth / sourceSize.width : 1.0
         }
 
-        Image {
+        Column {
             anchors.centerIn: parent
             z:                10
-            width:            sourceSize.width  * backgroundImage.imageScale
-            height:           sourceSize.height * backgroundImage.imageScale
-            source:           "qrc:/resources/images/main/button_play.png"
+            spacing:          16
 
-            MouseArea {
-                anchors.fill: parent
+            Image {
+                width:  sourceSize.width  * backgroundImage.imageScale
+                height: sourceSize.height * backgroundImage.imageScale
+                source: "qrc:/resources/images/main/button_play.png"
 
-                onClicked: {
-                    var component = Qt.createComponent("GamePage.qml");
+                MouseArea {
+                    anchors.fill: parent
 
-                    if (component.status === Component.Ready) {
-                        mainStackView.push(component, StackView.Immediate);
-                    } else {
-                        console.log(component.errorString());
+                    onClicked: {
+                        var component = Qt.createComponent("GamePage.qml");
+
+                        if (component.status === Component.Ready) {
+                            mainStackView.push(component, StackView.Immediate);
+                        } else {
+                            console.log(component.errorString());
+                        }
+                    }
+                }
+            }
+
+            Image {
+                width:  sourceSize.width  * backgroundImage.imageScale
+                height: sourceSize.height * backgroundImage.imageScale
+                source: allowed ? "qrc:/resources/images/main/button_leaderboard.png" :
+                                  "qrc:/resources/images/main/button_leaderboard_disabled.png"
+
+                property bool allowed: GameCenterHelper.gameCenterEnabled
+
+                MouseArea {
+                    anchors.fill: parent
+                    enabled:      parent.allowed
+
+                    onClicked: {
+                        GameCenterHelper.showLeaderboard();
                     }
                 }
             }
