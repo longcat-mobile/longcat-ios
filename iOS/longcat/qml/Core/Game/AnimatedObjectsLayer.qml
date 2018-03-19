@@ -2,33 +2,33 @@ import QtQuick 2.9
 import QtMultimedia 5.9
 
 Rectangle {
-    id:    animatedRopeLayer
+    id:    animatedObjectsLayer
     color: "transparent"
 
-    property bool running:              false
-    property bool paused:               false
+    property bool running:       false
+    property bool paused:        false
 
-    property int speed:                 0
-    property int suspensionHeight:      0
-    property int suspendedObjectsCount: 0
+    property int speed:          0
+    property int objectsHeight:  0
+    property int objectsCount:   0
 
-    property real imageWidth:           Math.min(leftImage.width,  rightImage.width)
-    property real imageHeight:          Math.min(leftImage.height, rightImage.height)
+    property real imageWidth:    Math.min(leftImage.width,  rightImage.width)
+    property real imageHeight:   Math.min(leftImage.height, rightImage.height)
 
-    property string imageSource:        ""
+    property string imageSource: ""
 
     onRunningChanged: {
         if (running) {
             if (imageWidth > 0 && imageHeight > 0) {
-                leftImage.placeSuspendedObjects();
+                leftImage.placeObjects();
 
                 movementAnimation.start();
             }
         } else {
             movementAnimation.stop();
 
-            leftImage.clearSuspendedObjects();
-            rightImage.clearSuspendedObjects();
+            leftImage.clearObjects();
+            rightImage.clearObjects();
         }
     }
 
@@ -45,7 +45,7 @@ Rectangle {
     onImageWidthChanged: {
         if (imageWidth > 0 && imageHeight > 0) {
             if (running) {
-                leftImage.placeSuspendedObjects();
+                leftImage.placeObjects();
 
                 movementAnimation.restart();
             }
@@ -55,7 +55,7 @@ Rectangle {
     onImageHeightChanged: {
         if (imageWidth > 0 && imageHeight > 0) {
             if (running) {
-                leftImage.placeSuspendedObjects();
+                leftImage.placeObjects();
 
                 movementAnimation.restart();
             }
@@ -126,7 +126,7 @@ Rectangle {
 
     Image {
         id:       leftImage
-        x:        0 - animatedRopeLayer.imageWidth
+        x:        0 - animatedObjectsLayer.imageWidth
         y:        0
         width:    parent.width
         height:   parent.height
@@ -135,22 +135,22 @@ Rectangle {
 
         property real imageScale: sourceSize.width > 0.0 ? paintedWidth / sourceSize.width : 1.0
 
-        function placeSuspendedObjects() {
+        function placeObjects() {
             for (var i = children.length - 1; i >= 0; i--) {
                 children[i].destroy();
             }
 
-            var component = Qt.createComponent("SuspendedObject.qml");
+            var component = Qt.createComponent("Object.qml");
 
             if (component.status === Component.Ready) {
-                for (var j = 0; j < animatedRopeLayer.suspendedObjectsCount; j++) {
+                for (var j = 0; j < animatedObjectsLayer.objectsCount; j++) {
                     if (Math.random() > 0.25) {
-                        var suspended_object = component.createObject(leftImage, {imageScale: imageScale});
+                        var object = component.createObject(leftImage, {imageScale: imageScale});
 
-                        suspended_object.x = (width / animatedRopeLayer.suspendedObjectsCount) * j;
-                        suspended_object.y = animatedRopeLayer.suspensionHeight * imageScale;
+                        object.x = (width / animatedObjectsLayer.objectsCount) * j;
+                        object.y = animatedObjectsLayer.objectsHeight * imageScale;
 
-                        suspended_object.playSound.connect(animatedRopeLayer.playSound);
+                        object.playSound.connect(animatedObjectsLayer.playSound);
                     }
                 }
             } else {
@@ -158,7 +158,7 @@ Rectangle {
             }
         }
 
-        function clearSuspendedObjects() {
+        function clearObjects() {
             for (var i = children.length - 1; i >= 0; i--) {
                 children[i].destroy();
             }
@@ -177,22 +177,22 @@ Rectangle {
 
         property real imageScale: sourceSize.width > 0.0 ? paintedWidth / sourceSize.width : 1.0
 
-        function placeSuspendedObjects() {
+        function placeObjects() {
             for (var i = children.length - 1; i >= 0; i--) {
                 children[i].destroy();
             }
 
-            var component = Qt.createComponent("SuspendedObject.qml");
+            var component = Qt.createComponent("Object.qml");
 
             if (component.status === Component.Ready) {
-                for (var j = 0; j < animatedRopeLayer.suspendedObjectsCount; j++) {
+                for (var j = 0; j < animatedObjectsLayer.objectsCount; j++) {
                     if (Math.random() > 0.25) {
-                        var suspended_object = component.createObject(rightImage, {imageScale: imageScale});
+                        var object = component.createObject(rightImage, {imageScale: imageScale});
 
-                        suspended_object.x = (width / animatedRopeLayer.suspendedObjectsCount) * j;
-                        suspended_object.y = animatedRopeLayer.suspensionHeight * imageScale;
+                        object.x = (width / animatedObjectsLayer.objectsCount) * j;
+                        object.y = animatedObjectsLayer.objectsHeight * imageScale;
 
-                        suspended_object.playSound.connect(animatedRopeLayer.playSound);
+                        object.playSound.connect(animatedObjectsLayer.playSound);
                     }
                 }
             } else {
@@ -200,7 +200,7 @@ Rectangle {
             }
         }
 
-        function clearSuspendedObjects() {
+        function clearObjects() {
             for (var i = children.length - 1; i >= 0; i--) {
                 children[i].destroy();
             }
@@ -212,7 +212,7 @@ Rectangle {
 
         onRunningChanged: {
             if (running) {
-                if (animatedRopeLayer.paused) {
+                if (animatedObjectsLayer.paused) {
                     pause();
                 } else {
                     resume();
@@ -221,7 +221,7 @@ Rectangle {
         }
 
         onStopped: {
-            if (animatedRopeLayer.running) {
+            if (animatedObjectsLayer.running) {
                 start();
             }
         }
@@ -230,23 +230,23 @@ Rectangle {
             NumberAnimation {
                 target:   leftImage
                 property: "x"
-                from:     0 - animatedRopeLayer.imageWidth
+                from:     0 - animatedObjectsLayer.imageWidth
                 to:       0
-                duration: animatedRopeLayer.imageWidth / animatedRopeLayer.speed * 100
+                duration: animatedObjectsLayer.imageWidth / animatedObjectsLayer.speed * 100
             }
 
             NumberAnimation {
                 target:   rightImage
                 property: "x"
                 from:     0
-                to:       animatedRopeLayer.imageWidth
-                duration: animatedRopeLayer.imageWidth / animatedRopeLayer.speed * 100
+                to:       animatedObjectsLayer.imageWidth
+                duration: animatedObjectsLayer.imageWidth / animatedObjectsLayer.speed * 100
             }
         }
 
         ScriptAction {
             script: {
-                rightImage.placeSuspendedObjects();
+                rightImage.placeObjects();
             }
         }
 
@@ -255,22 +255,22 @@ Rectangle {
                 target:   leftImage
                 property: "x"
                 from:     0
-                to:       animatedRopeLayer.imageWidth
-                duration: animatedRopeLayer.imageWidth / animatedRopeLayer.speed * 100
+                to:       animatedObjectsLayer.imageWidth
+                duration: animatedObjectsLayer.imageWidth / animatedObjectsLayer.speed * 100
             }
 
             NumberAnimation {
                 target:   rightImage
                 property: "x"
-                from:     0 - animatedRopeLayer.imageWidth
+                from:     0 - animatedObjectsLayer.imageWidth
                 to:       0
-                duration: animatedRopeLayer.imageWidth / animatedRopeLayer.speed * 100
+                duration: animatedObjectsLayer.imageWidth / animatedObjectsLayer.speed * 100
             }
         }
 
         ScriptAction {
             script: {
-                leftImage.placeSuspendedObjects();
+                leftImage.placeObjects();
             }
         }
     }

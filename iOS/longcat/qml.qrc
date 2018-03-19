@@ -4,8 +4,8 @@
         <file>qml/Core/GamePage.qml</file>
         <file>qml/Core/MainPage.qml</file>
         <file>qml/Core/Game/AnimatedLayer.qml</file>
-        <file>qml/Core/Game/AnimatedRopeLayer.qml</file>
+        <file>qml/Core/Game/AnimatedObjectsLayer.qml</file>
         <file>qml/Core/Game/Cat.qml</file>
-        <file>qml/Core/Game/SuspendedObject.qml</file>
+        <file>qml/Core/Game/Object.qml</file>
     </qresource>
 </RCC>

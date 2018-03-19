@@ -1,7 +1,7 @@
 import QtQuick 2.9
 
 Image {
-    id:       suspendedObject
+    id:       object
     fillMode: Image.PreserveAspectFit
 
     property bool consumed:         false
@@ -29,7 +29,7 @@ Image {
 
     NumberAnimation {
         id:          consumeAnimation
-        target:      suspendedObject
+        target:      object
         property:    "opacity"
         from:        1.0
         to:          0.0

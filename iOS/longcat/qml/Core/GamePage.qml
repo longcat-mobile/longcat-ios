@@ -162,16 +162,16 @@ Item {
                 imageSource:  "qrc:/resources/images/game/layer_ground.png"
             }
 
-            AnimatedRopeLayer {
-                id:                    ropeLayer
-                anchors.fill:          parent
-                z:                     5
-                running:               gamePage.gameRunning
-                paused:                gamePage.gamePaused
-                speed:                 12 * (1.0 + gamePage.gameDifficulty / 6.5)
-                suspensionHeight:      720
-                suspendedObjectsCount: 3 + (gamePage.gameDifficulty / 3)
-                imageSource:           "qrc:/resources/images/game/layer_rope.png"
+            AnimatedObjectsLayer {
+                id:            objectsLayer
+                anchors.fill:  parent
+                z:             5
+                running:       gamePage.gameRunning
+                paused:        gamePage.gamePaused
+                speed:         12 * (1.0 + gamePage.gameDifficulty / 6.5)
+                objectsHeight: 720
+                objectsCount:  3 + (gamePage.gameDifficulty / 3)
+                imageSource:   "qrc:/resources/images/game/layer_objects.png"
             }
 
             Cat {
@@ -195,7 +195,7 @@ Item {
                 }
 
                 onCatEnlarged: {
-                    ropeLayer.checkCatIntersections(cat);
+                    objectsLayer.checkCatIntersections(cat);
                 }
 
                 onCatConsumedObject: {
