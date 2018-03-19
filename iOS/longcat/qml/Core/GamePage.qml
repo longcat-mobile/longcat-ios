@@ -1,5 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
+import QtMultimedia 5.9
 
 import "Game"
 
@@ -62,6 +63,12 @@ Item {
 
     function shareToViewCompleted() {
         shareViewActive = false;
+    }
+
+    Audio {
+        id:     gameOverAudio
+        volume: 1.0
+        source: "qrc:/resources/sound/game/game_over.wav"
     }
 
     Rectangle {
@@ -166,6 +173,8 @@ Item {
                 onAliveChanged: {
                     if (!alive) {
                         gamePage.gameEnded = true;
+
+                        gameOverAudio.play();
                     }
                 }
 

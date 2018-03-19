@@ -33,5 +33,6 @@
         <file>resources/sound/game/objects/generic.wav</file>
         <file>resources/sound/game/objects/mushroom.wav</file>
         <file>resources/sound/game/objects/skull.wav</file>
+        <file>resources/sound/game/game_over.wav</file>
     </qresource>
 </RCC>
