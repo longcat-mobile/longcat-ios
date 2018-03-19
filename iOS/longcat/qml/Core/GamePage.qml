@@ -169,7 +169,7 @@ Item {
                 running:       gamePage.gameRunning
                 paused:        gamePage.gamePaused
                 speed:         12 * (1.0 + gamePage.gameDifficulty / 6.5)
-                objectsHeight: 720
+                objectsHeight: 480
                 objectsCount:  3 + (gamePage.gameDifficulty / 3)
                 imageSource:   "qrc:/resources/images/game/layer_objects.png"
             }

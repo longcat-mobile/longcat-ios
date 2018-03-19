@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/">
+        <file>resources/images/game/birds/eagle.png</file>
+        <file>resources/images/game/birds/hawk.png</file>
+        <file>resources/images/game/birds/raven.png</file>
         <file>resources/images/game/cat/bottom.png</file>
         <file>resources/images/game/cat/middle.png</file>
         <file>resources/images/game/cat/top.png</file>
