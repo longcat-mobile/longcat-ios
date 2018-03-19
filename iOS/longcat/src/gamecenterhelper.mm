@@ -49,11 +49,11 @@ GameCenterHelper *GameCenterHelper::Instance = NULL;
                 } else if (local_player.isAuthenticated) {
                     GameCenterEnabled = YES;
 
-                    GameCenterHelper::setGameCenterEnabled(true);
+                    GameCenterHelper::setGameCenterEnabled(GameCenterEnabled);
                 } else {
                     GameCenterEnabled = NO;
 
-                    GameCenterHelper::setGameCenterEnabled(false);
+                    GameCenterHelper::setGameCenterEnabled(GameCenterEnabled);
                 }
             }
         };
