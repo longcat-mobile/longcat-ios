@@ -84,7 +84,7 @@ Image {
             consumedSound  = "MUSHROOM";
         } else if (random_number < 0.92) {
             energy         = 5;
-            source         = "qrc:/resources/images/game/objects/oreo.png";
+            source         = "qrc:/resources/images/game/objects/pizza.png";
             consumedSound  = "GENERIC";
         } else {
             energy         = -20;
