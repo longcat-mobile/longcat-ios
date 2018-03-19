@@ -178,6 +178,33 @@ Item {
                         gamePage.gameScore = gamePage.gameScore + object_energy;
                     }
                 }
+
+                onCatDead: {
+                    catRIPAnimation.start();
+
+                    catRIPImage.visible = true;
+                }
+            }
+
+            Image {
+                id:                       catRIPImage
+                anchors.horizontalCenter: parent.horizontalCenter
+                y:                        parent.height - height - cat.anchors.bottomMargin
+                z:                        7
+                width:                    sourceSize.width  * backgroundImage.imageScale
+                height:                   sourceSize.height * backgroundImage.imageScale
+                source:                   "qrc:/resources/images/game/cat_rip.png"
+                fillMode:                 Image.Stretch
+                visible:                  false
+
+                NumberAnimation {
+                    id:       catRIPAnimation
+                    target:   catRIPImage
+                    property: "y"
+                    from:     0 - catRIPImage.height
+                    to:       catRIPImage.parent.height - catRIPImage.height - cat.anchors.bottomMargin
+                    duration: 250
+                }
             }
         }
 
@@ -312,6 +339,10 @@ Item {
                         gamePage.gameDifficulty  = 1;
                         gamePage.gameElapsedTime = 0;
                         gamePage.gameScore       = 0;
+
+                        catRIPAnimation.stop();
+
+                        catRIPImage.visible = false;
 
                         cat.reviveCat();
 

@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/">
+        <file>resources/images/game/cat/bottom.png</file>
+        <file>resources/images/game/cat/middle.png</file>
+        <file>resources/images/game/cat/top.png</file>
         <file>resources/images/game/objects/apple.png</file>
         <file>resources/images/game/objects/banana.png</file>
         <file>resources/images/game/objects/bomb.png</file>
@@ -18,9 +21,7 @@
         <file>resources/images/game/button_back.png</file>
         <file>resources/images/game/button_restart.png</file>
         <file>resources/images/game/button_capture.png</file>
-        <file>resources/images/game/cat_bottom.png</file>
-        <file>resources/images/game/cat_middle.png</file>
-        <file>resources/images/game/cat_top.png</file>
+        <file>resources/images/game/cat_rip.png</file>
         <file>resources/images/game/layer_bush.png</file>
         <file>resources/images/game/layer_clouds.png</file>
         <file>resources/images/game/layer_grass.png</file>

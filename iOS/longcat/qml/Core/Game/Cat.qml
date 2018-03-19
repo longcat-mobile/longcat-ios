@@ -14,6 +14,7 @@ Column {
 
     signal catEnlarged()
     signal catConsumedObject(int object_energy)
+    signal catDead()
 
     onEnergyChanged: {
         energy = Math.max(0, Math.min(energy, maxEnergy));
@@ -66,7 +67,7 @@ Column {
     Image {
         width:    sourceSize.width  * cat.imageScale
         height:   sourceSize.height * cat.imageScale
-        source:   "qrc:/resources/images/game/cat_top.png"
+        source:   "qrc:/resources/images/game/cat/top.png"
         fillMode: Image.PreserveAspectFit
     }
 
@@ -74,7 +75,7 @@ Column {
         id:       middleImage
         width:    sourceSize.width  * cat.imageScale
         height:   sourceSize.height * cat.imageScale
-        source:   "qrc:/resources/images/game/cat_middle.png"
+        source:   "qrc:/resources/images/game/cat/middle.png"
         fillMode: Image.Stretch
 
         SequentialAnimation {
@@ -107,7 +108,7 @@ Column {
     Image {
         width:    sourceSize.width  * cat.imageScale
         height:   sourceSize.height * cat.imageScale
-        source:   "qrc:/resources/images/game/cat_bottom.png"
+        source:   "qrc:/resources/images/game/cat/bottom.png"
         fillMode: Image.PreserveAspectFit
     }
 
@@ -169,6 +170,8 @@ Column {
             script: {
                 cat.visible = false;
                 cat.opacity = 1.0;
+
+                cat.catDead();
             }
         }
     }
