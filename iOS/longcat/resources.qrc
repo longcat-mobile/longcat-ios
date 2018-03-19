@@ -29,5 +29,9 @@
         <file>resources/images/game/layer_rope.png</file>
         <file>resources/images/main/background.png</file>
         <file>resources/images/main/button_play.png</file>
+        <file>resources/sound/game/objects/bomb.wav</file>
+        <file>resources/sound/game/objects/generic.wav</file>
+        <file>resources/sound/game/objects/mushroom.wav</file>
+        <file>resources/sound/game/objects/skull.wav</file>
     </qresource>
 </RCC>

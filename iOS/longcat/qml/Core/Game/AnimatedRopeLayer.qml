@@ -1,4 +1,5 @@
 import QtQuick 2.9
+import QtMultimedia 5.9
 
 Rectangle {
     id:    animatedRopeLayer
@@ -71,6 +72,42 @@ Rectangle {
         }
     }
 
+    function playSound(sound) {
+        if (sound === "BOMB") {
+            bombAudio.play();
+        } else if (sound === "MUSHROOM") {
+            mushroomAudio.play();
+        } else if (sound === "SKULL") {
+            skullAudio.play();
+        } else {
+            genericAudio.play();
+        }
+    }
+
+    Audio {
+        id:     genericAudio
+        volume: 1.0
+        source: "qrc:/resources/sound/game/objects/generic.wav"
+    }
+
+    Audio {
+        id:     bombAudio
+        volume: 1.0
+        source: "qrc:/resources/sound/game/objects/bomb.wav"
+    }
+
+    Audio {
+        id:     mushroomAudio
+        volume: 1.0
+        source: "qrc:/resources/sound/game/objects/mushroom.wav"
+    }
+
+    Audio {
+        id:     skullAudio
+        volume: 1.0
+        source: "qrc:/resources/sound/game/objects/skull.wav"
+    }
+
     Image {
         id:       leftImage
         x:        0 - animatedRopeLayer.imageWidth
@@ -96,6 +133,8 @@ Rectangle {
 
                         suspended_object.x = (width / animatedRopeLayer.suspendedObjectsCount) * j;
                         suspended_object.y = animatedRopeLayer.suspensionHeight * imageScale;
+
+                        suspended_object.playSound.connect(animatedRopeLayer.playSound);
                     }
                 }
             } else {
@@ -136,6 +175,8 @@ Rectangle {
 
                         suspended_object.x = (width / animatedRopeLayer.suspendedObjectsCount) * j;
                         suspended_object.y = animatedRopeLayer.suspensionHeight * imageScale;
+
+                        suspended_object.playSound.connect(animatedRopeLayer.playSound);
                     }
                 }
             } else {
