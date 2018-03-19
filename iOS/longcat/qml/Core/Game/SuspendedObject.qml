@@ -49,7 +49,7 @@ Image {
             source         = "qrc:/resources/images/game/objects/banana.png";
             consumedSound  = "GENERIC";
         } else if (random_number < 0.25) {
-            energy         = -15;
+            energy         = -25;
             source         = "qrc:/resources/images/game/objects/bomb.png";
             consumedSource = "qrc:/resources/images/game/objects/bomb_consumed.png";
             consumedSound  = "BOMB";
@@ -78,7 +78,7 @@ Image {
             source         = "qrc:/resources/images/game/objects/milk.png";
             consumedSound  = "GENERIC";
         } else if (random_number < 0.83) {
-            energy         = -10;
+            energy         = -20;
             source         = "qrc:/resources/images/game/objects/mushroom.png";
             consumedSource = "qrc:/resources/images/game/objects/mushroom_consumed.png";
             consumedSound  = "MUSHROOM";
@@ -87,7 +87,7 @@ Image {
             source         = "qrc:/resources/images/game/objects/pizza.png";
             consumedSound  = "GENERIC";
         } else {
-            energy         = -20;
+            energy         = -30;
             source         = "qrc:/resources/images/game/objects/skull.png";
             consumedSound  = "SKULL";
         }
