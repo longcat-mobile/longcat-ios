@@ -21,6 +21,20 @@ Item {
     property int gameElapsedTime:     0
     property int gameScore:           0
 
+    onGameRunningChanged: {
+        if (gameRunning) {
+            pressHintImage.visible = true;
+        } else {
+            pressHintImage.visible = true;
+        }
+    }
+
+    onGameEndedChanged: {
+        if (gameEnded) {
+            pressHintImage.visible = false;
+        }
+    }
+
     onGameElapsedTimeChanged: {
         var hrs = Math.floor(gameElapsedTime / 3600);
         var mns = Math.floor((gameElapsedTime - hrs * 3600) / 60);
@@ -307,11 +321,43 @@ Item {
             }
         }
 
+        Image {
+            id:               pressHintImage
+            anchors.centerIn: parent
+            z:                10
+            width:            sourceSize.width  * backgroundImage.imageScale
+            height:           sourceSize.height * backgroundImage.imageScale
+            source:           "qrc:/resources/images/game/hand.png"
+
+            SequentialAnimation {
+                loops:   Animation.Infinite
+                running: pressHintImage.visible
+
+                NumberAnimation {
+                    target:   pressHintImage
+                    property: "opacity"
+                    from:     1.0
+                    to:       0.0
+                    duration: 250
+                }
+
+                NumberAnimation {
+                    target:   pressHintImage
+                    property: "opacity"
+                    from:     0.0
+                    to:       1.0
+                    duration: 250
+                }
+            }
+        }
+
         MouseArea {
             anchors.fill: parent
             z:            15
 
             onClicked: {
+                pressHintImage.visible = false;
+
                 cat.enlargeCat();
             }
         }
