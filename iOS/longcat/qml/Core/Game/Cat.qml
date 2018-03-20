@@ -86,7 +86,7 @@ Column {
                 property: "height"
                 from:     middleImage.sourceSize.height * cat.imageScale
                 to:       cat.stretchTo * cat.imageScale
-                duration: 250
+                duration: 150
             }
 
             ScriptAction {
