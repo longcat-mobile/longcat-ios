@@ -22,13 +22,8 @@ RESOURCES += \
     resources.qrc \
     translations.qrc
 
-#TRANSLATIONS += \
-#    translations/longcat_ru.ts \
-#    translations/longcat_de.ts \
-#    translations/longcat_fr.ts \
-#    translations/longcat_zh.ts \
-#    translations/longcat_es.ts \
-#    translations/longcat_it.ts
+TRANSLATIONS += \
+    translations/longcat_ru.ts
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
