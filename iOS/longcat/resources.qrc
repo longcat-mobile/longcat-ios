@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
+        <file>resources/fonts/game/arcade_classic.ttf</file>
         <file>resources/images/game/birds/eagle.png</file>
         <file>resources/images/game/birds/hawk.png</file>
         <file>resources/images/game/birds/raven.png</file>

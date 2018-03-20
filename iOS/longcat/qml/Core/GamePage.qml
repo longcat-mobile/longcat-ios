@@ -87,6 +87,11 @@ Item {
         }
     }
 
+    FontLoader {
+        id:     arcadeClassicFont
+        source: "qrc:/resources/fonts/game/arcade_classic.ttf"
+    }
+
     Rectangle {
         id:           backgroundRectangle
         anchors.fill: parent
@@ -245,8 +250,8 @@ Item {
             color:               "yellow"
             horizontalAlignment: Text.AlignRight
             verticalAlignment:   Text.AlignVCenter
-            font.family:         "Courier"
-            font.pointSize:      24
+            font.family:         arcadeClassicFont.name
+            font.pointSize:      32
         }
 
         Text {
@@ -259,8 +264,8 @@ Item {
             color:               "yellow"
             horizontalAlignment: Text.AlignRight
             verticalAlignment:   Text.AlignVCenter
-            font.family:         "Courier"
-            font.pointSize:      24
+            font.family:         arcadeClassicFont.name
+            font.pointSize:      32
         }
 
         Rectangle {
