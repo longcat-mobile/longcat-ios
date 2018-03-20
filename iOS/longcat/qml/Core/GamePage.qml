@@ -295,7 +295,7 @@ Item {
                 Text {
                     id:                  playerRankText
                     text:                "#%1".arg(playerRank)
-                    color:               "red"
+                    color:               "green"
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment:   Text.AlignVCenter
                     font.family:         arcadeClassicFont.name
@@ -307,7 +307,7 @@ Item {
                 Text {
                     id:                  playerScoreText
                     text:                "000000"
-                    color:               "red"
+                    color:               "green"
                     horizontalAlignment: Text.AlignRight
                     verticalAlignment:   Text.AlignVCenter
                     font.family:         arcadeClassicFont.name
