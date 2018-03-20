@@ -258,7 +258,7 @@ Item {
             id:                  timerText
             anchors.top:         parent.top
             anchors.left:        parent.left
-            anchors.topMargin:   Math.max(gamePage.bannerViewHeight + 8, 34)
+            anchors.topMargin:   Math.max(gamePage.bannerViewHeight + 16 * backgroundImage.imageScale, 34)
             z:                   10
             text:                "00:00:00"
             color:               "yellow"
@@ -268,18 +268,64 @@ Item {
             font.pointSize:      32
         }
 
-        Text {
-            id:                  scoreText
+        Column {
             anchors.top:         parent.top
             anchors.right:       parent.right
-            anchors.topMargin:   Math.max(gamePage.bannerViewHeight + 8, 34)
+            anchors.topMargin:   Math.max(gamePage.bannerViewHeight + 16 * backgroundImage.imageScale, 34)
             z:                   10
-            text:                "000000"
-            color:               "yellow"
-            horizontalAlignment: Text.AlignRight
-            verticalAlignment:   Text.AlignVCenter
-            font.family:         arcadeClassicFont.name
-            font.pointSize:      32
+            spacing:             16 * backgroundImage.imageScale
+
+            Text {
+                id:                  scoreText
+                anchors.right:       parent.right
+                text:                "000000"
+                color:               "yellow"
+                horizontalAlignment: Text.AlignRight
+                verticalAlignment:   Text.AlignVCenter
+                font.family:         arcadeClassicFont.name
+                font.pointSize:      32
+            }
+
+            Row {
+                anchors.right: parent.right
+                visible:       playerRankText.playerRank   !== 0 &&
+                               playerScoreText.playerScore !== 0
+                spacing:       16 * backgroundImage.imageScale
+
+                Text {
+                    id:                  playerRankText
+                    text:                "#%1".arg(playerRank)
+                    color:               "red"
+                    horizontalAlignment: Text.AlignRight
+                    verticalAlignment:   Text.AlignVCenter
+                    font.family:         arcadeClassicFont.name
+                    font.pointSize:      32
+
+                    property int playerRank: GameCenterHelper.playerRank
+                }
+
+                Text {
+                    id:                  playerScoreText
+                    text:                "000000"
+                    color:               "red"
+                    horizontalAlignment: Text.AlignRight
+                    verticalAlignment:   Text.AlignVCenter
+                    font.family:         arcadeClassicFont.name
+                    font.pointSize:      32
+
+                    property int playerScore: GameCenterHelper.playerScore
+
+                    onPlayerScoreChanged: {
+                        var score = playerScore + "";
+
+                        while (score.length < 6) {
+                            score = "0" + score;
+                        }
+
+                        playerScoreText.text = score;
+                    }
+                }
+            }
         }
 
         Rectangle {

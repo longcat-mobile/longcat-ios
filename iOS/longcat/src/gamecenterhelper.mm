@@ -50,6 +50,19 @@ GameCenterHelper *GameCenterHelper::Instance = NULL;
                     GameCenterEnabled = YES;
 
                     GameCenterHelper::setGameCenterEnabled(GameCenterEnabled);
+
+                    GKLeaderboard *leaderboard = [[GKLeaderboard alloc] init];
+
+                    leaderboard.identifier = GameCenterHelper::GC_LEADERBOARD_ID.toNSString();
+
+                    [leaderboard loadScoresWithCompletionHandler:^(NSArray*, NSError *error) {
+                        if (error != nil) {
+                            qWarning() << QString::fromNSString([error localizedDescription]);
+                        } else {
+                            GameCenterHelper::setPlayerScore((int)leaderboard.localPlayerScore.value);
+                            GameCenterHelper::setPlayerRank((int)leaderboard.localPlayerScore.rank);
+                        }
+                    }];
                 } else {
                     GameCenterEnabled = NO;
 
@@ -98,6 +111,19 @@ GameCenterHelper *GameCenterHelper::Instance = NULL;
         [GKScore reportScores:@[score] withCompletionHandler:^(NSError *error) {
             if (error != nil) {
                 qWarning() << QString::fromNSString([error localizedDescription]);
+            } else {
+                GKLeaderboard *leaderboard = [[GKLeaderboard alloc] init];
+
+                leaderboard.identifier = GameCenterHelper::GC_LEADERBOARD_ID.toNSString();
+
+                [leaderboard loadScoresWithCompletionHandler:^(NSArray*, NSError *error) {
+                    if (error != nil) {
+                        qWarning() << QString::fromNSString([error localizedDescription]);
+                    } else {
+                        GameCenterHelper::setPlayerScore((int)leaderboard.localPlayerScore.value);
+                        GameCenterHelper::setPlayerRank((int)leaderboard.localPlayerScore.rank);
+                    }
+                }];
             }
         }];
     }
@@ -114,6 +140,8 @@ GameCenterHelper::GameCenterHelper(QObject *parent) : QObject(parent)
 {
     Initialized                          = false;
     GameCenterEnabled                    = false;
+    PlayerScore                          = 0;
+    PlayerRank                           = 0;
     Instance                             = this;
     GameCenterControllerDelegateInstance = NULL;
 }
@@ -128,6 +156,16 @@ GameCenterHelper::~GameCenterHelper()
 bool GameCenterHelper::gameCenterEnabled() const
 {
     return GameCenterEnabled;
+}
+
+int GameCenterHelper::playerScore() const
+{
+    return PlayerScore;
+}
+
+int GameCenterHelper::playerRank() const
+{
+    return PlayerRank;
 }
 
 void GameCenterHelper::initialize()
@@ -158,4 +196,18 @@ void GameCenterHelper::setGameCenterEnabled(const bool &enabled)
     Instance->GameCenterEnabled = enabled;
 
     emit Instance->gameCenterEnabledChanged(Instance->GameCenterEnabled);
+}
+
+void GameCenterHelper::setPlayerScore(const int &score)
+{
+    Instance->PlayerScore = score;
+
+    emit Instance->playerScoreChanged(Instance->PlayerScore);
+}
+
+void GameCenterHelper::setPlayerRank(const int &rank)
+{
+    Instance->PlayerRank = rank;
+
+    emit Instance->playerRankChanged(Instance->PlayerRank);
 }
