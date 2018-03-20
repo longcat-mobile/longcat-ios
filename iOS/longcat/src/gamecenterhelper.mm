@@ -90,15 +90,17 @@ GameCenterHelper *GameCenterHelper::Instance = NULL;
 
 - (void)reportScore:(int)value
 {
-    GKScore *score = [[GKScore alloc] initWithLeaderboardIdentifier:GameCenterHelper::GC_LEADERBOARD_ID.toNSString()];
+    if (GameCenterEnabled) {
+        GKScore *score = [[GKScore alloc] initWithLeaderboardIdentifier:GameCenterHelper::GC_LEADERBOARD_ID.toNSString()];
 
-    score.value = value;
+        score.value = value;
 
-    [GKScore reportScores:@[score] withCompletionHandler:^(NSError *error) {
-        if (error != nil) {
-            qWarning() << QString::fromNSString([error localizedDescription]);
-        }
-    }];
+        [GKScore reportScores:@[score] withCompletionHandler:^(NSError *error) {
+            if (error != nil) {
+                qWarning() << QString::fromNSString([error localizedDescription]);
+            }
+        }];
+    }
 }
 
 -(void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController
