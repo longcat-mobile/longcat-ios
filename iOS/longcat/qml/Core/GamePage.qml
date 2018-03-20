@@ -314,8 +314,8 @@ Item {
         Image {
             anchors.left:         parent.left
             anchors.bottom:       parent.bottom
-            anchors.leftMargin:   8
-            anchors.bottomMargin: 16
+            anchors.leftMargin:   16 * backgroundImage.imageScale
+            anchors.bottomMargin: 32 * backgroundImage.imageScale
             z:                    20
             width:                sourceSize.width  * backgroundImage.imageScale
             height:               sourceSize.height * backgroundImage.imageScale
@@ -335,10 +335,10 @@ Item {
         Column {
             anchors.right:        parent.right
             anchors.bottom:       parent.bottom
-            anchors.rightMargin:  8
-            anchors.bottomMargin: 16
+            anchors.rightMargin:  16 * backgroundImage.imageScale
+            anchors.bottomMargin: 32 * backgroundImage.imageScale
             z:                    20
-            spacing:              16
+            spacing:              32 * backgroundImage.imageScale
 
             Image {
                 width:  sourceSize.width  * backgroundImage.imageScale

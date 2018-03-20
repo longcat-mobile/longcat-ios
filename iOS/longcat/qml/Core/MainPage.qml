@@ -36,46 +36,46 @@ Item {
             property real imageScale: sourceSize.width > 0.0 ? paintedWidth / sourceSize.width : 1.0
         }
 
-        Column {
+        Image {
             anchors.centerIn: parent
             z:                10
-            spacing:          16
+            width:            sourceSize.width  * backgroundImage.imageScale
+            height:           sourceSize.height * backgroundImage.imageScale
+            source:           "qrc:/resources/images/main/button_play.png"
 
-            Image {
-                width:  sourceSize.width  * backgroundImage.imageScale
-                height: sourceSize.height * backgroundImage.imageScale
-                source: "qrc:/resources/images/main/button_play.png"
+            MouseArea {
+                anchors.fill: parent
 
-                MouseArea {
-                    anchors.fill: parent
+                onClicked: {
+                    var component = Qt.createComponent("GamePage.qml");
 
-                    onClicked: {
-                        var component = Qt.createComponent("GamePage.qml");
-
-                        if (component.status === Component.Ready) {
-                            mainStackView.push(component, StackView.Immediate);
-                        } else {
-                            console.log(component.errorString());
-                        }
+                    if (component.status === Component.Ready) {
+                        mainStackView.push(component, StackView.Immediate);
+                    } else {
+                        console.log(component.errorString());
                     }
                 }
             }
+        }
 
-            Image {
-                width:  sourceSize.width  * backgroundImage.imageScale
-                height: sourceSize.height * backgroundImage.imageScale
-                source: allowed ? "qrc:/resources/images/main/button_leaderboard.png" :
-                                  "qrc:/resources/images/main/button_leaderboard_disabled.png"
+        Image {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom:           parent.bottom
+            anchors.bottomMargin:     32 * backgroundImage.imageScale
+            z:                        10
+            width:                    sourceSize.width  * backgroundImage.imageScale
+            height:                   sourceSize.height * backgroundImage.imageScale
+            source:                   allowed ? "qrc:/resources/images/main/button_leaderboard.png" :
+                                                "qrc:/resources/images/main/button_leaderboard_disabled.png"
 
-                property bool allowed: GameCenterHelper.gameCenterEnabled
+            property bool allowed: GameCenterHelper.gameCenterEnabled
 
-                MouseArea {
-                    anchors.fill: parent
-                    enabled:      parent.allowed
+            MouseArea {
+                anchors.fill: parent
+                enabled:      parent.allowed
 
-                    onClicked: {
-                        GameCenterHelper.showLeaderboard();
-                    }
+                onClicked: {
+                    GameCenterHelper.showLeaderboard();
                 }
             }
         }
