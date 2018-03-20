@@ -7,8 +7,7 @@ Rectangle {
     property bool running:       false
     property bool paused:        false
 
-    property int speed:          0
-
+    property real speed:         0.0
     property real imageWidth:    Math.min(leftImage.width,  rightImage.width)
     property real imageHeight:   Math.min(leftImage.height, rightImage.height)
 
@@ -96,7 +95,7 @@ Rectangle {
                 property: "x"
                 from:     0 - animatedLayer.imageWidth
                 to:       0
-                duration: animatedLayer.imageWidth / animatedLayer.speed * 100
+                duration: animatedLayer.speed > 0.0 ? animatedLayer.imageWidth / animatedLayer.speed * 100 : 0
             }
 
             NumberAnimation {
@@ -104,7 +103,7 @@ Rectangle {
                 property: "x"
                 from:     0
                 to:       animatedLayer.imageWidth
-                duration: animatedLayer.imageWidth / animatedLayer.speed * 100
+                duration: animatedLayer.speed > 0.0 ? animatedLayer.imageWidth / animatedLayer.speed * 100 : 0
             }
         }
 
@@ -114,7 +113,7 @@ Rectangle {
                 property: "x"
                 from:     0
                 to:       animatedLayer.imageWidth
-                duration: animatedLayer.imageWidth / animatedLayer.speed * 100
+                duration: animatedLayer.speed > 0.0 ? animatedLayer.imageWidth / animatedLayer.speed * 100 : 0
             }
 
             NumberAnimation {
@@ -122,7 +121,7 @@ Rectangle {
                 property: "x"
                 from:     0 - animatedLayer.imageWidth
                 to:       0
-                duration: animatedLayer.imageWidth / animatedLayer.speed * 100
+                duration: animatedLayer.speed > 0.0 ? animatedLayer.imageWidth / animatedLayer.speed * 100 : 0
             }
         }
     }
