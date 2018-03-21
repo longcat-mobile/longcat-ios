@@ -51,7 +51,7 @@ GameCenterHelper *GameCenterHelper::Instance = NULL;
 
                     GameCenterHelper::setGameCenterEnabled(GameCenterEnabled);
 
-                    GKLeaderboard *leaderboard = [[[GKLeaderboard alloc] init] autorelease];
+                    GKLeaderboard *leaderboard = [[GKLeaderboard alloc] init];
 
                     leaderboard.identifier = GameCenterHelper::GC_LEADERBOARD_ID.toNSString();
 
@@ -64,6 +64,8 @@ GameCenterHelper *GameCenterHelper::Instance = NULL;
                                 GameCenterHelper::setPlayerRank((int)leaderboard.localPlayerScore.rank);
                             }
                         }
+
+                        [leaderboard autorelease];
                     }];
                 } else {
                     GameCenterEnabled = NO;
@@ -93,7 +95,7 @@ GameCenterHelper *GameCenterHelper::Instance = NULL;
             *stop = (root_view_controller != nil);
         }];
 
-        GKGameCenterViewController *gc_view_controller = [[GKGameCenterViewController alloc] init];
+        GKGameCenterViewController *gc_view_controller = [[[GKGameCenterViewController alloc] init] autorelease];
 
         gc_view_controller.gameCenterDelegate    = self;
         gc_view_controller.viewState             = GKGameCenterViewControllerStateLeaderboards;
@@ -114,7 +116,7 @@ GameCenterHelper *GameCenterHelper::Instance = NULL;
             if (error != nil) {
                 qWarning() << QString::fromNSString([error localizedDescription]);
             } else {
-                GKLeaderboard *leaderboard = [[[GKLeaderboard alloc] init] autorelease];
+                GKLeaderboard *leaderboard = [[GKLeaderboard alloc] init];
 
                 leaderboard.identifier = GameCenterHelper::GC_LEADERBOARD_ID.toNSString();
 
@@ -127,6 +129,8 @@ GameCenterHelper *GameCenterHelper::Instance = NULL;
                             GameCenterHelper::setPlayerRank((int)leaderboard.localPlayerScore.rank);
                         }
                     }
+
+                    [leaderboard autorelease];
                 }];
             }
         }];
