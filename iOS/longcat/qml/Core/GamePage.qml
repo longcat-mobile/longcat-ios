@@ -254,26 +254,44 @@ Item {
             }
         }
 
-        Text {
-            id:                  timerText
-            anchors.top:         parent.top
-            anchors.left:        parent.left
-            anchors.topMargin:   Math.max(gamePage.bannerViewHeight + 4 * backgroundImage.imageScale, 34)
-            z:                   10
-            text:                "00:00:00"
-            color:               "yellow"
-            horizontalAlignment: Text.AlignRight
-            verticalAlignment:   Text.AlignVCenter
-            font.family:         arcadeClassicFont.name
-            font.pointSize:      32
+        Column {
+            anchors.top:       parent.top
+            anchors.left:      parent.left
+            anchors.topMargin: Math.max(gamePage.bannerViewHeight + 4 * backgroundImage.imageScale, 34)
+            z:                 10
+            spacing:           4 * backgroundImage.imageScale
+
+            Text {
+                id:                  timerText
+                anchors.left:        parent.left
+                text:                "00:00:00"
+                color:               "yellow"
+                horizontalAlignment: Text.AlignLeft
+                verticalAlignment:   Text.AlignVCenter
+                font.family:         arcadeClassicFont.name
+                font.pointSize:      24
+            }
+
+            Text {
+                id:                  playerRankText
+                anchors.left:        parent.left
+                text:                "#%1".arg(playerRank)
+                color:               "red"
+                horizontalAlignment: Text.AlignLeft
+                verticalAlignment:   Text.AlignVCenter
+                font.family:         arcadeClassicFont.name
+                font.pointSize:      24
+
+                property int playerRank: GameCenterHelper.playerRank
+            }
         }
 
         Column {
-            anchors.top:         parent.top
-            anchors.right:       parent.right
-            anchors.topMargin:   Math.max(gamePage.bannerViewHeight + 4 * backgroundImage.imageScale, 34)
-            z:                   10
-            spacing:             4 * backgroundImage.imageScale
+            anchors.top:       parent.top
+            anchors.right:     parent.right
+            anchors.topMargin: Math.max(gamePage.bannerViewHeight + 4 * backgroundImage.imageScale, 34)
+            z:                 10
+            spacing:           4 * backgroundImage.imageScale
 
             Text {
                 id:                  scoreText
@@ -283,47 +301,29 @@ Item {
                 horizontalAlignment: Text.AlignRight
                 verticalAlignment:   Text.AlignVCenter
                 font.family:         arcadeClassicFont.name
-                font.pointSize:      32
+                font.pointSize:      24
             }
 
-            Row {
-                anchors.right: parent.right
-                visible:       playerRankText.playerRank   !== 0 &&
-                               playerScoreText.playerScore !== 0
-                spacing:       4 * backgroundImage.imageScale
+            Text {
+                id:                  playerScoreText
+                anchors.right:       parent.right
+                text:                "000000"
+                color:               "red"
+                horizontalAlignment: Text.AlignRight
+                verticalAlignment:   Text.AlignVCenter
+                font.family:         arcadeClassicFont.name
+                font.pointSize:      24
 
-                Text {
-                    id:                  playerRankText
-                    text:                "#%1".arg(playerRank)
-                    color:               "green"
-                    horizontalAlignment: Text.AlignRight
-                    verticalAlignment:   Text.AlignVCenter
-                    font.family:         arcadeClassicFont.name
-                    font.pointSize:      32
+                property int playerScore: GameCenterHelper.playerScore
 
-                    property int playerRank: GameCenterHelper.playerRank
-                }
+                onPlayerScoreChanged: {
+                    var score = playerScore + "";
 
-                Text {
-                    id:                  playerScoreText
-                    text:                "000000"
-                    color:               "green"
-                    horizontalAlignment: Text.AlignRight
-                    verticalAlignment:   Text.AlignVCenter
-                    font.family:         arcadeClassicFont.name
-                    font.pointSize:      32
-
-                    property int playerScore: GameCenterHelper.playerScore
-
-                    onPlayerScoreChanged: {
-                        var score = playerScore + "";
-
-                        while (score.length < 6) {
-                            score = "0" + score;
-                        }
-
-                        playerScoreText.text = score;
+                    while (score.length < 6) {
+                        score = "0" + score;
                     }
+
+                    playerScoreText.text = score;
                 }
             }
         }
