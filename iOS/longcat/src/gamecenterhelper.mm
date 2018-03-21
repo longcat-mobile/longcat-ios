@@ -108,32 +108,34 @@ GameCenterHelper *GameCenterHelper::Instance = NULL;
 - (void)reportScore:(int)value
 {
     if (GameCenterEnabled) {
-        GKScore *score = [[[GKScore alloc] initWithLeaderboardIdentifier:GameCenterHelper::GC_LEADERBOARD_ID.toNSString()] autorelease];
+        if (value > 0) {
+            GKScore *score = [[[GKScore alloc] initWithLeaderboardIdentifier:GameCenterHelper::GC_LEADERBOARD_ID.toNSString()] autorelease];
 
-        score.value = value;
+            score.value = value;
 
-        [GKScore reportScores:@[score] withCompletionHandler:^(NSError *error) {
-            if (error != nil) {
-                qWarning() << QString::fromNSString([error localizedDescription]);
-            } else {
-                GKLeaderboard *leaderboard = [[GKLeaderboard alloc] init];
+            [GKScore reportScores:@[score] withCompletionHandler:^(NSError *error) {
+                if (error != nil) {
+                    qWarning() << QString::fromNSString([error localizedDescription]);
+                } else {
+                    GKLeaderboard *leaderboard = [[GKLeaderboard alloc] init];
 
-                leaderboard.identifier = GameCenterHelper::GC_LEADERBOARD_ID.toNSString();
+                    leaderboard.identifier = GameCenterHelper::GC_LEADERBOARD_ID.toNSString();
 
-                [leaderboard loadScoresWithCompletionHandler:^(NSArray*, NSError *error) {
-                    if (error != nil) {
-                        qWarning() << QString::fromNSString([error localizedDescription]);
-                    } else {
-                        if (leaderboard.localPlayerScore != nil) {
-                            GameCenterHelper::setPlayerScore((int)leaderboard.localPlayerScore.value);
-                            GameCenterHelper::setPlayerRank((int)leaderboard.localPlayerScore.rank);
+                    [leaderboard loadScoresWithCompletionHandler:^(NSArray*, NSError *error) {
+                        if (error != nil) {
+                            qWarning() << QString::fromNSString([error localizedDescription]);
+                        } else {
+                            if (leaderboard.localPlayerScore != nil) {
+                                GameCenterHelper::setPlayerScore((int)leaderboard.localPlayerScore.value);
+                                GameCenterHelper::setPlayerRank((int)leaderboard.localPlayerScore.rank);
+                            }
                         }
-                    }
 
-                    [leaderboard autorelease];
-                }];
-            }
-        }];
+                        [leaderboard autorelease];
+                    }];
+                }
+            }];
+        }
     }
 }
 
