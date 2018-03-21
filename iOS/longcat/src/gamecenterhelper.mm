@@ -51,7 +51,7 @@ GameCenterHelper *GameCenterHelper::Instance = NULL;
 
                     GameCenterHelper::setGameCenterEnabled(GameCenterEnabled);
 
-                    GKLeaderboard *leaderboard = [[GKLeaderboard alloc] init];
+                    GKLeaderboard *leaderboard = [[[GKLeaderboard alloc] init] autorelease];
 
                     leaderboard.identifier = GameCenterHelper::GC_LEADERBOARD_ID.toNSString();
 
@@ -106,7 +106,7 @@ GameCenterHelper *GameCenterHelper::Instance = NULL;
 - (void)reportScore:(int)value
 {
     if (GameCenterEnabled) {
-        GKScore *score = [[GKScore alloc] initWithLeaderboardIdentifier:GameCenterHelper::GC_LEADERBOARD_ID.toNSString()];
+        GKScore *score = [[[GKScore alloc] initWithLeaderboardIdentifier:GameCenterHelper::GC_LEADERBOARD_ID.toNSString()] autorelease];
 
         score.value = value;
 
@@ -114,7 +114,7 @@ GameCenterHelper *GameCenterHelper::Instance = NULL;
             if (error != nil) {
                 qWarning() << QString::fromNSString([error localizedDescription]);
             } else {
-                GKLeaderboard *leaderboard = [[GKLeaderboard alloc] init];
+                GKLeaderboard *leaderboard = [[[GKLeaderboard alloc] init] autorelease];
 
                 leaderboard.identifier = GameCenterHelper::GC_LEADERBOARD_ID.toNSString();
 
