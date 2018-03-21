@@ -258,7 +258,7 @@ Item {
             id:                  timerText
             anchors.top:         parent.top
             anchors.left:        parent.left
-            anchors.topMargin:   Math.max(gamePage.bannerViewHeight + 8 * backgroundImage.imageScale, 34)
+            anchors.topMargin:   Math.max(gamePage.bannerViewHeight + 4 * backgroundImage.imageScale, 34)
             z:                   10
             text:                "00:00:00"
             color:               "yellow"
@@ -271,9 +271,9 @@ Item {
         Column {
             anchors.top:         parent.top
             anchors.right:       parent.right
-            anchors.topMargin:   Math.max(gamePage.bannerViewHeight + 8 * backgroundImage.imageScale, 34)
+            anchors.topMargin:   Math.max(gamePage.bannerViewHeight + 4 * backgroundImage.imageScale, 34)
             z:                   10
-            spacing:             8 * backgroundImage.imageScale
+            spacing:             4 * backgroundImage.imageScale
 
             Text {
                 id:                  scoreText
@@ -290,7 +290,7 @@ Item {
                 anchors.right: parent.right
                 visible:       playerRankText.playerRank   !== 0 &&
                                playerScoreText.playerScore !== 0
-                spacing:       8 * backgroundImage.imageScale
+                spacing:       4 * backgroundImage.imageScale
 
                 Text {
                     id:                  playerRankText
