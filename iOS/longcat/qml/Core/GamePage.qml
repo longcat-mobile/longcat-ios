@@ -265,7 +265,7 @@ Item {
                 id:                  timerText
                 anchors.left:        parent.left
                 text:                "00:00:00"
-                color:               "yellow"
+                color:               "blue"
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment:   Text.AlignVCenter
                 font.family:         arcadeClassicFont.name
@@ -297,7 +297,7 @@ Item {
                 id:                  scoreText
                 anchors.right:       parent.right
                 text:                "000000"
-                color:               "yellow"
+                color:               "blue"
                 horizontalAlignment: Text.AlignRight
                 verticalAlignment:   Text.AlignVCenter
                 font.family:         arcadeClassicFont.name
