@@ -162,13 +162,13 @@ Item {
             }
 
             AnimatedLayer {
-                id:           grassLayer
+                id:           forefrontLayer
                 anchors.fill: parent
                 z:            3
                 running:      gamePage.gameRunning
                 paused:       gamePage.gamePaused
                 speed:        12 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty / 10.0)
-                imageSource:  "qrc:/resources/images/game/layer_grass.png"
+                imageSource:  "qrc:/resources/images/game/layer_forefront.png"
             }
 
             AnimatedLayer {
