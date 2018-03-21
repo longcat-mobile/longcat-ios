@@ -59,8 +59,10 @@ GameCenterHelper *GameCenterHelper::Instance = NULL;
                         if (error != nil) {
                             qWarning() << QString::fromNSString([error localizedDescription]);
                         } else {
-                            GameCenterHelper::setPlayerScore((int)leaderboard.localPlayerScore.value);
-                            GameCenterHelper::setPlayerRank((int)leaderboard.localPlayerScore.rank);
+                            if (leaderboard.localPlayerScore != nil) {
+                                GameCenterHelper::setPlayerScore((int)leaderboard.localPlayerScore.value);
+                                GameCenterHelper::setPlayerRank((int)leaderboard.localPlayerScore.rank);
+                            }
                         }
                     }];
                 } else {
@@ -120,8 +122,10 @@ GameCenterHelper *GameCenterHelper::Instance = NULL;
                     if (error != nil) {
                         qWarning() << QString::fromNSString([error localizedDescription]);
                     } else {
-                        GameCenterHelper::setPlayerScore((int)leaderboard.localPlayerScore.value);
-                        GameCenterHelper::setPlayerRank((int)leaderboard.localPlayerScore.rank);
+                        if (leaderboard.localPlayerScore != nil) {
+                            GameCenterHelper::setPlayerScore((int)leaderboard.localPlayerScore.value);
+                            GameCenterHelper::setPlayerRank((int)leaderboard.localPlayerScore.rank);
+                        }
                     }
                 }];
             }
