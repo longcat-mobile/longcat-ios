@@ -275,6 +275,7 @@ Item {
             Text {
                 id:                  playerRankText
                 anchors.left:        parent.left
+                visible:             playerRankText.playerRank !== 0 && playerScoreText.playerScore !== 0
                 text:                "#%1".arg(playerRank)
                 color:               "red"
                 horizontalAlignment: Text.AlignLeft
@@ -307,6 +308,7 @@ Item {
             Text {
                 id:                  playerScoreText
                 anchors.right:       parent.right
+                visible:             playerRankText.playerRank !== 0 && playerScoreText.playerScore !== 0
                 text:                "000000"
                 color:               "red"
                 horizontalAlignment: Text.AlignRight
