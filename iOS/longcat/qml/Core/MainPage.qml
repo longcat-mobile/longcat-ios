@@ -61,7 +61,7 @@ Item {
         Image {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom:           parent.bottom
-            anchors.bottomMargin:     32 * backgroundImage.imageScale
+            anchors.bottomMargin:     16 * backgroundImage.imageScale
             z:                        10
             width:                    sourceSize.width  * backgroundImage.imageScale
             height:                   sourceSize.height * backgroundImage.imageScale
