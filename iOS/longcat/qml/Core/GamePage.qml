@@ -147,18 +147,18 @@ Item {
                 z:            1
                 running:      gamePage.gameRunning
                 paused:       gamePage.gamePaused
-                speed:        4 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty / 6.5)
+                speed:        2 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty / 10.0)
                 imageSource:  "qrc:/resources/images/game/layer_clouds.png"
             }
 
             AnimatedLayer {
-                id:           bushLayer
+                id:           hillsLayer
                 anchors.fill: parent
                 z:            2
                 running:      gamePage.gameRunning
                 paused:       gamePage.gamePaused
-                speed:        12 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty / 6.5)
-                imageSource:  "qrc:/resources/images/game/layer_bush.png"
+                speed:        6 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty / 10.0)
+                imageSource:  "qrc:/resources/images/game/layer_hills.png"
             }
 
             AnimatedLayer {
@@ -167,7 +167,7 @@ Item {
                 z:            3
                 running:      gamePage.gameRunning
                 paused:       gamePage.gamePaused
-                speed:        24 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty / 6.5)
+                speed:        12 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty / 10.0)
                 imageSource:  "qrc:/resources/images/game/layer_grass.png"
             }
 
@@ -177,7 +177,7 @@ Item {
                 z:            4
                 running:      gamePage.gameRunning
                 paused:       gamePage.gamePaused
-                speed:        48 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty / 6.5)
+                speed:        24 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty / 10.0)
                 imageSource:  "qrc:/resources/images/game/layer_ground.png"
             }
 
@@ -187,9 +187,9 @@ Item {
                 z:             5
                 running:       gamePage.gameRunning
                 paused:        gamePage.gamePaused
-                objectsHeight: 480
-                objectsCount:  3 + (gamePage.gameDifficulty / 3)
-                speed:         48 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty / 6.5)
+                objectsHeight: 172
+                objectsCount:  12 + (gamePage.gameDifficulty / 2)
+                speed:         24 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty / 10.0)
                 imageSource:   "qrc:/resources/images/game/layer_objects.png"
             }
 
@@ -197,9 +197,9 @@ Item {
                 id:                       cat
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.bottom:           parent.bottom
-                anchors.bottomMargin:     115 * imageScale
+                anchors.bottomMargin:     64 * imageScale
                 z:                        6
-                stretchTo:                512
+                stretchTo:                192
                 energy:                   100
                 maxEnergy:                100
                 imageScale:               backgroundImage.imageScale
@@ -258,7 +258,7 @@ Item {
             id:                  timerText
             anchors.top:         parent.top
             anchors.left:        parent.left
-            anchors.topMargin:   Math.max(gamePage.bannerViewHeight + 16 * backgroundImage.imageScale, 34)
+            anchors.topMargin:   Math.max(gamePage.bannerViewHeight + 8 * backgroundImage.imageScale, 34)
             z:                   10
             text:                "00:00:00"
             color:               "yellow"
@@ -271,9 +271,9 @@ Item {
         Column {
             anchors.top:         parent.top
             anchors.right:       parent.right
-            anchors.topMargin:   Math.max(gamePage.bannerViewHeight + 16 * backgroundImage.imageScale, 34)
+            anchors.topMargin:   Math.max(gamePage.bannerViewHeight + 8 * backgroundImage.imageScale, 34)
             z:                   10
-            spacing:             16 * backgroundImage.imageScale
+            spacing:             8 * backgroundImage.imageScale
 
             Text {
                 id:                  scoreText
@@ -290,7 +290,7 @@ Item {
                 anchors.right: parent.right
                 visible:       playerRankText.playerRank   !== 0 &&
                                playerScoreText.playerScore !== 0
-                spacing:       16 * backgroundImage.imageScale
+                spacing:       8 * backgroundImage.imageScale
 
                 Text {
                     id:                  playerRankText
@@ -411,8 +411,8 @@ Item {
         Image {
             anchors.left:         parent.left
             anchors.bottom:       parent.bottom
-            anchors.leftMargin:   16 * backgroundImage.imageScale
-            anchors.bottomMargin: 32 * backgroundImage.imageScale
+            anchors.leftMargin:   8  * backgroundImage.imageScale
+            anchors.bottomMargin: 16 * backgroundImage.imageScale
             z:                    20
             width:                sourceSize.width  * backgroundImage.imageScale
             height:               sourceSize.height * backgroundImage.imageScale
@@ -432,10 +432,10 @@ Item {
         Column {
             anchors.right:        parent.right
             anchors.bottom:       parent.bottom
-            anchors.rightMargin:  16 * backgroundImage.imageScale
-            anchors.bottomMargin: 32 * backgroundImage.imageScale
+            anchors.rightMargin:  8  * backgroundImage.imageScale
+            anchors.bottomMargin: 16 * backgroundImage.imageScale
             z:                    20
-            spacing:              32 * backgroundImage.imageScale
+            spacing:              16 * backgroundImage.imageScale
 
             Image {
                 width:  sourceSize.width  * backgroundImage.imageScale

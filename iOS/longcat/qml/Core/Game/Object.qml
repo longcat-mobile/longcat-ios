@@ -2,7 +2,7 @@ import QtQuick 2.9
 
 Column {
     id:      object
-    spacing: (0 - 32) * imageScale
+    spacing: (0 - 16) * imageScale
 
     property bool consumed:        false
 
