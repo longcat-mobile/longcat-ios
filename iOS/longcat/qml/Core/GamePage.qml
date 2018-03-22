@@ -147,7 +147,7 @@ Item {
                 z:            1
                 running:      gamePage.gameRunning
                 paused:       gamePage.gamePaused
-                speed:        2 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty / 10.0)
+                speed:        2 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty * 3.0 / 40.0)
                 imageSource:  "qrc:/resources/images/game/layer_clouds.png"
             }
 
@@ -157,7 +157,7 @@ Item {
                 z:            2
                 running:      gamePage.gameRunning
                 paused:       gamePage.gamePaused
-                speed:        6 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty / 10.0)
+                speed:        6 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty * 3.0 / 40.0)
                 imageSource:  "qrc:/resources/images/game/layer_hills.png"
             }
 
@@ -167,7 +167,7 @@ Item {
                 z:            3
                 running:      gamePage.gameRunning
                 paused:       gamePage.gamePaused
-                speed:        12 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty / 10.0)
+                speed:        12 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty * 3.0 / 40.0)
                 imageSource:  "qrc:/resources/images/game/layer_forefront.png"
             }
 
@@ -177,7 +177,7 @@ Item {
                 z:            4
                 running:      gamePage.gameRunning
                 paused:       gamePage.gamePaused
-                speed:        24 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty / 10.0)
+                speed:        24 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty * 3.0 / 40.0)
                 imageSource:  "qrc:/resources/images/game/layer_ground.png"
             }
 
@@ -189,7 +189,7 @@ Item {
                 paused:        gamePage.gamePaused
                 objectsHeight: 172
                 objectsCount:  12 + (gamePage.gameDifficulty / 2)
-                speed:         24 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty / 10.0)
+                speed:         24 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty * 3.0 / 40.0)
                 imageSource:   "qrc:/resources/images/game/layer_objects.png"
             }
 
