@@ -232,7 +232,7 @@ Rectangle {
                 property: "x"
                 from:     0 - animatedObjectsLayer.imageWidth
                 to:       0
-                duration: animatedObjectsLayer.speed > 0.0 ? animatedObjectsLayer.imageWidth / animatedObjectsLayer.speed * 100 : 0
+                duration: animatedObjectsLayer.speed > 0.0 ? animatedObjectsLayer.imageWidth / animatedObjectsLayer.speed * 1000 : 0
             }
 
             NumberAnimation {
@@ -240,7 +240,7 @@ Rectangle {
                 property: "x"
                 from:     0
                 to:       animatedObjectsLayer.imageWidth
-                duration: animatedObjectsLayer.speed > 0.0 ? animatedObjectsLayer.imageWidth / animatedObjectsLayer.speed * 100 : 0
+                duration: animatedObjectsLayer.speed > 0.0 ? animatedObjectsLayer.imageWidth / animatedObjectsLayer.speed * 1000 : 0
             }
         }
 
@@ -256,7 +256,7 @@ Rectangle {
                 property: "x"
                 from:     0
                 to:       animatedObjectsLayer.imageWidth
-                duration: animatedObjectsLayer.speed > 0.0 ? animatedObjectsLayer.imageWidth / animatedObjectsLayer.speed * 100 : 0
+                duration: animatedObjectsLayer.speed > 0.0 ? animatedObjectsLayer.imageWidth / animatedObjectsLayer.speed * 1000 : 0
             }
 
             NumberAnimation {
@@ -264,7 +264,7 @@ Rectangle {
                 property: "x"
                 from:     0 - animatedObjectsLayer.imageWidth
                 to:       0
-                duration: animatedObjectsLayer.speed > 0.0 ? animatedObjectsLayer.imageWidth / animatedObjectsLayer.speed * 100 : 0
+                duration: animatedObjectsLayer.speed > 0.0 ? animatedObjectsLayer.imageWidth / animatedObjectsLayer.speed * 1000 : 0
             }
         }
 
