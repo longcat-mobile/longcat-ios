@@ -121,11 +121,14 @@ Item {
 
             property bool geometrySettled: false
 
+            property real visibleWidth:    0.0
             property real imageScale:      sourceSize.width > 0.0 ? paintedWidth / sourceSize.width : 1.0
 
             onPaintedWidthChanged: {
                 if (!geometrySettled && width > 0 && height > 0 && paintedWidth > 0 && paintedHeight > 0) {
                     geometrySettled = true;
+
+                    visibleWidth = width;
 
                     width  = Math.floor(paintedWidth);
                     height = Math.floor(paintedHeight);
@@ -135,6 +138,8 @@ Item {
             onPaintedHeightChanged: {
                 if (!geometrySettled && width > 0 && height > 0 && paintedWidth > 0 && paintedHeight > 0) {
                     geometrySettled = true;
+
+                    visibleWidth = width;
 
                     width  = Math.floor(paintedWidth);
                     height = Math.floor(paintedHeight);
@@ -147,7 +152,7 @@ Item {
                 z:            1
                 running:      gamePage.gameRunning
                 paused:       gamePage.gamePaused
-                speed:        2 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty * 3.0 / 40.0)
+                speed:        0.125 * (backgroundImage.visibleWidth / 2.0) * (0.5 + gamePage.gameDifficulty / 20.0)
                 imageSource:  "qrc:/resources/images/game/layer_clouds.png"
             }
 
@@ -157,7 +162,7 @@ Item {
                 z:            2
                 running:      gamePage.gameRunning
                 paused:       gamePage.gamePaused
-                speed:        6 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty * 3.0 / 40.0)
+                speed:        0.25 * (backgroundImage.visibleWidth / 2.0) * (0.5 + gamePage.gameDifficulty / 20.0)
                 imageSource:  "qrc:/resources/images/game/layer_hills.png"
             }
 
@@ -167,7 +172,7 @@ Item {
                 z:            3
                 running:      gamePage.gameRunning
                 paused:       gamePage.gamePaused
-                speed:        12 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty * 3.0 / 40.0)
+                speed:        0.5 * (backgroundImage.visibleWidth / 2.0) * (0.5 + gamePage.gameDifficulty / 20.0)
                 imageSource:  "qrc:/resources/images/game/layer_forefront.png"
             }
 
@@ -177,7 +182,7 @@ Item {
                 z:            4
                 running:      gamePage.gameRunning
                 paused:       gamePage.gamePaused
-                speed:        24 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty * 3.0 / 40.0)
+                speed:        1.0 * (backgroundImage.visibleWidth / 2.0) * (0.5 + gamePage.gameDifficulty / 20.0)
                 imageSource:  "qrc:/resources/images/game/layer_ground.png"
             }
 
@@ -189,7 +194,7 @@ Item {
                 paused:        gamePage.gamePaused
                 objectsHeight: 172
                 objectsCount:  12 + (gamePage.gameDifficulty / 2)
-                speed:         24 * backgroundImage.imageScale * (1.0 + gamePage.gameDifficulty * 3.0 / 40.0)
+                speed:         1.0 * (backgroundImage.visibleWidth / 2.0) * (0.5 + gamePage.gameDifficulty / 20.0)
                 imageSource:   "qrc:/resources/images/game/layer_objects.png"
             }
 
