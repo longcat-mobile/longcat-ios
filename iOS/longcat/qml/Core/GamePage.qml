@@ -82,12 +82,17 @@ Item {
     SoundEffect {
         id:     musicSoundEffect
         volume: 0.5
-        muted:  gamePage.gamePaused
         loops:  SoundEffect.Infinite
         source: "qrc:/resources/sound/game/music.wav"
 
-        Component.onCompleted: {
-            play();
+        property bool playbackEnabled: !gamePage.gamePaused
+
+        onPlaybackEnabledChanged: {
+            if (playbackEnabled) {
+                play();
+            } else {
+                stop();
+            }
         }
     }
 
@@ -204,6 +209,7 @@ Item {
                 anchors.bottom:           parent.bottom
                 anchors.bottomMargin:     80 * imageScale
                 z:                        6
+                paused:                   gamePage.gamePaused
                 stretchTo:                192
                 energy:                   100
                 maxEnergy:                100

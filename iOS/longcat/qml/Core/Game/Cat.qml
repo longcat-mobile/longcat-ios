@@ -4,6 +4,7 @@ Column {
     id: cat
 
     property bool alive:             true
+    property bool paused:            false
 
     property int stretchTo:          0
     property int energy:             0
@@ -67,7 +68,7 @@ Column {
     AnimatedSprite {
         width:       frameWidth  * cat.imageScale
         height:      frameHeight * cat.imageScale
-        running:     cat.visible
+        running:     cat.visible && !cat.paused
         source:      "qrc:/resources/images/game/cat/top.png"
         frameCount:  4
         frameWidth:  168
@@ -114,7 +115,7 @@ Column {
     AnimatedSprite {
         width:       frameWidth  * cat.imageScale
         height:      frameHeight * cat.imageScale
-        running:     cat.visible
+        running:     cat.visible && !cat.paused
         source:      "qrc:/resources/images/game/cat/bottom.png"
         frameCount:  8
         frameWidth:  168

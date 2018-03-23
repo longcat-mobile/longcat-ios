@@ -11,12 +11,17 @@ Item {
     SoundEffect {
         id:     musicSoundEffect
         volume: 0.5
-        muted:  !mainPage.appInForeground || !mainPage.pageActive
         loops:  SoundEffect.Infinite
         source: "qrc:/resources/sound/main/music.wav"
 
-        Component.onCompleted: {
-            play();
+        property bool playbackEnabled: mainPage.appInForeground && mainPage.pageActive
+
+        onPlaybackEnabledChanged: {
+            if (playbackEnabled) {
+                play();
+            } else {
+                stop();
+            }
         }
     }
 
