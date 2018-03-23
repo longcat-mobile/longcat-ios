@@ -64,11 +64,17 @@ Column {
         }
     }
 
-    Image {
-        width:    sourceSize.width  * cat.imageScale
-        height:   sourceSize.height * cat.imageScale
-        source:   "qrc:/resources/images/game/cat/top.png"
-        fillMode: Image.PreserveAspectFit
+    AnimatedSprite {
+        width:       frameWidth  * cat.imageScale
+        height:      frameHeight * cat.imageScale
+        running:     cat.visible
+        source:      "qrc:/resources/images/game/cat/top.png"
+        frameCount:  4
+        frameWidth:  168
+        frameHeight: 120
+        frameX:      0
+        frameRate:   4
+        loops:       AnimatedSprite.Infinite
     }
 
     Image {
