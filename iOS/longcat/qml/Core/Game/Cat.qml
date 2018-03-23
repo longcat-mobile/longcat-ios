@@ -105,11 +105,17 @@ Column {
         }
     }
 
-    Image {
-        width:    sourceSize.width  * cat.imageScale
-        height:   sourceSize.height * cat.imageScale
-        source:   "qrc:/resources/images/game/cat/bottom.png"
-        fillMode: Image.PreserveAspectFit
+    AnimatedSprite {
+        width:       frameWidth  * cat.imageScale
+        height:      frameHeight * cat.imageScale
+        running:     cat.visible
+        source:      "qrc:/resources/images/game/cat/bottom.png"
+        frameCount:  8
+        frameWidth:  168
+        frameHeight: 96
+        frameX:      0
+        frameRate:   8
+        loops:       AnimatedSprite.Infinite
     }
 
     SequentialAnimation {
