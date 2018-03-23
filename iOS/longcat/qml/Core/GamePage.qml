@@ -202,7 +202,7 @@ Item {
                 id:                       cat
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.bottom:           parent.bottom
-                anchors.bottomMargin:     64 * imageScale
+                anchors.bottomMargin:     80 * imageScale
                 z:                        6
                 stretchTo:                192
                 energy:                   100
