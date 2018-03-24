@@ -280,7 +280,7 @@ Item {
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment:   Text.AlignVCenter
                 font.family:         arcadeClassicFont.name
-                font.pointSize:      24
+                font.pointSize:      32
             }
 
             Text {
@@ -292,7 +292,7 @@ Item {
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment:   Text.AlignVCenter
                 font.family:         arcadeClassicFont.name
-                font.pointSize:      24
+                font.pointSize:      32
 
                 property int playerRank: GameCenterHelper.playerRank
             }
@@ -313,7 +313,7 @@ Item {
                 horizontalAlignment: Text.AlignRight
                 verticalAlignment:   Text.AlignVCenter
                 font.family:         arcadeClassicFont.name
-                font.pointSize:      24
+                font.pointSize:      32
             }
 
             Text {
@@ -325,7 +325,7 @@ Item {
                 horizontalAlignment: Text.AlignRight
                 verticalAlignment:   Text.AlignVCenter
                 font.family:         arcadeClassicFont.name
-                font.pointSize:      24
+                font.pointSize:      32
 
                 property int playerScore: GameCenterHelper.playerScore
 
