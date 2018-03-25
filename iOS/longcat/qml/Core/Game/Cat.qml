@@ -71,7 +71,7 @@ Column {
         running:     cat.visible && !cat.paused
         source:      "qrc:/resources/images/game/cat/top.png"
         frameCount:  4
-        frameWidth:  168
+        frameWidth:  172
         frameHeight: 120
         frameX:      0
         frameRate:   4
@@ -118,7 +118,7 @@ Column {
         running:     cat.visible && !cat.paused
         source:      "qrc:/resources/images/game/cat/bottom.png"
         frameCount:  8
-        frameWidth:  168
+        frameWidth:  172
         frameHeight: 96
         frameX:      0
         frameRate:   8
