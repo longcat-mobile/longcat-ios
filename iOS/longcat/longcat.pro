@@ -9,13 +9,15 @@ OBJECTIVE_SOURCES += \
     src/sharehelper.mm \
     src/admobhelper.mm \
     src/storehelper.mm \
-    src/gamecenterhelper.mm
+    src/gamecenterhelper.mm \
+    src/reachabilityhelper.mm
 
 HEADERS += \
     src/sharehelper.h \
     src/admobhelper.h \
     src/storehelper.h \
-    src/gamecenterhelper.h
+    src/gamecenterhelper.h \
+    src/reachabilityhelper.h
 
 RESOURCES += \
     qml.qrc \

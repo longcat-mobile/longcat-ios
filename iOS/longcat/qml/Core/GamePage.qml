@@ -435,7 +435,9 @@ Item {
                 anchors.fill: parent
 
                 onClicked: {
-                    StoreHelper.requestReview();
+                    if (ReachabilityHelper.internetConnected) {
+                        StoreHelper.requestReview();
+                    }
 
                     mainStackView.pop(StackView.Immediate);
                 }
