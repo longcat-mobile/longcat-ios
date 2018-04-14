@@ -1,12 +1,12 @@
 <RCC>
     <qresource prefix="/">
+        <file>resources/animations/game/cat/bottom.png</file>
+        <file>resources/animations/game/cat/top.png</file>
         <file>resources/fonts/game/arcade_classic.ttf</file>
         <file>resources/images/game/birds/eagle.png</file>
         <file>resources/images/game/birds/hawk.png</file>
         <file>resources/images/game/birds/raven.png</file>
-        <file>resources/images/game/cat/bottom.png</file>
         <file>resources/images/game/cat/middle.png</file>
-        <file>resources/images/game/cat/top.png</file>
         <file>resources/images/game/objects/apple.png</file>
         <file>resources/images/game/objects/banana.png</file>
         <file>resources/images/game/objects/bomb.png</file>

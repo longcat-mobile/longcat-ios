@@ -69,7 +69,7 @@ Column {
         width:       frameWidth  * cat.imageScale
         height:      frameHeight * cat.imageScale
         running:     cat.visible && !cat.paused
-        source:      "qrc:/resources/images/game/cat/top.png"
+        source:      "qrc:/resources/animations/game/cat/top.png"
         frameCount:  4
         frameWidth:  172
         frameHeight: 120
@@ -116,7 +116,7 @@ Column {
         width:       frameWidth  * cat.imageScale
         height:      frameHeight * cat.imageScale
         running:     cat.visible && !cat.paused
-        source:      "qrc:/resources/images/game/cat/bottom.png"
+        source:      "qrc:/resources/animations/game/cat/bottom.png"
         frameCount:  8
         frameWidth:  172
         frameHeight: 96
