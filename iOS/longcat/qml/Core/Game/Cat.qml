@@ -69,7 +69,7 @@ Column {
         width:       frameWidth  * cat.imageScale
         height:      frameHeight * cat.imageScale
         running:     cat.visible && !cat.paused
-        source:      "qrc:/resources/animations/game/cat/top.png"
+        source:      "qrc:/resources/animations/game/cat_top.png"
         frameCount:  4
         frameWidth:  172
         frameHeight: 120
@@ -82,7 +82,7 @@ Column {
         id:       middleImage
         width:    sourceSize.width  * cat.imageScale
         height:   sourceSize.height * cat.imageScale
-        source:   "qrc:/resources/images/game/cat/middle.png"
+        source:   "qrc:/resources/images/game/cat_middle.png"
         fillMode: Image.Stretch
 
         SequentialAnimation {
@@ -116,7 +116,7 @@ Column {
         width:       frameWidth  * cat.imageScale
         height:      frameHeight * cat.imageScale
         running:     cat.visible && !cat.paused
-        source:      "qrc:/resources/animations/game/cat/bottom.png"
+        source:      "qrc:/resources/animations/game/cat_bottom.png"
         frameCount:  8
         frameWidth:  172
         frameHeight: 96
