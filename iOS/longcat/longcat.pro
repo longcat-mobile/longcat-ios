@@ -34,7 +34,7 @@ QML_IMPORT_PATH =
 QML_DESIGNER_IMPORT_PATH =
 
 ios {
-    LIBS += -F $$PWD/frameworks \
+    LIBS += -F $$PWD/ios/frameworks \
             -framework GoogleMobileAds \
             -framework AdSupport \
             -framework CFNetwork \
