@@ -43,6 +43,10 @@ GameCenterHelper *GameCenterHelper::Instance = NULL;
         local_player.authenticateHandler = ^(UIViewController *view_controller, NSError *error) {
             if (error != nil) {
                 qWarning() << QString::fromNSString([error localizedDescription]);
+
+                GameCenterEnabled = NO;
+
+                GameCenterHelper::setGameCenterEnabled(GameCenterEnabled);
             } else {
                 if (view_controller != nil) {
                     [root_view_controller presentViewController:view_controller animated:YES completion:nil];
