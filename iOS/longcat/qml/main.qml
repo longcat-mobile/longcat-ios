@@ -66,11 +66,7 @@ Window {
                 }
 
                 if (currentItem.hasOwnProperty("bannerViewHeight")) {
-                    if (mainWindow.fullVersion) {
-                        AdMobHelper.hideBannerView();
-                    } else {
-                        AdMobHelper.showBannerView();
-                    }
+                    AdMobHelper.showBannerView();
                 } else {
                     AdMobHelper.hideBannerView();
                 }
