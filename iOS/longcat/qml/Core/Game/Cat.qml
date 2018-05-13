@@ -169,14 +169,12 @@ Column {
             }
         }
 
-        SequentialAnimation {
-            NumberAnimation {
-                target:   cat
-                property: "opacity"
-                from:     1.0
-                to:       0.0
-                duration: 75
-            }
+        NumberAnimation {
+            target:   cat
+            property: "opacity"
+            from:     1.0
+            to:       0.0
+            duration: 75
         }
 
         ScriptAction {
