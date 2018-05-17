@@ -15,13 +15,12 @@ GameCenterHelper *GameCenterHelper::Instance = NULL;
 - (void)showLeaderboard;
 - (void)reportScore:(int)value;
 
-@property (nonatomic, assign) BOOL GameCenterEnabled;
-
 @end
 
 @implementation GameCenterControllerDelegate
-
-@synthesize GameCenterEnabled;
+{
+    BOOL GameCenterEnabled;
+}
 
 - (id)init
 {
