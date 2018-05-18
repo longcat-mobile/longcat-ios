@@ -204,21 +204,21 @@ void GameCenterHelper::reportScore(int score)
     }
 }
 
-void GameCenterHelper::setGameCenterEnabled(const bool &enabled)
+void GameCenterHelper::setGameCenterEnabled(bool enabled)
 {
     Instance->GameCenterEnabled = enabled;
 
     emit Instance->gameCenterEnabledChanged(Instance->GameCenterEnabled);
 }
 
-void GameCenterHelper::setPlayerScore(const int &score)
+void GameCenterHelper::setPlayerScore(int score)
 {
     Instance->PlayerScore = score;
 
     emit Instance->playerScoreChanged(Instance->PlayerScore);
 }
 
-void GameCenterHelper::setPlayerRank(const int &rank)
+void GameCenterHelper::setPlayerRank(int rank)
 {
     Instance->PlayerRank = rank;
 
