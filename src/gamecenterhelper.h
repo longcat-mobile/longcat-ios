@@ -26,7 +26,6 @@ public:
     int playerScore() const;
     int playerRank() const;
 
-    Q_INVOKABLE void initialize();
     Q_INVOKABLE void showLeaderboard();
     Q_INVOKABLE void reportScore(int score);
 
@@ -40,7 +39,7 @@ signals:
     void playerRankChanged(int playerRank);
 
 private:
-    bool                          Initialized, GameCenterEnabled;
+    bool                          GameCenterEnabled;
     int                           PlayerScore, PlayerRank;
     static GameCenterHelper      *Instance;
 #ifdef __OBJC__

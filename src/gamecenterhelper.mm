@@ -151,19 +151,16 @@ GameCenterHelper *GameCenterHelper::Instance = NULL;
 
 GameCenterHelper::GameCenterHelper(QObject *parent) : QObject(parent)
 {
-    Initialized                          = false;
     GameCenterEnabled                    = false;
     PlayerScore                          = 0;
     PlayerRank                           = 0;
     Instance                             = this;
-    GameCenterControllerDelegateInstance = NULL;
+    GameCenterControllerDelegateInstance = [[GameCenterControllerDelegate alloc] init];
 }
 
 GameCenterHelper::~GameCenterHelper()
 {
-    if (Initialized) {
-        [GameCenterControllerDelegateInstance release];
-    }
+    [GameCenterControllerDelegateInstance release];
 }
 
 bool GameCenterHelper::gameCenterEnabled() const
@@ -181,27 +178,14 @@ int GameCenterHelper::playerRank() const
     return PlayerRank;
 }
 
-void GameCenterHelper::initialize()
-{
-    if (!Initialized) {
-        GameCenterControllerDelegateInstance = [[GameCenterControllerDelegate alloc] init];
-
-        Initialized = true;
-    }
-}
-
 void GameCenterHelper::showLeaderboard()
 {
-    if (Initialized) {
-        [GameCenterControllerDelegateInstance showLeaderboard];
-    }
+    [GameCenterControllerDelegateInstance showLeaderboard];
 }
 
 void GameCenterHelper::reportScore(int score)
 {
-    if (Initialized) {
-        [GameCenterControllerDelegateInstance reportScore:score];
-    }
+    [GameCenterControllerDelegateInstance reportScore:score];
 }
 
 void GameCenterHelper::setGameCenterEnabled(bool enabled)

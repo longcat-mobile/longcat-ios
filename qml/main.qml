@@ -82,9 +82,6 @@ Window {
     }
 
     Component.onCompleted: {
-        AdMobHelper.initialize();
-        ReachabilityHelper.initialize();
-
         mainStackView.push(mainPage);
     }
 }
