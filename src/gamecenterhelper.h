@@ -26,6 +26,7 @@ public:
     int playerScore() const;
     int playerRank() const;
 
+    Q_INVOKABLE void authenticate();
     Q_INVOKABLE void showLeaderboard();
     Q_INVOKABLE void reportScore(int score);
 

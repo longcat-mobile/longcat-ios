@@ -85,4 +85,8 @@ Item {
             }
         }
     }
+
+    Component.onCompleted: {
+        GameCenterHelper.authenticate();
+    }
 }
