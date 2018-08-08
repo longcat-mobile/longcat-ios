@@ -6,7 +6,7 @@
 
 const QString GameCenterHelper::GC_LEADERBOARD_ID("longcat.leaderboard.score");
 
-GameCenterHelper *GameCenterHelper::Instance = NULL;
+GameCenterHelper *GameCenterHelper::Instance = nullptr;
 
 @interface GameCenterControllerDelegate : NSObject<GKGameCenterControllerDelegate>
 
@@ -75,8 +75,8 @@ GameCenterHelper *GameCenterHelper::Instance = NULL;
                         qWarning() << QString::fromNSString([error localizedDescription]);
                     } else {
                         if (leaderboard.localPlayerScore != nil) {
-                            GameCenterHelper::setPlayerScore((int)leaderboard.localPlayerScore.value);
-                            GameCenterHelper::setPlayerRank((int)leaderboard.localPlayerScore.rank);
+                            GameCenterHelper::setPlayerScore(static_cast<int>(leaderboard.localPlayerScore.value));
+                            GameCenterHelper::setPlayerRank(static_cast<int>(leaderboard.localPlayerScore.rank));
                         }
                     }
 
@@ -133,8 +133,8 @@ GameCenterHelper *GameCenterHelper::Instance = NULL;
                             qWarning() << QString::fromNSString([error localizedDescription]);
                         } else {
                             if (leaderboard.localPlayerScore != nil) {
-                                GameCenterHelper::setPlayerScore((int)leaderboard.localPlayerScore.value);
-                                GameCenterHelper::setPlayerRank((int)leaderboard.localPlayerScore.rank);
+                                GameCenterHelper::setPlayerScore(static_cast<int>(leaderboard.localPlayerScore.value));
+                                GameCenterHelper::setPlayerRank(static_cast<int>(leaderboard.localPlayerScore.rank));
                             }
                         }
 

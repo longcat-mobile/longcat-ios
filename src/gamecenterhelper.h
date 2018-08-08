@@ -19,7 +19,7 @@ class GameCenterHelper : public QObject
 public:
     static const QString GC_LEADERBOARD_ID;
 
-    explicit GameCenterHelper(QObject *parent = 0);
+    explicit GameCenterHelper(QObject *parent = nullptr);
     virtual ~GameCenterHelper();
 
     bool gameCenterEnabled() const;
