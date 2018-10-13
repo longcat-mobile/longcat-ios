@@ -7,6 +7,7 @@ import "Core"
 
 Window {
     id:         mainWindow
+    title:      qsTr("Longcat")
     visibility: Window.FullScreen
     visible:    true
 
