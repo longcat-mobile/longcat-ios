@@ -43,17 +43,17 @@ GameCenterHelper *GameCenterHelper::Instance = nullptr;
 {
     UIViewController * __block root_view_controller = nil;
 
-    [[[UIApplication sharedApplication] windows] enumerateObjectsUsingBlock:^(UIWindow * _Nonnull window, NSUInteger, BOOL * _Nonnull stop) {
-        root_view_controller = [window rootViewController];
+    [UIApplication.sharedApplication.windows enumerateObjectsUsingBlock:^(UIWindow * _Nonnull window, NSUInteger, BOOL * _Nonnull stop) {
+        root_view_controller = window.rootViewController;
 
         *stop = (root_view_controller != nil);
     }];
 
-    GKLocalPlayer *local_player = [GKLocalPlayer localPlayer];
+    GKLocalPlayer *local_player = GKLocalPlayer.localPlayer;
 
     local_player.authenticateHandler = ^(UIViewController *view_controller, NSError *error) {
         if (error != nil) {
-            qWarning() << QString::fromNSString([error localizedDescription]);
+            qWarning() << QString::fromNSString(error.localizedDescription);
 
             GameCenterEnabled = NO;
 
@@ -72,7 +72,7 @@ GameCenterHelper *GameCenterHelper::Instance = nullptr;
 
                 [leaderboard loadScoresWithCompletionHandler:^(NSArray*, NSError *error) {
                     if (error != nil) {
-                        qWarning() << QString::fromNSString([error localizedDescription]);
+                        qWarning() << QString::fromNSString(error.localizedDescription);
                     } else {
                         if (leaderboard.localPlayerScore != nil) {
                             GameCenterHelper::setPlayerScore(static_cast<int>(leaderboard.localPlayerScore.value));
@@ -96,8 +96,8 @@ GameCenterHelper *GameCenterHelper::Instance = nullptr;
     if (GameCenterEnabled) {
         UIViewController * __block root_view_controller = nil;
 
-        [[[UIApplication sharedApplication] windows] enumerateObjectsUsingBlock:^(UIWindow * _Nonnull window, NSUInteger, BOOL * _Nonnull stop) {
-            root_view_controller = [window rootViewController];
+        [UIApplication.sharedApplication.windows enumerateObjectsUsingBlock:^(UIWindow * _Nonnull window, NSUInteger, BOOL * _Nonnull stop) {
+            root_view_controller = window.rootViewController;
 
             *stop = (root_view_controller != nil);
         }];
@@ -122,7 +122,7 @@ GameCenterHelper *GameCenterHelper::Instance = nullptr;
 
             [GKScore reportScores:@[score] withCompletionHandler:^(NSError *error) {
                 if (error != nil) {
-                    qWarning() << QString::fromNSString([error localizedDescription]);
+                    qWarning() << QString::fromNSString(error.localizedDescription);
                 } else {
                     GKLeaderboard *leaderboard = [[GKLeaderboard alloc] init];
 
@@ -130,7 +130,7 @@ GameCenterHelper *GameCenterHelper::Instance = nullptr;
 
                     [leaderboard loadScoresWithCompletionHandler:^(NSArray*, NSError *error) {
                         if (error != nil) {
-                            qWarning() << QString::fromNSString([error localizedDescription]);
+                            qWarning() << QString::fromNSString(error.localizedDescription);
                         } else {
                             if (leaderboard.localPlayerScore != nil) {
                                 GameCenterHelper::setPlayerScore(static_cast<int>(leaderboard.localPlayerScore.value));
