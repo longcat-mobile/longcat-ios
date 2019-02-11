@@ -3,8 +3,6 @@ import QtQuick.Window 2.3
 import QtQuick.Controls 2.2
 import QtQuick.LocalStorage 2.0
 
-import "Core"
-
 Window {
     id:         mainWindow
     title:      qsTr("Longcat")
@@ -71,10 +69,6 @@ Window {
         }
     }
 
-    MainPage {
-        id: mainPage
-    }
-
     MouseArea {
         id:           screenLockMouseArea
         anchors.fill: parent
@@ -83,6 +77,12 @@ Window {
     }
 
     Component.onCompleted: {
-        mainStackView.push(mainPage);
+        var component = Qt.createComponent("Core/MainPage.qml");
+
+        if (component.status === Component.Ready) {
+            mainStackView.push(component);
+        } else {
+            console.log(component.errorString());
+        }
     }
 }
