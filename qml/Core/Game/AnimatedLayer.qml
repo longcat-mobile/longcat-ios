@@ -13,42 +13,6 @@ Rectangle {
 
     property string imageSource: ""
 
-    onRunningChanged: {
-        if (running) {
-            if (imageWidth > 0 && imageHeight > 0) {
-                movementAnimation.start();
-            }
-        } else {
-            movementAnimation.stop();
-        }
-    }
-
-    onPausedChanged: {
-        if (movementAnimation.running) {
-            if (paused) {
-                movementAnimation.pause();
-            } else {
-                movementAnimation.resume();
-            }
-        }
-    }
-
-    onImageWidthChanged: {
-        if (imageWidth > 0 && imageHeight > 0) {
-            if (running) {
-                movementAnimation.restart();
-            }
-        }
-    }
-
-    onImageHeightChanged: {
-        if (imageWidth > 0 && imageHeight > 0) {
-            if (running) {
-                movementAnimation.restart();
-            }
-        }
-    }
-
     Image {
         id:       leftImage
         x:        0 - animatedLayer.imageWidth
@@ -71,23 +35,10 @@ Rectangle {
     }
 
     SequentialAnimation {
-        id: movementAnimation
-
-        onRunningChanged: {
-            if (running) {
-                if (animatedLayer.paused) {
-                    pause();
-                } else {
-                    resume();
-                }
-            }
-        }
-
-        onStopped: {
-            if (animatedLayer.running) {
-                start();
-            }
-        }
+        id:      movementAnimation
+        loops:   Animation.Infinite
+        running: animatedLayer.running
+        paused:  animatedLayer.paused
 
         ParallelAnimation {
             NumberAnimation {

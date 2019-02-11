@@ -119,35 +119,23 @@ Item {
         Image {
             id:               backgroundImage
             anchors.centerIn: parent
-            width:            parent.width
-            height:           parent.height
+            width:            Math.floor(sourceSize.width  * imageScale)
+            height:           Math.floor(sourceSize.height * imageScale)
             source:           "qrc:/resources/images/game/background.png"
             fillMode:         Image.PreserveAspectCrop
 
-            property bool geometrySettled: false
+            property real visibleWidth: parent.width
+            property real imageScale:   calculateImageScale(parent.width, parent.height, sourceSize.width, sourceSize.height)
 
-            property real visibleWidth:    0.0
-            property real imageScale:      sourceSize.width > 0.0 ? paintedWidth / sourceSize.width : 1.0
-
-            onPaintedWidthChanged: {
-                if (!geometrySettled && width > 0 && height > 0 && paintedWidth > 0 && paintedHeight > 0) {
-                    geometrySettled = true;
-
-                    visibleWidth = width;
-
-                    width  = Math.floor(paintedWidth);
-                    height = Math.floor(paintedHeight);
-                }
-            }
-
-            onPaintedHeightChanged: {
-                if (!geometrySettled && width > 0 && height > 0 && paintedWidth > 0 && paintedHeight > 0) {
-                    geometrySettled = true;
-
-                    visibleWidth = width;
-
-                    width  = Math.floor(paintedWidth);
-                    height = Math.floor(paintedHeight);
+            function calculateImageScale(parent_width, parent_height, source_width, source_height) {
+                if (source_width > 0 && source_height > 0) {
+                    if (parent_width > parent_height) {
+                        return parent_width  / source_width;
+                    } else {
+                        return parent_height / source_height;
+                    }
+                } else {
+                    return 1.0;
                 }
             }
 
