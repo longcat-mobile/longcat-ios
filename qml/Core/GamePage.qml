@@ -25,7 +25,7 @@ Item {
         if (gameRunning) {
             pressHintImage.visible = true;
         } else {
-            pressHintImage.visible = true;
+            pressHintImage.visible = false;
         }
     }
 
