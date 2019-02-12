@@ -119,23 +119,35 @@ Item {
         Image {
             id:               backgroundImage
             anchors.centerIn: parent
-            width:            Math.floor(sourceSize.width  * imageScale)
-            height:           Math.floor(sourceSize.height * imageScale)
+            width:            Math.floor(calculateWidth (sourceSize.width, sourceSize.height, parent.width, parent.height))
+            height:           Math.floor(calculateHeight(sourceSize.width, sourceSize.height, parent.width, parent.height))
             source:           "qrc:/resources/images/game/background.png"
             fillMode:         Image.PreserveAspectCrop
 
             property real visibleWidth: parent.width
-            property real imageScale:   calculateImageScale(parent.width, parent.height, sourceSize.width, sourceSize.height)
+            property real imageScale:   paintedWidth / sourceSize.width
 
-            function calculateImageScale(parent_width, parent_height, source_width, source_height) {
-                if (source_width > 0 && source_height > 0) {
-                    if (parent_width > parent_height) {
-                        return parent_width  / source_width;
+            function calculateWidth(src_width, src_height, dst_width, dst_height) {
+                if (src_width > 0 && src_height > 0 && dst_width > 0 && dst_height > 0) {
+                    if (dst_width / dst_height < src_width / src_height) {
+                        return src_width * dst_height / src_height;
                     } else {
-                        return parent_height / source_height;
+                        return dst_width;
                     }
                 } else {
-                    return 1.0;
+                    return 0;
+                }
+            }
+
+            function calculateHeight(src_width, src_height, dst_width, dst_height) {
+                if (src_width > 0 && src_height > 0 && dst_width > 0 && dst_height > 0) {
+                    if (dst_width / dst_height < src_width / src_height) {
+                        return dst_height;
+                    } else {
+                        return src_height * dst_width / src_width;
+                    }
+                } else {
+                    return 0;
                 }
             }
 
