@@ -125,7 +125,7 @@ Item {
             fillMode:         Image.PreserveAspectCrop
 
             property real visibleWidth: parent.width
-            property real imageScale:   paintedWidth / sourceSize.width
+            property real imageScale:   sourceSize.width > 0.0 ? paintedWidth / sourceSize.width : 1.0
 
             function calculateWidth(src_width, src_height, dst_width, dst_height) {
                 if (src_width > 0 && src_height > 0 && dst_width > 0 && dst_height > 0) {
