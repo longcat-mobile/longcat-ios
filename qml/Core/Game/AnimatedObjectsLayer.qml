@@ -1,5 +1,5 @@
-import QtQuick 2.9
-import QtMultimedia 5.9
+import QtQuick 2.12
+import QtMultimedia 5.12
 
 Rectangle {
     id:    animatedObjectsLayer
