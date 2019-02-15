@@ -8,7 +8,7 @@ Item {
     id: gamePage
 
     property bool appInForeground:    Qt.application.active
-    property bool pageActive:         false
+    property bool pageActive:         StackView.status === StackView.Active
     property bool interstitialActive: AdMobHelper.interstitialActive
     property bool shareViewActive:    false
     property bool gameRunning:        true

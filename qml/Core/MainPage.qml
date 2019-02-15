@@ -6,7 +6,7 @@ Item {
     id: mainPage
 
     property bool appInForeground: Qt.application.active
-    property bool pageActive:      false
+    property bool pageActive:      StackView.status === StackView.Active
 
     SoundEffect {
         id:     musicSoundEffect
