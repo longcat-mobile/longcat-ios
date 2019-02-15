@@ -277,10 +277,10 @@ Item {
                 anchors.left:        parent.left
                 text:                "00:00:00"
                 color:               "blue"
+                font.pointSize:      32
+                font.family:         arcadeClassicFont.name
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment:   Text.AlignVCenter
-                font.family:         arcadeClassicFont.name
-                font.pointSize:      32
             }
 
             Text {
@@ -289,10 +289,10 @@ Item {
                 visible:             playerRankText.playerRank !== 0 && playerScoreText.playerScore !== 0
                 text:                "#%1".arg(playerRank)
                 color:               "red"
+                font.pointSize:      32
+                font.family:         arcadeClassicFont.name
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment:   Text.AlignVCenter
-                font.family:         arcadeClassicFont.name
-                font.pointSize:      32
 
                 property int playerRank: GameCenterHelper.playerRank
             }
@@ -310,10 +310,10 @@ Item {
                 anchors.right:       parent.right
                 text:                "000000"
                 color:               "blue"
+                font.pointSize:      32
+                font.family:         arcadeClassicFont.name
                 horizontalAlignment: Text.AlignRight
                 verticalAlignment:   Text.AlignVCenter
-                font.family:         arcadeClassicFont.name
-                font.pointSize:      32
             }
 
             Text {
@@ -322,10 +322,10 @@ Item {
                 visible:             playerRankText.playerRank !== 0 && playerScoreText.playerScore !== 0
                 text:                "000000"
                 color:               "red"
+                font.pointSize:      32
+                font.family:         arcadeClassicFont.name
                 horizontalAlignment: Text.AlignRight
                 verticalAlignment:   Text.AlignVCenter
-                font.family:         arcadeClassicFont.name
-                font.pointSize:      32
 
                 property int playerScore: GameCenterHelper.playerScore
 
