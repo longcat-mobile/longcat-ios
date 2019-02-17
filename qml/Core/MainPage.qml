@@ -5,7 +5,7 @@ import QtMultimedia 5.12
 Item {
     id: mainPage
 
-    property bool appInForeground: Qt.application.active
+    property bool appInForeground: Qt.application.state === Qt.ApplicationActive
     property bool pageActive:      StackView.status === StackView.Active
 
     SoundEffect {

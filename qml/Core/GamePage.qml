@@ -7,7 +7,7 @@ import "Game"
 Item {
     id: gamePage
 
-    property bool appInForeground:    Qt.application.active
+    property bool appInForeground:    Qt.application.state === Qt.ApplicationActive
     property bool pageActive:         StackView.status === StackView.Active
     property bool interstitialActive: AdMobHelper.interstitialActive
     property bool shareViewActive:    false
