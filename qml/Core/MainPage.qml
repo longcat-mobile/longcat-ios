@@ -70,14 +70,12 @@ Item {
             z:                        10
             width:                    sourceSize.width  * backgroundImage.imageScale
             height:                   sourceSize.height * backgroundImage.imageScale
-            source:                   allowed ? "qrc:/resources/images/main/button_leaderboard.png" :
+            source:                   enabled ? "qrc:/resources/images/main/button_leaderboard.png" :
                                                 "qrc:/resources/images/main/button_leaderboard_disabled.png"
-
-            property bool allowed: GameCenterHelper.gameCenterEnabled
+            enabled:                  GameCenterHelper.gameCenterEnabled
 
             MouseArea {
                 anchors.fill: parent
-                enabled:      parent.allowed
 
                 onClicked: {
                     GameCenterHelper.showLeaderboard();
