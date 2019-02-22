@@ -21,10 +21,24 @@ Rectangle {
         if (running) {
             if (imageWidth > 0 && imageHeight > 0) {
                 leftImage.placeObjects();
+
+                movementAnimation.start();
             }
         } else {
+            movementAnimation.stop();
+
             leftImage.clearObjects();
             rightImage.clearObjects();
+        }
+    }
+
+    onPausedChanged: {
+        if (movementAnimation.running) {
+            if (paused) {
+                movementAnimation.pause();
+            } else {
+                movementAnimation.resume();
+            }
         }
     }
 
@@ -32,6 +46,8 @@ Rectangle {
         if (imageWidth > 0 && imageHeight > 0) {
             if (running) {
                 leftImage.placeObjects();
+
+                movementAnimation.restart();
             }
         }
     }
@@ -40,6 +56,8 @@ Rectangle {
         if (imageWidth > 0 && imageHeight > 0) {
             if (running) {
                 leftImage.placeObjects();
+
+                movementAnimation.restart();
             }
         }
     }
@@ -190,10 +208,7 @@ Rectangle {
     }
 
     SequentialAnimation {
-        id:      movementAnimation
-        loops:   Animation.Infinite
-        running: animatedObjectsLayer.running
-        paused:  animatedObjectsLayer.paused
+        id: movementAnimation
 
         onRunningChanged: {
             if (running) {
@@ -202,6 +217,12 @@ Rectangle {
                 } else {
                     resume();
                 }
+            }
+        }
+
+        onStopped: {
+            if (animatedObjectsLayer.running) {
+                start();
             }
         }
 
