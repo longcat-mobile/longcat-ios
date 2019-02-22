@@ -22,7 +22,7 @@ Rectangle {
             if (imageWidth > 0 && imageHeight > 0) {
                 leftImage.placeObjects();
 
-                movementAnimation.start();
+                movementAnimationStartTimer.start();
             }
         } else {
             movementAnimation.stop();
@@ -47,7 +47,7 @@ Rectangle {
             if (running) {
                 leftImage.placeObjects();
 
-                movementAnimation.restart();
+                movementAnimationRestartTimer.start();
             }
         }
     }
@@ -57,7 +57,7 @@ Rectangle {
             if (running) {
                 leftImage.placeObjects();
 
-                movementAnimation.restart();
+                movementAnimationRestartTimer.start();
             }
         }
     }
@@ -220,7 +220,7 @@ Rectangle {
             }
         }
 
-        onStopped: {
+        onFinished: {
             if (animatedObjectsLayer.running) {
                 start();
             }
@@ -272,6 +272,24 @@ Rectangle {
             script: {
                 leftImage.placeObjects();
             }
+        }
+    }
+
+    Timer {
+        id:       movementAnimationStartTimer
+        interval: 0
+
+        onTriggered: {
+            movementAnimation.start();
+        }
+    }
+
+    Timer {
+        id:       movementAnimationRestartTimer
+        interval: 0
+
+        onTriggered: {
+            movementAnimation.restart();
         }
     }
 }
