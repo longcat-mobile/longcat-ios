@@ -5,15 +5,16 @@ Rectangle {
     id:    animatedObjectsLayer
     color: "transparent"
 
-    property bool running:       false
-    property bool paused:        false
+    property bool running:               false
+    property bool paused:                false
 
-    property int objectsHeight:  0
-    property int objectsCount:   0
+    property int objectsHeight:          0
+    property int objectsCount:           0
 
-    property real speed:         0.0
-    property real imageWidth:    Math.min(leftImage.width,  rightImage.width)
-    property real imageHeight:   Math.min(leftImage.height, rightImage.height)
+    property real speed:                 0.0
+    property real edibleObjectsHandicap: 1.0
+    property real imageWidth:            Math.min(leftImage.width,  rightImage.width)
+    property real imageHeight:           Math.min(leftImage.height, rightImage.height)
 
     property string imageSource: ""
 
@@ -145,7 +146,7 @@ Rectangle {
             if (component.status === Component.Ready) {
                 for (var j = 0; j < animatedObjectsLayer.objectsCount; j++) {
                     if (Math.random() > 0.25) {
-                        var object = component.createObject(leftImage, {imageScale: imageScale});
+                        var object = component.createObject(leftImage, {imageScale: imageScale, edibleHandicap: animatedObjectsLayer.edibleObjectsHandicap});
 
                         object.x = (width / animatedObjectsLayer.objectsCount) * j;
                         object.y = animatedObjectsLayer.objectsHeight * imageScale;
@@ -187,7 +188,7 @@ Rectangle {
             if (component.status === Component.Ready) {
                 for (var j = 0; j < animatedObjectsLayer.objectsCount; j++) {
                     if (Math.random() > 0.25) {
-                        var object = component.createObject(rightImage, {imageScale: imageScale});
+                        var object = component.createObject(rightImage, {imageScale: imageScale, edibleHandicap: animatedObjectsLayer.edibleObjectsHandicap});
 
                         object.x = (width / animatedObjectsLayer.objectsCount) * j;
                         object.y = animatedObjectsLayer.objectsHeight * imageScale;

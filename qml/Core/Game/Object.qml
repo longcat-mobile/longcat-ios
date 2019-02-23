@@ -8,6 +8,7 @@ Column {
 
     property int energy:           0
 
+    property real edibleHandicap:  1.0
     property real imageScale:      1.0
 
     property string consumedSound: ""
@@ -75,68 +76,76 @@ Column {
 
         random_number = Math.random();
 
-        if (random_number < 0.08) {
-            energy        = 5;
-            consumedSound = "GENERIC";
+        if (random_number < 0.75 * edibleHandicap) {
+            random_number = Math.random();
 
-            objectImage.source = "qrc:/resources/images/game/objects/apple.png";
-        } else if (random_number < 0.16) {
-            energy        = 5;
-            consumedSound = "GENERIC";
+            if (random_number < 0.11) {
+                energy        = 5;
+                consumedSound = "GENERIC";
 
-            objectImage.source = "qrc:/resources/images/game/objects/banana.png";
-        } else if (random_number < 0.25) {
-            energy        = -25;
-            consumedSound = "BOMB";
+                objectImage.source = "qrc:/resources/images/game/objects/apple.png";
+            } else if (random_number < 0.22) {
+                energy        = 5;
+                consumedSound = "GENERIC";
 
-            objectImage.source         = "qrc:/resources/images/game/objects/bomb.png";
-            objectImage.consumedSource = "qrc:/resources/images/game/objects/bomb_consumed.png";
-        } else if (random_number < 0.33) {
-            energy        = 5;
-            consumedSound = "GENERIC";
+                objectImage.source = "qrc:/resources/images/game/objects/banana.png";
+            } else if (random_number < 0.33) {
+                energy        = 5;
+                consumedSound = "GENERIC";
 
-            objectImage.source = "qrc:/resources/images/game/objects/cherry.png";
-        } else if (random_number < 0.41) {
-            energy        = 10;
-            consumedSound = "GENERIC";
+                objectImage.source = "qrc:/resources/images/game/objects/cherry.png";
+            } else if (random_number < 0.44) {
+                energy        = 10;
+                consumedSound = "GENERIC";
 
-            objectImage.source = "qrc:/resources/images/game/objects/chicken.png";
-        } else if (random_number < 0.50) {
-            energy        = 10;
-            consumedSound = "GENERIC";
+                objectImage.source = "qrc:/resources/images/game/objects/chicken.png";
+            } else if (random_number < 0.55) {
+                energy        = 10;
+                consumedSound = "GENERIC";
 
-            objectImage.source = "qrc:/resources/images/game/objects/fish.png";
-        } else if (random_number < 0.58) {
-            energy        = 5;
-            consumedSound = "GENERIC";
+                objectImage.source = "qrc:/resources/images/game/objects/fish.png";
+            } else if (random_number < 0.66) {
+                energy        = 5;
+                consumedSound = "GENERIC";
 
-            objectImage.source = "qrc:/resources/images/game/objects/icecream.png";
-        } else if (random_number < 0.66) {
-            energy        = 15;
-            consumedSound = "GENERIC";
+                objectImage.source = "qrc:/resources/images/game/objects/icecream.png";
+            } else if (random_number < 0.77) {
+                energy        = 15;
+                consumedSound = "GENERIC";
 
-            objectImage.source = "qrc:/resources/images/game/objects/meat.png";
-        } else if (random_number < 0.75) {
-            energy        = 10;
-            consumedSound = "GENERIC";
+                objectImage.source = "qrc:/resources/images/game/objects/meat.png";
+            } else if (random_number < 0.88) {
+                energy        = 10;
+                consumedSound = "GENERIC";
 
-            objectImage.source = "qrc:/resources/images/game/objects/milk.png";
-        } else if (random_number < 0.83) {
-            energy        = -20;
-            consumedSound = "MUSHROOM";
+                objectImage.source = "qrc:/resources/images/game/objects/milk.png";
+            } else {
+                energy        = 10;
+                consumedSound = "GENERIC";
 
-            objectImage.source         = "qrc:/resources/images/game/objects/mushroom.png";
-            objectImage.consumedSource = "qrc:/resources/images/game/objects/mushroom_consumed.png";
-        } else if (random_number < 0.92) {
-            energy        = 10;
-            consumedSound = "GENERIC";
-
-            objectImage.source = "qrc:/resources/images/game/objects/pizza.png";
+                objectImage.source = "qrc:/resources/images/game/objects/pizza.png";
+            }
         } else {
-            energy        = -30;
-            consumedSound = "SKULL";
+            random_number = Math.random();
 
-            objectImage.source = "qrc:/resources/images/game/objects/skull.png";
+            if (random_number < 0.33) {
+                energy        = -25;
+                consumedSound = "BOMB";
+
+                objectImage.source         = "qrc:/resources/images/game/objects/bomb.png";
+                objectImage.consumedSource = "qrc:/resources/images/game/objects/bomb_consumed.png";
+            } else if (random_number < 0.66) {
+                energy        = -20;
+                consumedSound = "MUSHROOM";
+
+                objectImage.source         = "qrc:/resources/images/game/objects/mushroom.png";
+                objectImage.consumedSource = "qrc:/resources/images/game/objects/mushroom_consumed.png";
+            } else {
+                energy        = -30;
+                consumedSound = "SKULL";
+
+                objectImage.source = "qrc:/resources/images/game/objects/skull.png";
+            }
         }
     }
 }
