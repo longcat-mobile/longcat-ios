@@ -17,7 +17,7 @@ Item {
 
     property int bannerViewHeight:    AdMobHelper.bannerViewHeight
     property int gameDifficulty:      0
-    property int maxGameDifficulty:   10
+    property int maxGameDifficulty:   20
     property int gameElapsedTime:     0
     property int gameScore:           0
 
@@ -157,7 +157,7 @@ Item {
                 z:            1
                 running:      gamePage.gameRunning
                 paused:       gamePage.gamePaused
-                speed:        0.125 * (backgroundImage.visibleWidth / 1.0) * (0.5 + gamePage.gameDifficulty / 40.0)
+                speed:        0.125 * (backgroundImage.visibleWidth / 1.0) * (0.5 + (gamePage.gameDifficulty / gamePage.maxGameDifficulty) / 4.0)
                 imageSource:  "qrc:/resources/images/game/layer_clouds.png"
             }
 
@@ -167,7 +167,7 @@ Item {
                 z:            2
                 running:      gamePage.gameRunning
                 paused:       gamePage.gamePaused
-                speed:        0.25 * (backgroundImage.visibleWidth / 1.0) * (0.5 + gamePage.gameDifficulty / 40.0)
+                speed:        0.25 * (backgroundImage.visibleWidth / 1.0) * (0.5 + (gamePage.gameDifficulty / gamePage.maxGameDifficulty) / 4.0)
                 imageSource:  "qrc:/resources/images/game/layer_hills.png"
             }
 
@@ -177,7 +177,7 @@ Item {
                 z:            3
                 running:      gamePage.gameRunning
                 paused:       gamePage.gamePaused
-                speed:        0.5 * (backgroundImage.visibleWidth / 1.0) * (0.5 + gamePage.gameDifficulty / 40.0)
+                speed:        0.5 * (backgroundImage.visibleWidth / 1.0) * (0.5 + (gamePage.gameDifficulty / gamePage.maxGameDifficulty) / 4.0)
                 imageSource:  "qrc:/resources/images/game/layer_forefront.png"
             }
 
@@ -187,7 +187,7 @@ Item {
                 z:            4
                 running:      gamePage.gameRunning
                 paused:       gamePage.gamePaused
-                speed:        1.0 * (backgroundImage.visibleWidth / 1.0) * (0.5 + gamePage.gameDifficulty / 40.0)
+                speed:        1.0 * (backgroundImage.visibleWidth / 1.0) * (0.5 + (gamePage.gameDifficulty / gamePage.maxGameDifficulty) / 4.0)
                 imageSource:  "qrc:/resources/images/game/layer_ground.png"
             }
 
@@ -198,8 +198,8 @@ Item {
                 running:               gamePage.gameRunning
                 paused:                gamePage.gamePaused
                 objectsHeight:         172
-                objectsCount:          12 + (gamePage.gameDifficulty / 2)
-                speed:                 1.0 * (backgroundImage.visibleWidth / 1.0) * (0.5 + gamePage.gameDifficulty / 40.0)
+                objectsCount:          12 + ((gamePage.gameDifficulty / gamePage.maxGameDifficulty) * 5)
+                speed:                 1.0 * (backgroundImage.visibleWidth / 1.0) * (0.5 + (gamePage.gameDifficulty / gamePage.maxGameDifficulty) / 4.0)
                 edibleObjectsHandicap: 1.0 * (1.0 - (gamePage.gameDifficulty / gamePage.maxGameDifficulty) / 2.0)
                 imageSource:           "qrc:/resources/images/game/layer_objects.png"
             }
