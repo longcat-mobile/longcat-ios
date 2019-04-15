@@ -20,7 +20,14 @@ public:
     static const QString GC_LEADERBOARD_ID;
 
     explicit GameCenterHelper(QObject *parent = nullptr);
-    ~GameCenterHelper() override;
+
+    GameCenterHelper(const GameCenterHelper&) = delete;
+    GameCenterHelper(const GameCenterHelper&&) noexcept = delete;
+
+    GameCenterHelper& operator=(const GameCenterHelper&) = delete;
+    GameCenterHelper& operator=(const GameCenterHelper&&) noexcept = delete;
+
+    ~GameCenterHelper() noexcept override;
 
     bool gameCenterEnabled() const;
     int playerScore() const;
