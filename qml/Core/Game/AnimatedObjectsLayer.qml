@@ -146,7 +146,7 @@ Rectangle {
             if (component.status === Component.Ready) {
                 for (var j = 0; j < animatedObjectsLayer.objectsCount; j++) {
                     if (Math.random() > 0.25) {
-                        var object = component.createObject(leftImage, {imageScale: imageScale, edibleHandicap: animatedObjectsLayer.edibleObjectsHandicap});
+                        var object = component.createObject(leftImage, {"imageScale": imageScale, "edibleHandicap": animatedObjectsLayer.edibleObjectsHandicap});
 
                         object.x = (width / animatedObjectsLayer.objectsCount) * j;
                         object.y = animatedObjectsLayer.objectsHeight * imageScale;
@@ -188,7 +188,7 @@ Rectangle {
             if (component.status === Component.Ready) {
                 for (var j = 0; j < animatedObjectsLayer.objectsCount; j++) {
                     if (Math.random() > 0.25) {
-                        var object = component.createObject(rightImage, {imageScale: imageScale, edibleHandicap: animatedObjectsLayer.edibleObjectsHandicap});
+                        var object = component.createObject(rightImage, {"imageScale": imageScale, "edibleHandicap": animatedObjectsLayer.edibleObjectsHandicap});
 
                         object.x = (width / animatedObjectsLayer.objectsCount) * j;
                         object.y = animatedObjectsLayer.objectsHeight * imageScale;
