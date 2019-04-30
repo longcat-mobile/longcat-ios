@@ -22,10 +22,10 @@ public:
     explicit GameCenterHelper(QObject *parent = nullptr);
 
     GameCenterHelper(const GameCenterHelper&) = delete;
-    GameCenterHelper(const GameCenterHelper&&) noexcept = delete;
+    GameCenterHelper(GameCenterHelper&&) noexcept = delete;
 
     GameCenterHelper& operator=(const GameCenterHelper&) = delete;
-    GameCenterHelper& operator=(const GameCenterHelper&&) noexcept = delete;
+    GameCenterHelper& operator=(GameCenterHelper&&) noexcept = delete;
 
     ~GameCenterHelper() noexcept override;
 
