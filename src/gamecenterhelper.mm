@@ -7,8 +7,6 @@
 
 const QString GameCenterHelper::GC_LEADERBOARD_ID("longcat.leaderboard.score");
 
-GameCenterHelper *GameCenterHelper::Instance = nullptr;
-
 @interface GameCenterControllerDelegate : NSObject<GKGameCenterControllerDelegate>
 
 - (id)init;
@@ -171,13 +169,19 @@ GameCenterHelper::GameCenterHelper(QObject *parent) : QObject(parent)
     GameCenterEnabled                    = false;
     PlayerScore                          = 0;
     PlayerRank                           = 0;
-    Instance                             = this;
     GameCenterControllerDelegateInstance = [[GameCenterControllerDelegate alloc] init];
 }
 
 GameCenterHelper::~GameCenterHelper() noexcept
 {
     [GameCenterControllerDelegateInstance release];
+}
+
+GameCenterHelper &GameCenterHelper::GetInstance()
+{
+    static GameCenterHelper instance;
+
+    return instance;
 }
 
 bool GameCenterHelper::gameCenterEnabled() const
@@ -212,21 +216,21 @@ void GameCenterHelper::reportScore(int score)
 
 void GameCenterHelper::setGameCenterEnabled(bool enabled)
 {
-    Instance->GameCenterEnabled = enabled;
+    GetInstance().GameCenterEnabled = enabled;
 
-    emit Instance->gameCenterEnabledChanged(Instance->GameCenterEnabled);
+    emit GetInstance().gameCenterEnabledChanged(GetInstance().GameCenterEnabled);
 }
 
 void GameCenterHelper::setPlayerScore(int score)
 {
-    Instance->PlayerScore = score;
+    GetInstance().PlayerScore = score;
 
-    emit Instance->playerScoreChanged(Instance->PlayerScore);
+    emit GetInstance().playerScoreChanged(GetInstance().PlayerScore);
 }
 
 void GameCenterHelper::setPlayerRank(int rank)
 {
-    Instance->PlayerRank = rank;
+    GetInstance().PlayerRank = rank;
 
-    emit Instance->playerRankChanged(Instance->PlayerRank);
+    emit GetInstance().playerRankChanged(GetInstance().PlayerRank);
 }

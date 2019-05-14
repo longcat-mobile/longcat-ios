@@ -16,10 +16,12 @@ class GameCenterHelper : public QObject
     Q_PROPERTY(int  playerScore       READ playerScore       NOTIFY playerScoreChanged)
     Q_PROPERTY(int  playerRank        READ playerRank        NOTIFY playerRankChanged)
 
+private:
+    explicit GameCenterHelper(QObject *parent = nullptr);
+    ~GameCenterHelper() noexcept override;
+
 public:
     static const QString GC_LEADERBOARD_ID;
-
-    explicit GameCenterHelper(QObject *parent = nullptr);
 
     GameCenterHelper(const GameCenterHelper&) = delete;
     GameCenterHelper(GameCenterHelper&&) noexcept = delete;
@@ -27,7 +29,7 @@ public:
     GameCenterHelper &operator=(const GameCenterHelper&) = delete;
     GameCenterHelper &operator=(GameCenterHelper&&) noexcept = delete;
 
-    ~GameCenterHelper() noexcept override;
+    static GameCenterHelper &GetInstance();
 
     bool gameCenterEnabled() const;
     int playerScore() const;
@@ -49,7 +51,6 @@ signals:
 private:
     bool                          GameCenterEnabled;
     int                           PlayerScore, PlayerRank;
-    static GameCenterHelper      *Instance;
 #ifdef __OBJC__
     GameCenterControllerDelegate *GameCenterControllerDelegateInstance;
 #else
