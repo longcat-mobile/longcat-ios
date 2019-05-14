@@ -24,8 +24,8 @@ public:
     GameCenterHelper(const GameCenterHelper&) = delete;
     GameCenterHelper(GameCenterHelper&&) noexcept = delete;
 
-    GameCenterHelper& operator=(const GameCenterHelper&) = delete;
-    GameCenterHelper& operator=(GameCenterHelper&&) noexcept = delete;
+    GameCenterHelper &operator=(const GameCenterHelper&) = delete;
+    GameCenterHelper &operator=(GameCenterHelper&&) noexcept = delete;
 
     ~GameCenterHelper() noexcept override;
 
