@@ -10,7 +10,6 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID("longcat.leaderboard.score");
 @interface GameCenterControllerDelegate : NSObject<GKGameCenterControllerDelegate>
 
 - (id)init;
-- (void)dealloc;
 - (void)authenticate;
 - (void)showLeaderboard;
 - (void)reportScore:(int)value;
@@ -31,11 +30,6 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID("longcat.leaderboard.score");
     }
 
     return self;
-}
-
-- (void)dealloc
-{
-    [super dealloc];
 }
 
 - (void)authenticate
