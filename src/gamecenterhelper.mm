@@ -9,7 +9,7 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID("longcat.leaderboard.score");
 
 @interface GameCenterControllerDelegate : NSObject<GKGameCenterControllerDelegate>
 
-- (instancetype)init;
+- (instancetype)initWithHelper:(GameCenterHelper *)helper;
 - (void)authenticate;
 - (void)showLeaderboard;
 - (void)reportScore:(int)value;
@@ -18,15 +18,17 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID("longcat.leaderboard.score");
 
 @implementation GameCenterControllerDelegate
 {
-    BOOL GameCenterEnabled;
+    BOOL              GameCenterEnabled;
+    GameCenterHelper *GameCenterHelperInstance;
 }
 
-- (instancetype)init
+- (instancetype)initWithHelper:(GameCenterHelper *)helper
 {
     self = [super init];
 
     if (self) {
-        GameCenterEnabled = NO;
+        GameCenterEnabled        = NO;
+        GameCenterHelperInstance = helper;
     }
 
     return self;
@@ -51,14 +53,14 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID("longcat.leaderboard.score");
 
                 GameCenterEnabled = NO;
 
-                GameCenterHelper::setGameCenterEnabled(GameCenterEnabled);
+                GameCenterHelperInstance->setGameCenterEnabled(GameCenterEnabled);
             } else {
                 if (view_controller != nil) {
                     [root_view_controller presentViewController:view_controller animated:YES completion:nil];
                 } else if (local_player.isAuthenticated) {
                     GameCenterEnabled = YES;
 
-                    GameCenterHelper::setGameCenterEnabled(GameCenterEnabled);
+                    GameCenterHelperInstance->setGameCenterEnabled(GameCenterEnabled);
 
                     GKLeaderboard *leaderboard = [[GKLeaderboard alloc] init];
 
@@ -69,8 +71,8 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID("longcat.leaderboard.score");
                             qWarning() << QString::fromNSString(error.localizedDescription);
                         } else {
                             if (leaderboard.localPlayerScore != nil) {
-                                GameCenterHelper::setPlayerScore(static_cast<int>(leaderboard.localPlayerScore.value));
-                                GameCenterHelper::setPlayerRank(static_cast<int>(leaderboard.localPlayerScore.rank));
+                                GameCenterHelperInstance->setPlayerScore(static_cast<int>(leaderboard.localPlayerScore.value));
+                                GameCenterHelperInstance->setPlayerRank(static_cast<int>(leaderboard.localPlayerScore.rank));
                             }
                         }
 
@@ -79,7 +81,7 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID("longcat.leaderboard.score");
                 } else {
                     GameCenterEnabled = NO;
 
-                    GameCenterHelper::setGameCenterEnabled(GameCenterEnabled);
+                    GameCenterHelperInstance->setGameCenterEnabled(GameCenterEnabled);
                 }
             }
         };
@@ -135,8 +137,8 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID("longcat.leaderboard.score");
                                 qWarning() << QString::fromNSString(error.localizedDescription);
                             } else {
                                 if (leaderboard.localPlayerScore != nil) {
-                                    GameCenterHelper::setPlayerScore(static_cast<int>(leaderboard.localPlayerScore.value));
-                                    GameCenterHelper::setPlayerRank(static_cast<int>(leaderboard.localPlayerScore.rank));
+                                    GameCenterHelperInstance->setPlayerScore(static_cast<int>(leaderboard.localPlayerScore.value));
+                                    GameCenterHelperInstance->setPlayerRank(static_cast<int>(leaderboard.localPlayerScore.rank));
                                 }
                             }
 
@@ -163,7 +165,7 @@ GameCenterHelper::GameCenterHelper(QObject *parent) : QObject(parent)
     GameCenterEnabled                    = false;
     PlayerScore                          = 0;
     PlayerRank                           = 0;
-    GameCenterControllerDelegateInstance = [[GameCenterControllerDelegate alloc] init];
+    GameCenterControllerDelegateInstance = [[GameCenterControllerDelegate alloc] initWithHelper:this];
 }
 
 GameCenterHelper::~GameCenterHelper() noexcept
@@ -210,21 +212,21 @@ void GameCenterHelper::reportScore(int score)
 
 void GameCenterHelper::setGameCenterEnabled(bool enabled)
 {
-    GetInstance().GameCenterEnabled = enabled;
+    GameCenterEnabled = enabled;
 
-    emit GetInstance().gameCenterEnabledChanged(GetInstance().GameCenterEnabled);
+    emit gameCenterEnabledChanged(GameCenterEnabled);
 }
 
 void GameCenterHelper::setPlayerScore(int score)
 {
-    GetInstance().PlayerScore = score;
+    PlayerScore = score;
 
-    emit GetInstance().playerScoreChanged(GetInstance().PlayerScore);
+    emit playerScoreChanged(PlayerScore);
 }
 
 void GameCenterHelper::setPlayerRank(int rank)
 {
-    GetInstance().PlayerRank = rank;
+    PlayerRank = rank;
 
-    emit GetInstance().playerRankChanged(GetInstance().PlayerRank);
+    emit playerRankChanged(PlayerRank);
 }
