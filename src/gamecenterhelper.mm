@@ -9,7 +9,7 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID("longcat.leaderboard.score");
 
 @interface GameCenterControllerDelegate : NSObject<GKGameCenterControllerDelegate>
 
-- (id)init;
+- (instancetype)init;
 - (void)authenticate;
 - (void)showLeaderboard;
 - (void)reportScore:(int)value;
@@ -21,7 +21,7 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID("longcat.leaderboard.score");
     BOOL GameCenterEnabled;
 }
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
 
