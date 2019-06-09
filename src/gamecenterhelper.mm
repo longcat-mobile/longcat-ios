@@ -27,7 +27,7 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID("longcat.leaderboard.score");
 {
     self = [super init];
 
-    if (self) {
+    if (self != nil) {
         GameCenterEnabled        = NO;
         GameCenterHelperInstance = helper;
     }
