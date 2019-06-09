@@ -10,6 +10,7 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID("longcat.leaderboard.score");
 @interface GameCenterControllerDelegate : NSObject<GKGameCenterControllerDelegate>
 
 - (instancetype)initWithHelper:(GameCenterHelper *)helper;
+- (void)removeHelperAndAutorelease;
 - (void)authenticate;
 - (void)showLeaderboard;
 - (void)reportScore:(int)value;
@@ -34,6 +35,13 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID("longcat.leaderboard.score");
     return self;
 }
 
+- (void)removeHelperAndAutorelease
+{
+    GameCenterHelperInstance = nullptr;
+
+    [self autorelease];
+}
+
 - (void)authenticate
 {
     UIViewController * __block root_view_controller = nil;
@@ -53,14 +61,18 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID("longcat.leaderboard.score");
 
                 GameCenterEnabled = NO;
 
-                GameCenterHelperInstance->setGameCenterEnabled(GameCenterEnabled);
+                if (GameCenterHelperInstance != nullptr) {
+                    GameCenterHelperInstance->setGameCenterEnabled(GameCenterEnabled);
+                }
             } else {
                 if (view_controller != nil) {
                     [root_view_controller presentViewController:view_controller animated:YES completion:nil];
                 } else if (local_player.isAuthenticated) {
                     GameCenterEnabled = YES;
 
-                    GameCenterHelperInstance->setGameCenterEnabled(GameCenterEnabled);
+                    if (GameCenterHelperInstance != nullptr) {
+                        GameCenterHelperInstance->setGameCenterEnabled(GameCenterEnabled);
+                    }
 
                     GKLeaderboard *leaderboard = [[GKLeaderboard alloc] init];
 
@@ -70,7 +82,7 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID("longcat.leaderboard.score");
                         if (error != nil) {
                             qWarning() << QString::fromNSString(error.localizedDescription);
                         } else {
-                            if (leaderboard.localPlayerScore != nil) {
+                            if (GameCenterHelperInstance != nullptr && leaderboard.localPlayerScore != nil) {
                                 GameCenterHelperInstance->setPlayerScore(static_cast<int>(leaderboard.localPlayerScore.value));
                                 GameCenterHelperInstance->setPlayerRank(static_cast<int>(leaderboard.localPlayerScore.rank));
                             }
@@ -81,7 +93,9 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID("longcat.leaderboard.score");
                 } else {
                     GameCenterEnabled = NO;
 
-                    GameCenterHelperInstance->setGameCenterEnabled(GameCenterEnabled);
+                    if (GameCenterHelperInstance != nullptr) {
+                        GameCenterHelperInstance->setGameCenterEnabled(GameCenterEnabled);
+                    }
                 }
             }
         };
@@ -136,7 +150,7 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID("longcat.leaderboard.score");
                             if (error != nil) {
                                 qWarning() << QString::fromNSString(error.localizedDescription);
                             } else {
-                                if (leaderboard.localPlayerScore != nil) {
+                                if (GameCenterHelperInstance != nullptr && leaderboard.localPlayerScore != nil) {
                                     GameCenterHelperInstance->setPlayerScore(static_cast<int>(leaderboard.localPlayerScore.value));
                                     GameCenterHelperInstance->setPlayerRank(static_cast<int>(leaderboard.localPlayerScore.rank));
                                 }
@@ -170,7 +184,7 @@ GameCenterHelper::GameCenterHelper(QObject *parent) : QObject(parent)
 
 GameCenterHelper::~GameCenterHelper() noexcept
 {
-    [GameCenterControllerDelegateInstance release];
+    [GameCenterControllerDelegateInstance removeHelperAndAutorelease];
 }
 
 GameCenterHelper &GameCenterHelper::GetInstance()
