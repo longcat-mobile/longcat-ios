@@ -9,7 +9,8 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID("longcat.leaderboard.score");
 
 @interface GameCenterControllerDelegate : NSObject<GKGameCenterControllerDelegate>
 
-- (instancetype)initWithHelper:(GameCenterHelper *)helper;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithHelper:(GameCenterHelper *)helper NS_DESIGNATED_INITIALIZER;
 - (void)removeHelperAndAutorelease;
 - (void)authenticate;
 - (void)showLeaderboard;
