@@ -23,11 +23,11 @@ private:
 public:
     static const QString GC_LEADERBOARD_ID;
 
-    GameCenterHelper(const GameCenterHelper&) = delete;
-    GameCenterHelper(GameCenterHelper&&) noexcept = delete;
+    GameCenterHelper(const GameCenterHelper &) = delete;
+    GameCenterHelper(GameCenterHelper &&) noexcept = delete;
 
-    GameCenterHelper &operator=(const GameCenterHelper&) = delete;
-    GameCenterHelper &operator=(GameCenterHelper&&) noexcept = delete;
+    GameCenterHelper &operator=(const GameCenterHelper &) = delete;
+    GameCenterHelper &operator=(GameCenterHelper &&) noexcept = delete;
 
     static GameCenterHelper &GetInstance();
 
