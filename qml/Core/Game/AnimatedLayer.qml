@@ -4,14 +4,15 @@ Rectangle {
     id:    animatedLayer
     color: "transparent"
 
-    property bool running:       false
-    property bool paused:        false
+    readonly property real imageWidth:  Math.min(leftImage.width,  rightImage.width)
+    readonly property real imageHeight: Math.min(leftImage.height, rightImage.height)
 
-    property real speed:         0.0
-    property real imageWidth:    Math.min(leftImage.width,  rightImage.width)
-    property real imageHeight:   Math.min(leftImage.height, rightImage.height)
+    property bool running:              false
+    property bool paused:               false
 
-    property string imageSource: ""
+    property real speed:                0.0
+
+    property string imageSource:        ""
 
     onRunningChanged: {
         if (running) {

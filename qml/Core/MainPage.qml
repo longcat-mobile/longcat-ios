@@ -5,8 +5,8 @@ import QtMultimedia 5.12
 Item {
     id: mainPage
 
-    property bool appInForeground: Qt.application.state === Qt.ApplicationActive
-    property bool pageActive:      StackView.status === StackView.Active
+    readonly property bool appInForeground: Qt.application.state === Qt.ApplicationActive
+    readonly property bool pageActive:      StackView.status === StackView.Active
 
     SoundEffect {
         id:     musicSoundEffect
@@ -14,7 +14,7 @@ Item {
         loops:  SoundEffect.Infinite
         source: "qrc:/resources/sound/main/music.wav"
 
-        property bool playbackEnabled: mainPage.appInForeground && mainPage.pageActive
+        readonly property bool playbackEnabled: mainPage.appInForeground && mainPage.pageActive
 
         onPlaybackEnabledChanged: {
             if (playbackEnabled) {
@@ -38,7 +38,7 @@ Item {
             source:           "qrc:/resources/images/main/background.png"
             fillMode:         Image.PreserveAspectCrop
 
-            property real imageScale: sourceSize.width > 0.0 ? paintedWidth / sourceSize.width : 1.0
+            readonly property real imageScale: sourceSize.width > 0.0 ? paintedWidth / sourceSize.width : 1.0
         }
 
         Image {

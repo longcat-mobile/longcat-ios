@@ -7,19 +7,21 @@ import "Game"
 Item {
     id: gamePage
 
-    property bool appInForeground:    Qt.application.state === Qt.ApplicationActive
-    property bool pageActive:         StackView.status === StackView.Active
-    property bool interstitialActive: AdMobHelper.interstitialActive
-    property bool shareViewActive:    false
-    property bool gameRunning:        true
-    property bool gameEnded:          false
-    property bool gamePaused:         !appInForeground || !pageActive || interstitialActive || shareViewActive || gameEnded
+    readonly property bool appInForeground:    Qt.application.state === Qt.ApplicationActive
+    readonly property bool pageActive:         StackView.status === StackView.Active
+    readonly property bool interstitialActive: AdMobHelper.interstitialActive
+    readonly property bool gamePaused:         !appInForeground || !pageActive || interstitialActive || shareViewActive || gameEnded
 
-    property int bannerViewHeight:    AdMobHelper.bannerViewHeight
-    property int gameDifficulty:      0
-    property int maxGameDifficulty:   20
-    property int gameElapsedTime:     0
-    property int gameScore:           0
+    readonly property int bannerViewHeight:    AdMobHelper.bannerViewHeight
+    readonly property int maxGameDifficulty:   20
+
+    property bool shareViewActive:             false
+    property bool gameRunning:                 true
+    property bool gameEnded:                   false
+
+    property int gameDifficulty:               0
+    property int gameElapsedTime:              0
+    property int gameScore:                    0
 
     onGameRunningChanged: {
         if (gameRunning) {
@@ -85,7 +87,7 @@ Item {
         loops:  SoundEffect.Infinite
         source: "qrc:/resources/sound/game/music.wav"
 
-        property bool playbackEnabled: !gamePage.gamePaused
+        readonly property bool playbackEnabled: !gamePage.gamePaused
 
         onPlaybackEnabledChanged: {
             if (playbackEnabled) {
@@ -124,8 +126,8 @@ Item {
             source:           "qrc:/resources/images/game/background.png"
             fillMode:         Image.PreserveAspectCrop
 
-            property real visibleWidth: parent.width
-            property real imageScale:   sourceSize.width > 0.0 ? paintedWidth / sourceSize.width : 1.0
+            readonly property real visibleWidth: parent.width
+            readonly property real imageScale:   sourceSize.width > 0.0 ? paintedWidth / sourceSize.width : 1.0
 
             function calculateWidth(src_width, src_height, dst_width, dst_height) {
                 if (src_width > 0 && src_height > 0 && dst_width > 0 && dst_height > 0) {
@@ -295,7 +297,7 @@ Item {
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment:   Text.AlignVCenter
 
-                property int playerRank: GameCenterHelper.playerRank
+                readonly property int playerRank: GameCenterHelper.playerRank
             }
         }
 
@@ -328,7 +330,7 @@ Item {
                 horizontalAlignment: Text.AlignRight
                 verticalAlignment:   Text.AlignVCenter
 
-                property int playerScore: GameCenterHelper.playerScore
+                readonly property int playerScore: GameCenterHelper.playerScore
 
                 onPlayerScoreChanged: {
                     var score = playerScore + "";

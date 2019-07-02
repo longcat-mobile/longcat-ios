@@ -5,6 +5,9 @@ Rectangle {
     id:    animatedObjectsLayer
     color: "transparent"
 
+    readonly property real imageWidth:   Math.min(leftImage.width,  rightImage.width)
+    readonly property real imageHeight:  Math.min(leftImage.height, rightImage.height)
+
     property bool running:               false
     property bool paused:                false
 
@@ -13,10 +16,8 @@ Rectangle {
 
     property real speed:                 0.0
     property real edibleObjectsHandicap: 1.0
-    property real imageWidth:            Math.min(leftImage.width,  rightImage.width)
-    property real imageHeight:           Math.min(leftImage.height, rightImage.height)
 
-    property string imageSource: ""
+    property string imageSource:         ""
 
     onRunningChanged: {
         if (running) {
@@ -134,7 +135,7 @@ Rectangle {
         source:   imageSource
         fillMode: Image.PreserveAspectCrop
 
-        property real imageScale: sourceSize.width > 0.0 ? paintedWidth / sourceSize.width : 1.0
+        readonly property real imageScale: sourceSize.width > 0.0 ? paintedWidth / sourceSize.width : 1.0
 
         function placeObjects() {
             for (var i = children.length - 1; i >= 0; i--) {
@@ -176,7 +177,7 @@ Rectangle {
         fillMode: Image.PreserveAspectCrop
         mirror:   true
 
-        property real imageScale: sourceSize.width > 0.0 ? paintedWidth / sourceSize.width : 1.0
+        readonly property real imageScale: sourceSize.width > 0.0 ? paintedWidth / sourceSize.width : 1.0
 
         function placeObjects() {
             for (var i = children.length - 1; i >= 0; i--) {
