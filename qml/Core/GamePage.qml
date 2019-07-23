@@ -78,7 +78,9 @@ Item {
     }
 
     function shareToViewCompleted() {
-        shareViewActive = false;
+        if (gamePage) {
+            shareViewActive = false;
+        }
     }
 
     SoundEffect {
