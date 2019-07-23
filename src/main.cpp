@@ -4,6 +4,7 @@
 #include <QtGui/QGuiApplication>
 #include <QtQml/QQmlApplicationEngine>
 #include <QtQml/QQmlContext>
+#include <QtQuickControls2/QQuickStyle>
 
 #include "admobhelper.h"
 #include "sharehelper.h"
@@ -27,6 +28,8 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty(QStringLiteral("StoreHelper"), &StoreHelper::GetInstance());
     engine.rootContext()->setContextProperty(QStringLiteral("GameCenterHelper"), &GameCenterHelper::GetInstance());
     engine.rootContext()->setContextProperty(QStringLiteral("ReachabilityHelper"), &ReachabilityHelper::GetInstance());
+
+    QQuickStyle::setStyle("Default");
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 

@@ -272,7 +272,7 @@ Item {
             anchors.top:       parent.top
             anchors.left:      parent.left
             anchors.topMargin: Math.max(gamePage.bannerViewHeight + 4 * backgroundImage.imageScale, 34)
-            z:                 10
+            z:                 1
             spacing:           4 * backgroundImage.imageScale
 
             Text {
@@ -305,7 +305,7 @@ Item {
             anchors.top:       parent.top
             anchors.right:     parent.right
             anchors.topMargin: Math.max(gamePage.bannerViewHeight + 4 * backgroundImage.imageScale, 34)
-            z:                 10
+            z:                 1
             spacing:           4 * backgroundImage.imageScale
 
             Text {
@@ -347,7 +347,7 @@ Item {
         Rectangle {
             anchors.right:          parent.right
             anchors.verticalCenter: parent.verticalCenter
-            z:                      10
+            z:                      1
             width:                  parent.width  / 10
             height:                 parent.height / 3
             radius:                 8
@@ -386,7 +386,7 @@ Item {
         Image {
             id:               pressHintImage
             anchors.centerIn: parent
-            z:                10
+            z:                1
             width:            sourceSize.width  * backgroundImage.imageScale
             height:           sourceSize.height * backgroundImage.imageScale
             source:           "qrc:/resources/images/game/hand.png"
@@ -415,7 +415,7 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            z:            15
+            z:            2
 
             onClicked: {
                 pressHintImage.visible = false;
@@ -429,7 +429,7 @@ Item {
             anchors.bottom:       parent.bottom
             anchors.leftMargin:   8  * backgroundImage.imageScale
             anchors.bottomMargin: 16 * backgroundImage.imageScale
-            z:                    20
+            z:                    5
             width:                sourceSize.width  * backgroundImage.imageScale
             height:               sourceSize.height * backgroundImage.imageScale
             source:               "qrc:/resources/images/game/button_back.png"
@@ -452,7 +452,7 @@ Item {
             anchors.bottom:       parent.bottom
             anchors.rightMargin:  8  * backgroundImage.imageScale
             anchors.bottomMargin: 16 * backgroundImage.imageScale
-            z:                    20
+            z:                    5
             spacing:              16 * backgroundImage.imageScale
 
             Image {
