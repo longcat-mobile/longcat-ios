@@ -123,15 +123,15 @@ Item {
         Image {
             id:               backgroundImage
             anchors.centerIn: parent
-            width:            Math.floor(calculateWidth (sourceSize.width, sourceSize.height, parent.width, parent.height))
-            height:           Math.floor(calculateHeight(sourceSize.width, sourceSize.height, parent.width, parent.height))
+            width:            Math.floor(imageWidth(sourceSize.width, sourceSize.height, parent.width, parent.height))
+            height:           Math.floor(imageHeight(sourceSize.width, sourceSize.height, parent.width, parent.height))
             source:           "qrc:/resources/images/game/background.png"
             fillMode:         Image.PreserveAspectCrop
 
             readonly property real visibleWidth: parent.width
             readonly property real imageScale:   sourceSize.width > 0.0 ? paintedWidth / sourceSize.width : 1.0
 
-            function calculateWidth(src_width, src_height, dst_width, dst_height) {
+            function imageWidth(src_width, src_height, dst_width, dst_height) {
                 if (src_width > 0 && src_height > 0 && dst_width > 0 && dst_height > 0) {
                     if (dst_width / dst_height < src_width / src_height) {
                         return src_width * dst_height / src_height;
@@ -143,7 +143,7 @@ Item {
                 }
             }
 
-            function calculateHeight(src_width, src_height, dst_width, dst_height) {
+            function imageHeight(src_width, src_height, dst_width, dst_height) {
                 if (src_width > 0 && src_height > 0 && dst_width > 0 && dst_height > 0) {
                     if (dst_width / dst_height < src_width / src_height) {
                         return dst_height;
