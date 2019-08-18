@@ -12,7 +12,7 @@ Rectangle {
 
     property real speed:                0.0
 
-    property string imageSource:        ""
+    property url imageSource:           ""
 
     onRunningChanged: {
         if (running) {
