@@ -3,6 +3,18 @@
         <file>resources/animations/game/cat_bottom.png</file>
         <file>resources/animations/game/cat_top.png</file>
         <file>resources/fonts/game/arcade_classic.ttf</file>
+        <file>resources/images/game/background.png</file>
+        <file>resources/images/game/button_back.png</file>
+        <file>resources/images/game/button_capture.png</file>
+        <file>resources/images/game/button_restart.png</file>
+        <file>resources/images/game/cat_middle.png</file>
+        <file>resources/images/game/cat_rip.png</file>
+        <file>resources/images/game/hand.png</file>
+        <file>resources/images/game/layer_clouds.png</file>
+        <file>resources/images/game/layer_forefront.png</file>
+        <file>resources/images/game/layer_ground.png</file>
+        <file>resources/images/game/layer_hills.png</file>
+        <file>resources/images/game/layer_objects.png</file>
         <file>resources/images/game/birds/eagle.png</file>
         <file>resources/images/game/birds/hawk.png</file>
         <file>resources/images/game/birds/raven.png</file>
@@ -20,28 +32,16 @@
         <file>resources/images/game/objects/mushroom_consumed.png</file>
         <file>resources/images/game/objects/pizza.png</file>
         <file>resources/images/game/objects/skull.png</file>
-        <file>resources/images/game/background.png</file>
-        <file>resources/images/game/button_back.png</file>
-        <file>resources/images/game/button_capture.png</file>
-        <file>resources/images/game/button_restart.png</file>
-        <file>resources/images/game/cat_middle.png</file>
-        <file>resources/images/game/cat_rip.png</file>
-        <file>resources/images/game/hand.png</file>
-        <file>resources/images/game/layer_clouds.png</file>
-        <file>resources/images/game/layer_forefront.png</file>
-        <file>resources/images/game/layer_ground.png</file>
-        <file>resources/images/game/layer_hills.png</file>
-        <file>resources/images/game/layer_objects.png</file>
         <file>resources/images/main/background.png</file>
         <file>resources/images/main/button_leaderboard.png</file>
         <file>resources/images/main/button_leaderboard_disabled.png</file>
         <file>resources/images/main/button_play.png</file>
+        <file>resources/sound/game/game_over.wav</file>
+        <file>resources/sound/game/music.wav</file>
         <file>resources/sound/game/objects/bomb.wav</file>
         <file>resources/sound/game/objects/generic.wav</file>
         <file>resources/sound/game/objects/mushroom.wav</file>
         <file>resources/sound/game/objects/skull.wav</file>
-        <file>resources/sound/game/game_over.wav</file>
-        <file>resources/sound/game/music.wav</file>
         <file>resources/sound/main/music.wav</file>
     </qresource>
 </RCC>
