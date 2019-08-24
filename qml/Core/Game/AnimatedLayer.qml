@@ -14,6 +14,22 @@ Rectangle {
 
     property url imageSource:           ""
 
+    onImageWidthChanged: {
+        if (imageWidth > 0 && imageHeight > 0) {
+            if (running) {
+                movementAnimationRestartTimer.start();
+            }
+        }
+    }
+
+    onImageHeightChanged: {
+        if (imageWidth > 0 && imageHeight > 0) {
+            if (running) {
+                movementAnimationRestartTimer.start();
+            }
+        }
+    }
+
     onRunningChanged: {
         if (running) {
             if (imageWidth > 0 && imageHeight > 0) {
@@ -30,22 +46,6 @@ Rectangle {
                 movementAnimation.pause();
             } else {
                 movementAnimation.resume();
-            }
-        }
-    }
-
-    onImageWidthChanged: {
-        if (imageWidth > 0 && imageHeight > 0) {
-            if (running) {
-                movementAnimationRestartTimer.start();
-            }
-        }
-    }
-
-    onImageHeightChanged: {
-        if (imageWidth > 0 && imageHeight > 0) {
-            if (running) {
-                movementAnimationRestartTimer.start();
             }
         }
     }
