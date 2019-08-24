@@ -14,7 +14,7 @@ Column {
     property real intersectionShare: 1.0
 
     signal catEnlarged()
-    signal catConsumedObject(int object_energy)
+    signal catConsumedObject(int objectEnergy)
     signal catDead()
 
     onEnergyChanged: {

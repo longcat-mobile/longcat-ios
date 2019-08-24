@@ -37,34 +37,6 @@ Item {
         }
     }
 
-    onGameElapsedTimeChanged: {
-        var hrs = Math.floor(gameElapsedTime / 3600);
-        var mns = Math.floor((gameElapsedTime - hrs * 3600) / 60);
-        var scs = Math.floor(gameElapsedTime - hrs * 3600 - mns * 60);
-
-        if (hrs < 10) {
-            hrs = "0" + hrs;
-        }
-        if (mns < 10) {
-            mns = "0" + mns;
-        }
-        if (scs < 10) {
-            scs = "0" + scs;
-        }
-
-        timerText.text = "%1:%2:%3".arg(hrs).arg(mns).arg(scs);
-    }
-
-    onGameScoreChanged: {
-        var score = gameScore + "";
-
-        while (score.length < 6) {
-            score = "0" + score;
-        }
-
-        scoreText.text = score;
-    }
-
     function captureImage() {
         if (!gamePage.grabToImage(function (result) {
             result.saveToFile(ShareHelper.imageFilePath);
@@ -74,12 +46,6 @@ Item {
             ShareHelper.showShareToView(ShareHelper.imageFilePath);
         })) {
             console.log("grabToImage() failed");
-        }
-    }
-
-    function shareToViewCompleted() {
-        if (gamePage) {
-            shareViewActive = false;
         }
     }
 
@@ -201,7 +167,7 @@ Item {
                 z:                     5
                 running:               gamePage.gameRunning
                 paused:                gamePage.gamePaused
-                objectsHeight:         172
+                objectsElevation:      172
                 objectsCount:          12 + ((gamePage.gameDifficulty / gamePage.maxGameDifficulty) * 5)
                 speed:                 1.0 * (backgroundImage.visibleWidth / 1.0) * (0.5 + (gamePage.gameDifficulty / gamePage.maxGameDifficulty) / 4.0)
                 edibleObjectsHandicap: 1.0 * (1.0 - (gamePage.gameDifficulty / gamePage.maxGameDifficulty) / 2.0)
@@ -236,8 +202,8 @@ Item {
                 }
 
                 onCatConsumedObject: {
-                    if (object_energy > 0) {
-                        gamePage.gameScore = gamePage.gameScore + object_energy;
+                    if (objectEnergy > 0) {
+                        gamePage.gameScore = gamePage.gameScore + objectEnergy;
                     }
                 }
 
@@ -273,75 +239,101 @@ Item {
         Column {
             anchors.top:       parent.top
             anchors.left:      parent.left
-            anchors.topMargin: Math.max(gamePage.bannerViewHeight + 4 * backgroundImage.imageScale, 34)
+            anchors.topMargin: Math.max(gamePage.bannerViewHeight + 4 * backgroundImage.imageScale,
+                                        34 * backgroundImage.imageScale)
             z:                 1
             spacing:           4 * backgroundImage.imageScale
 
             Text {
                 id:                  timerText
                 anchors.left:        parent.left
-                text:                "00:00:00"
+                text:                textText(gamePage.gameElapsedTime)
                 color:               "blue"
                 font.pointSize:      32
                 font.family:         arcadeClassicFont.name
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment:   Text.AlignVCenter
+
+                function textText(elapsed_time) {
+                    var hrs = Math.floor(elapsed_time / 1000 / 3600).toString(10);
+                    var mns = Math.floor((elapsed_time / 1000 - hrs * 3600) / 60).toString(10);
+                    var scs = Math.floor(elapsed_time / 1000 - hrs * 3600 - mns * 60).toString(10);
+
+                    if (hrs.length < 2) {
+                        hrs = "0" + hrs;
+                    }
+                    if (mns.length < 2) {
+                        mns = "0" + mns;
+                    }
+                    if (scs.length < 2) {
+                        scs = "0" + scs;
+                    }
+
+                    return "%1:%2:%3".arg(hrs).arg(mns).arg(scs);
+                }
             }
 
             Text {
                 id:                  playerRankText
                 anchors.left:        parent.left
-                visible:             playerRankText.playerRank !== 0 && playerScoreText.playerScore !== 0
-                text:                "#%1".arg(playerRank)
+                text:                "#%1".arg(GameCenterHelper.playerRank)
                 color:               "red"
                 font.pointSize:      32
                 font.family:         arcadeClassicFont.name
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment:   Text.AlignVCenter
-
-                readonly property int playerRank: GameCenterHelper.playerRank
+                visible:             GameCenterHelper.playerRank !== 0 && GameCenterHelper.playerScore !== 0
             }
         }
 
         Column {
             anchors.top:       parent.top
             anchors.right:     parent.right
-            anchors.topMargin: Math.max(gamePage.bannerViewHeight + 4 * backgroundImage.imageScale, 34)
+            anchors.topMargin: Math.max(gamePage.bannerViewHeight + 4 * backgroundImage.imageScale,
+                                        34 * backgroundImage.imageScale)
             z:                 1
             spacing:           4 * backgroundImage.imageScale
 
             Text {
                 id:                  scoreText
                 anchors.right:       parent.right
-                text:                "000000"
+                text:                textText(gamePage.gameScore)
                 color:               "blue"
                 font.pointSize:      32
                 font.family:         arcadeClassicFont.name
                 horizontalAlignment: Text.AlignRight
                 verticalAlignment:   Text.AlignVCenter
-            }
 
-            Text {
-                id:                  playerScoreText
-                anchors.right:       parent.right
-                visible:             playerRankText.playerRank !== 0 && playerScoreText.playerScore !== 0
-                text:                "000000"
-                color:               "red"
-                font.pointSize:      32
-                font.family:         arcadeClassicFont.name
-                horizontalAlignment: Text.AlignRight
-                verticalAlignment:   Text.AlignVCenter
-
-                readonly property int playerScore: GameCenterHelper.playerScore
-
-                onPlayerScoreChanged: {
-                    var score = playerScore + "";
+                function textText(game_score) {
+                    var score = game_score.toString(10);
 
                     while (score.length < 6) {
                         score = "0" + score;
                     }
 
-                    playerScoreText.text = score;
+                    return score;
+                }
+            }
+
+            Text {
+                id:                  playerScoreText
+                anchors.right:       parent.right
+                text:                textText(GameCenterHelper.playerScore)
+                color:               "red"
+                font.pointSize:      32
+                font.family:         arcadeClassicFont.name
+                horizontalAlignment: Text.AlignRight
+                verticalAlignment:   Text.AlignVCenter
+                visible:             GameCenterHelper.playerRank !== 0 && GameCenterHelper.playerScore !== 0
+
+                function textText(player_score) {
+                    var score = player_score.toString(10);
+
+                    while (score.length < 6) {
+                        score = "0" + score;
+                    }
+
+                    return score;
                 }
             }
         }
@@ -352,8 +344,8 @@ Item {
             z:                      1
             width:                  parent.width  / 10
             height:                 parent.height / 3
-            radius:                 8
-            border.width:           4
+            radius:                 8 * backgroundImage.imageScale
+            border.width:           4 * backgroundImage.imageScale
             border.color:           "black"
 
             gradient: Gradient {
@@ -392,6 +384,7 @@ Item {
             width:            sourceSize.width  * backgroundImage.imageScale
             height:           sourceSize.height * backgroundImage.imageScale
             source:           "qrc:/resources/images/game/hand.png"
+            fillMode:         Image.PreserveAspectFit
 
             SequentialAnimation {
                 loops:   Animation.Infinite
@@ -435,6 +428,7 @@ Item {
             width:                sourceSize.width  * backgroundImage.imageScale
             height:               sourceSize.height * backgroundImage.imageScale
             source:               "qrc:/resources/images/game/button_back.png"
+            fillMode:             Image.PreserveAspectFit
 
             MouseArea {
                 anchors.fill: parent
@@ -458,9 +452,10 @@ Item {
             spacing:              16 * backgroundImage.imageScale
 
             Image {
-                width:  sourceSize.width  * backgroundImage.imageScale
-                height: sourceSize.height * backgroundImage.imageScale
-                source: "qrc:/resources/images/game/button_capture.png"
+                width:    sourceSize.width  * backgroundImage.imageScale
+                height:   sourceSize.height * backgroundImage.imageScale
+                source:   "qrc:/resources/images/game/button_capture.png"
+                fillMode: Image.PreserveAspectFit
 
                 MouseArea {
                     anchors.fill: parent
@@ -472,9 +467,10 @@ Item {
             }
 
             Image {
-                width:  sourceSize.width  * backgroundImage.imageScale
-                height: sourceSize.height * backgroundImage.imageScale
-                source: "qrc:/resources/images/game/button_restart.png"
+                width:    sourceSize.width  * backgroundImage.imageScale
+                height:   sourceSize.height * backgroundImage.imageScale
+                source:   "qrc:/resources/images/game/button_restart.png"
+                fillMode: Image.PreserveAspectFit
 
                 MouseArea {
                     anchors.fill: parent
@@ -510,15 +506,21 @@ Item {
         repeat:   true
 
         onTriggered: {
-            gamePage.gameElapsedTime = gamePage.gameElapsedTime + 1;
+            gamePage.gameElapsedTime = gamePage.gameElapsedTime + interval;
 
             cat.energy = cat.energy - 5;
 
-            gamePage.gameDifficulty = Math.min(gamePage.gameElapsedTime / 5, gamePage.maxGameDifficulty);
+            gamePage.gameDifficulty = Math.min(gamePage.gameElapsedTime / 1000 / 5, gamePage.maxGameDifficulty);
         }
     }
 
-    Component.onCompleted: {
-        ShareHelper.shareToViewCompleted.connect(shareToViewCompleted);
+    Connections {
+        target: ShareHelper
+
+        onShareToViewCompleted: {
+            if (gamePage) {
+                shareViewActive = false;
+            }
+        }
     }
 }

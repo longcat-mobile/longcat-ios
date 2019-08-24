@@ -11,7 +11,7 @@ Rectangle {
     property bool running:               false
     property bool paused:                false
 
-    property int objectsHeight:          0
+    property int objectsElevation:       0
     property int objectsCount:           0
 
     property real speed:                 0.0
@@ -150,9 +150,9 @@ Rectangle {
                         var object = component.createObject(leftImage, {"imageScale": imageScale, "edibleHandicap": animatedObjectsLayer.edibleObjectsHandicap});
 
                         object.x = (width / animatedObjectsLayer.objectsCount) * j;
-                        object.y = animatedObjectsLayer.objectsHeight * imageScale;
+                        object.y = animatedObjectsLayer.objectsElevation * imageScale;
 
-                        object.playSound.connect(animatedObjectsLayer.playSound);
+                        object.soundRequested.connect(animatedObjectsLayer.playSound);
                     }
                 }
             } else {
@@ -192,9 +192,9 @@ Rectangle {
                         var object = component.createObject(rightImage, {"imageScale": imageScale, "edibleHandicap": animatedObjectsLayer.edibleObjectsHandicap});
 
                         object.x = (width / animatedObjectsLayer.objectsCount) * j;
-                        object.y = animatedObjectsLayer.objectsHeight * imageScale;
+                        object.y = animatedObjectsLayer.objectsElevation * imageScale;
 
-                        object.playSound.connect(animatedObjectsLayer.playSound);
+                        object.soundRequested.connect(animatedObjectsLayer.playSound);
                     }
                 }
             } else {

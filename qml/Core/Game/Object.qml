@@ -13,7 +13,7 @@ Column {
 
     property string consumedSound: ""
 
-    signal playSound(string sound)
+    signal soundRequested(string sound)
 
     function consume() {
         consumed = true;
@@ -24,14 +24,14 @@ Column {
 
         objectConsumeAnimation.start();
 
-        playSound(consumedSound);
+        soundRequested(consumedSound);
     }
 
     Image {
         id:       birdImage
+        z:        1
         width:    sourceSize.width  * imageScale
         height:   sourceSize.height * imageScale
-        z:        1
         fillMode: Image.PreserveAspectFit
     }
 

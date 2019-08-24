@@ -47,6 +47,7 @@ Item {
             width:            sourceSize.width  * backgroundImage.imageScale
             height:           sourceSize.height * backgroundImage.imageScale
             source:           "qrc:/resources/images/main/button_play.png"
+            fillMode:         Image.PreserveAspectFit
 
             MouseArea {
                 anchors.fill: parent
@@ -72,6 +73,7 @@ Item {
             height:                   sourceSize.height * backgroundImage.imageScale
             source:                   enabled ? "qrc:/resources/images/main/button_leaderboard.png" :
                                                 "qrc:/resources/images/main/button_leaderboard_disabled.png"
+            fillMode:                 Image.PreserveAspectFit
             enabled:                  GameCenterHelper.gameCenterEnabled
 
             MouseArea {
