@@ -44,17 +44,13 @@ ios {
     DEPENDPATH += $$PWD/ios/frameworks
 
     LIBS += -F $$PWD/ios/frameworks \
+            -framework GoogleAppMeasurement \
             -framework GoogleMobileAds \
-            -framework AdSupport \
-            -framework CFNetwork \
-            -framework CoreMotion \
-            -framework CoreTelephony \
-            -framework GameKit \
-            -framework GLKit \
-            -framework MediaPlayer \
-            -framework MessageUI \
-            -framework StoreKit \
-            -framework SystemConfiguration
+            -framework GoogleUtilities \
+            -framework nanopb \
+            -framework GameKit
+
+    QMAKE_LFLAGS += -ObjC
 
     QMAKE_APPLE_DEVICE_ARCHS = arm64
     QMAKE_INFO_PLIST = ios/Info.plist

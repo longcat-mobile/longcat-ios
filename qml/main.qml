@@ -9,6 +9,14 @@ ApplicationWindow {
     visibility: Window.FullScreen
     visible:    true
 
+    property string adMobConsent: ""
+
+    onAdMobConsentChanged: {
+        setSetting("AdMobConsent", adMobConsent);
+
+        updateFeatures();
+    }
+
     function setSetting(key, value) {
         var db = LocalStorage.openDatabaseSync("LongcatDB", "1.0", "LongcatDB", 1000000);
 
@@ -34,6 +42,20 @@ ApplicationWindow {
         });
 
         return value;
+    }
+
+    function updateFeatures() {
+        if (adMobConsent === "PERSONALIZED" || adMobConsent === "NON_PERSONALIZED") {
+            AdMobHelper.setPersonalization(adMobConsent === "PERSONALIZED");
+
+            AdMobHelper.initAds();
+        }
+
+        if (mainStackView.depth > 0 && typeof mainStackView.currentItem.bannerViewHeight === "number") {
+            AdMobHelper.showBannerView();
+        } else {
+            AdMobHelper.hideBannerView();
+        }
     }
 
     StackView {
@@ -70,12 +92,20 @@ ApplicationWindow {
     }
 
     Component.onCompleted: {
+        adMobConsent = getSetting("AdMobConsent", "");
+
+        updateFeatures();
+
         var component = Qt.createComponent("Core/MainPage.qml");
 
         if (component.status === Component.Ready) {
             mainStackView.push(component);
         } else {
             console.log(component.errorString());
+        }
+
+        if (adMobConsent !== "PERSONALIZED" && adMobConsent !== "NON_PERSONALIZED") {
+            adMobConsent = "PERSONALIZED"; // TODO
         }
     }
 }
