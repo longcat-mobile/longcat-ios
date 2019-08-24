@@ -42,6 +42,25 @@ Item {
         }
 
         Image {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top:              parent.top
+            anchors.topMargin:        34 * backgroundImage.imageScale
+            z:                        1
+            width:                    sourceSize.width  * backgroundImage.imageScale
+            height:                   sourceSize.height * backgroundImage.imageScale
+            source:                   "qrc:/resources/images/main/button_ad_settings.png"
+            fillMode:                 Image.PreserveAspectFit
+
+            MouseArea {
+                anchors.fill: parent
+
+                onClicked: {
+                    adMobConsentDialog.open();
+                }
+            }
+        }
+
+        Image {
             anchors.centerIn: parent
             z:                1
             width:            sourceSize.width  * backgroundImage.imageScale

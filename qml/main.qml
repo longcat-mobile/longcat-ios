@@ -3,6 +3,8 @@ import QtQuick.Window 2.12
 import QtQuick.Controls 2.5
 import QtQuick.LocalStorage 2.12
 
+import "Core/Dialog"
+
 ApplicationWindow {
     id:         mainWindow
     title:      qsTr("Longcat")
@@ -91,6 +93,18 @@ ApplicationWindow {
         enabled:      mainStackView.busy
     }
 
+    AdMobConsentDialog {
+        id: adMobConsentDialog
+
+        onPersonalizedAdsSelected: {
+            mainWindow.adMobConsent = "PERSONALIZED";
+        }
+
+        onNonPersonalizedAdsSelected: {
+            mainWindow.adMobConsent = "NON_PERSONALIZED";
+        }
+    }
+
     Component.onCompleted: {
         adMobConsent = getSetting("AdMobConsent", "");
 
@@ -105,7 +119,7 @@ ApplicationWindow {
         }
 
         if (adMobConsent !== "PERSONALIZED" && adMobConsent !== "NON_PERSONALIZED") {
-            adMobConsent = "PERSONALIZED"; // TODO
+            adMobConsentDialog.open();
         }
     }
 }
