@@ -46,12 +46,13 @@ Dialog {
             }
 
             Rectangle {
-                width:            UtilScript.pt(280)
-                height:           UtilScript.pt(48)
+                width:            UtilScript.pt(personalizedAdsButtonImage.sourceSize.width)
+                height:           UtilScript.pt(personalizedAdsButtonImage.sourceSize.height)
                 color:            "transparent"
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
                 Image {
+                    id:           personalizedAdsButtonImage
                     anchors.fill: parent
                     source:       "qrc:/resources/images/dialog/button.png"
                     fillMode:     Image.PreserveAspectFit
@@ -83,12 +84,13 @@ Dialog {
             }
 
             Rectangle {
-                width:            UtilScript.pt(280)
-                height:           UtilScript.pt(48)
+                width:            UtilScript.pt(nonPersonalizedAdsButtonImage.sourceSize.width)
+                height:           UtilScript.pt(nonPersonalizedAdsButtonImage.sourceSize.height)
                 color:            "transparent"
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
                 Image {
+                    id:           nonPersonalizedAdsButtonImage
                     anchors.fill: parent
                     source:       "qrc:/resources/images/dialog/button.png"
                     fillMode:     Image.PreserveAspectFit
