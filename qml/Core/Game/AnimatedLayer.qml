@@ -15,18 +15,14 @@ Rectangle {
     property url imageSource:           ""
 
     onImageWidthChanged: {
-        if (imageWidth > 0 && imageHeight > 0) {
-            if (running) {
-                movementAnimationRestartTimer.start();
-            }
+        if (imageWidth > 0 && imageHeight > 0 && running) {
+            movementAnimationRestartTimer.start();
         }
     }
 
     onImageHeightChanged: {
-        if (imageWidth > 0 && imageHeight > 0) {
-            if (running) {
-                movementAnimationRestartTimer.start();
-            }
+        if (imageWidth > 0 && imageHeight > 0 && running) {
+            movementAnimationRestartTimer.start();
         }
     }
 

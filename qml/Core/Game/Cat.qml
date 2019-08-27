@@ -48,19 +48,17 @@ Column {
             var cat_rect    = Qt.rect((width - width * intersectionShare) / 2, 0, width * intersectionShare, height);
             var object_rect = mapFromItem(object, 0, 0, object.width, object.height);
 
-            if (!object.consumed) {
-                if (!(cat_rect.x + cat_rect.width  < object_rect.x || object_rect.x + object_rect.width  < cat_rect.x ||
-                      cat_rect.y + cat_rect.height < object_rect.y || object_rect.y + object_rect.height < cat_rect.y)) {
-                    object.consume();
+            if (!object.consumed && !(cat_rect.x + cat_rect.width  < object_rect.x || object_rect.x + object_rect.width  < cat_rect.x ||
+                                      cat_rect.y + cat_rect.height < object_rect.y || object_rect.y + object_rect.height < cat_rect.y)) {
+                object.consume();
 
-                    energy = energy + object.energy;
+                energy = energy + object.energy;
 
-                    if (alive && object.energy < 0) {
-                        catDamagedAnimation.start();
-                    }
-
-                    catConsumedObject(object.energy);
+                if (alive && object.energy < 0) {
+                    catDamagedAnimation.start();
                 }
+
+                catConsumedObject(object.energy);
             }
         }
     }

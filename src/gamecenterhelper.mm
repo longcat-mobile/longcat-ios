@@ -132,38 +132,36 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID("longcat.leaderboard.score");
 
 - (void)reportScore:(int)value
 {
-    if (GameCenterEnabled) {
-        if (value > 0) {
-            GKScore *score = [[[GKScore alloc] initWithLeaderboardIdentifier:GameCenterHelper::GC_LEADERBOARD_ID.toNSString()] autorelease];
+    if (GameCenterEnabled && value > 0) {
+        GKScore *score = [[[GKScore alloc] initWithLeaderboardIdentifier:GameCenterHelper::GC_LEADERBOARD_ID.toNSString()] autorelease];
 
-            score.value = value;
+        score.value = value;
 
-            if (@available(iOS 7, *)) {
-                [GKScore reportScores:@[score] withCompletionHandler:^(NSError *error) {
-                    if (error != nil) {
-                        qWarning() << QString::fromNSString(error.localizedDescription);
-                    } else {
-                        GKLeaderboard *leaderboard = [[GKLeaderboard alloc] init];
+        if (@available(iOS 7, *)) {
+            [GKScore reportScores:@[score] withCompletionHandler:^(NSError *error) {
+                if (error != nil) {
+                    qWarning() << QString::fromNSString(error.localizedDescription);
+                } else {
+                    GKLeaderboard *leaderboard = [[GKLeaderboard alloc] init];
 
-                        leaderboard.identifier = GameCenterHelper::GC_LEADERBOARD_ID.toNSString();
+                    leaderboard.identifier = GameCenterHelper::GC_LEADERBOARD_ID.toNSString();
 
-                        [leaderboard loadScoresWithCompletionHandler:^(NSArray*, NSError *error) {
-                            if (error != nil) {
-                                qWarning() << QString::fromNSString(error.localizedDescription);
-                            } else {
-                                if (GameCenterHelperInstance != nullptr && leaderboard.localPlayerScore != nil) {
-                                    GameCenterHelperInstance->setPlayerScore(static_cast<int>(leaderboard.localPlayerScore.value));
-                                    GameCenterHelperInstance->setPlayerRank(static_cast<int>(leaderboard.localPlayerScore.rank));
-                                }
+                    [leaderboard loadScoresWithCompletionHandler:^(NSArray*, NSError *error) {
+                        if (error != nil) {
+                            qWarning() << QString::fromNSString(error.localizedDescription);
+                        } else {
+                            if (GameCenterHelperInstance != nullptr && leaderboard.localPlayerScore != nil) {
+                                GameCenterHelperInstance->setPlayerScore(static_cast<int>(leaderboard.localPlayerScore.value));
+                                GameCenterHelperInstance->setPlayerRank(static_cast<int>(leaderboard.localPlayerScore.rank));
                             }
+                        }
 
-                            [leaderboard autorelease];
-                        }];
-                    }
-                }];
-            } else {
-                assert(0);
-            }
+                        [leaderboard autorelease];
+                    }];
+                }
+            }];
+        } else {
+            assert(0);
         }
     }
 }

@@ -20,22 +20,18 @@ Rectangle {
     property url imageSource:            ""
 
     onImageWidthChanged: {
-        if (imageWidth > 0 && imageHeight > 0) {
-            if (running) {
-                leftImage.placeObjects();
+        if (imageWidth > 0 && imageHeight > 0 && running) {
+            leftImage.placeObjects();
 
-                movementAnimationRestartTimer.start();
-            }
+            movementAnimationRestartTimer.start();
         }
     }
 
     onImageHeightChanged: {
-        if (imageWidth > 0 && imageHeight > 0) {
-            if (running) {
-                leftImage.placeObjects();
+        if (imageWidth > 0 && imageHeight > 0 && running) {
+            leftImage.placeObjects();
 
-                movementAnimationRestartTimer.start();
-            }
+            movementAnimationRestartTimer.start();
         }
     }
 
