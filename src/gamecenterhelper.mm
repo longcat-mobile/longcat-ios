@@ -225,21 +225,27 @@ void GameCenterHelper::reportScore(int score)
 
 void GameCenterHelper::setGameCenterEnabled(bool enabled)
 {
-    GameCenterEnabled = enabled;
+    if (GameCenterEnabled != enabled) {
+        GameCenterEnabled = enabled;
 
-    emit gameCenterEnabledChanged(GameCenterEnabled);
+        emit gameCenterEnabledChanged(GameCenterEnabled);
+    }
 }
 
 void GameCenterHelper::setPlayerScore(int score)
 {
-    PlayerScore = score;
+    if (PlayerScore != score) {
+        PlayerScore = score;
 
-    emit playerScoreChanged(PlayerScore);
+        emit playerScoreChanged(PlayerScore);
+    }
 }
 
 void GameCenterHelper::setPlayerRank(int rank)
 {
-    PlayerRank = rank;
+    if (PlayerRank != rank) {
+        PlayerRank = rank;
 
-    emit playerRankChanged(PlayerRank);
+        emit playerRankChanged(PlayerRank);
+    }
 }
