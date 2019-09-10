@@ -5,7 +5,7 @@
 
 #include "gamecenterhelper.h"
 
-const QString GameCenterHelper::GC_LEADERBOARD_ID("longcat.leaderboard.score");
+const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leaderboard.score"));
 
 @interface GameCenterControllerDelegate : NSObject<GKGameCenterControllerDelegate>
 

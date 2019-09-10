@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     QTranslator     translator;
     QGuiApplication app(argc, argv);
 
-    if (translator.load(QString(":/tr/longcat_%1").arg(QLocale::system().name()))) {
+    if (translator.load(QStringLiteral(":/tr/longcat_%1").arg(QLocale::system().name()))) {
         QGuiApplication::installTranslator(&translator);
     }
 
@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty(QStringLiteral("GameCenterHelper"), &GameCenterHelper::GetInstance());
     engine.rootContext()->setContextProperty(QStringLiteral("ReachabilityHelper"), &ReachabilityHelper::GetInstance());
 
-    QQuickStyle::setStyle("Default");
+    QQuickStyle::setStyle(QStringLiteral("Default"));
 
     engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 
