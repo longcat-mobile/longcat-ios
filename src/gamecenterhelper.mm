@@ -166,7 +166,7 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
     }
 }
 
--(void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController API_AVAILABLE(ios(6))
+- (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController API_AVAILABLE(ios(6))
 {
     [gameCenterViewController dismissViewControllerAnimated:YES completion:nil];
 }
