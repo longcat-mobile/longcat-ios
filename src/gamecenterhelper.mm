@@ -1,6 +1,8 @@
 #import <UIKit/UIKit.h>
 #import <GameKit/GameKit.h>
 
+#include <cstdlib>
+
 #include <QtCore/QDebug>
 
 #include "gamecenterhelper.h"
@@ -101,7 +103,7 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
             }
         };
     } else {
-        assert(0);
+        abort();
     }
 }
 
@@ -125,7 +127,7 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
 
             [root_view_controller presentViewController:gc_view_controller animated:YES completion:nil];
         } else {
-            assert(0);
+            abort();
         }
     }
 }
@@ -161,7 +163,7 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
                 }
             }];
         } else {
-            assert(0);
+            abort();
         }
     }
 }
