@@ -77,7 +77,7 @@ Item {
                     if (component.status === Component.Ready) {
                         mainStackView.push(component, StackView.Immediate);
                     } else {
-                        console.log(component.errorString());
+                        console.error(component.errorString());
                     }
                 }
             }

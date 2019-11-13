@@ -39,13 +39,15 @@ Item {
 
     function captureImage() {
         if (!gamePage.grabToImage(function (result) {
-            result.saveToFile(ShareHelper.imageFilePath);
+            if (result.saveToFile(ShareHelper.imageFilePath)) {
+                shareViewActive = true;
 
-            shareViewActive = true;
-
-            ShareHelper.showShareToView(ShareHelper.imageFilePath);
+                ShareHelper.showShareToView(ShareHelper.imageFilePath);
+            } else {
+                console.error("saveToFile() failed");
+            }
         })) {
-            console.log("grabToImage() failed");
+            console.error("grabToImage() failed");
         }
     }
 
@@ -72,7 +74,7 @@ Item {
         source: "qrc:/resources/sound/game/game_over.wav"
 
         onError: {
-            console.log(errorString);
+            console.error(errorString);
         }
     }
 

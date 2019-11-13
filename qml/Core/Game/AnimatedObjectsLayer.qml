@@ -88,7 +88,7 @@ Rectangle {
         source: "qrc:/resources/sound/game/objects/generic.wav"
 
         onError: {
-            console.log(errorString);
+            console.error(errorString);
         }
     }
 
@@ -98,7 +98,7 @@ Rectangle {
         source: "qrc:/resources/sound/game/objects/bomb.wav"
 
         onError: {
-            console.log(errorString);
+            console.error(errorString);
         }
     }
 
@@ -108,7 +108,7 @@ Rectangle {
         source: "qrc:/resources/sound/game/objects/mushroom.wav"
 
         onError: {
-            console.log(errorString);
+            console.error(errorString);
         }
     }
 
@@ -118,7 +118,7 @@ Rectangle {
         source: "qrc:/resources/sound/game/objects/skull.wav"
 
         onError: {
-            console.log(errorString);
+            console.error(errorString);
         }
     }
 
@@ -152,7 +152,7 @@ Rectangle {
                     }
                 }
             } else {
-                console.log(component.errorString());
+                console.error(component.errorString());
             }
         }
 
@@ -194,7 +194,7 @@ Rectangle {
                     }
                 }
             } else {
-                console.log(component.errorString());
+                console.error(component.errorString());
             }
         }
 
