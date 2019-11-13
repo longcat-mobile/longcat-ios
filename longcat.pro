@@ -9,18 +9,18 @@ DEFINES += QT_DEPRECATED_WARNINGS QT_NO_CAST_FROM_ASCII QT_NO_CAST_TO_ASCII
 SOURCES += src/main.cpp
 
 OBJECTIVE_SOURCES += \
-    src/sharehelper.mm \
     src/admobhelper.mm \
-    src/storehelper.mm \
     src/gamecenterhelper.mm \
-    src/reachabilityhelper.mm
+    src/reachabilityhelper.mm \
+    src/sharehelper.mm \
+    src/storehelper.mm
 
 HEADERS += \
-    src/sharehelper.h \
     src/admobhelper.h \
-    src/storehelper.h \
     src/gamecenterhelper.h \
-    src/reachabilityhelper.h
+    src/reachabilityhelper.h \
+    src/sharehelper.h \
+    src/storehelper.h
 
 RESOURCES += \
     qml.qrc \
@@ -28,8 +28,8 @@ RESOURCES += \
     translations.qrc
 
 TRANSLATIONS += \
-    translations/longcat_ru.ts \
-    translations/longcat_ja.ts
+    translations/longcat_ja.ts \
+    translations/longcat_ru.ts
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

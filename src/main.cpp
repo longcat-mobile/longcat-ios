@@ -7,10 +7,10 @@
 #include <QtQuickControls2/QQuickStyle>
 
 #include "admobhelper.h"
-#include "sharehelper.h"
-#include "storehelper.h"
 #include "gamecenterhelper.h"
 #include "reachabilityhelper.h"
+#include "sharehelper.h"
+#include "storehelper.h"
 
 int main(int argc, char *argv[])
 {
@@ -24,10 +24,10 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     engine.rootContext()->setContextProperty(QStringLiteral("AdMobHelper"), &AdMobHelper::GetInstance());
-    engine.rootContext()->setContextProperty(QStringLiteral("ShareHelper"), &ShareHelper::GetInstance());
-    engine.rootContext()->setContextProperty(QStringLiteral("StoreHelper"), &StoreHelper::GetInstance());
     engine.rootContext()->setContextProperty(QStringLiteral("GameCenterHelper"), &GameCenterHelper::GetInstance());
     engine.rootContext()->setContextProperty(QStringLiteral("ReachabilityHelper"), &ReachabilityHelper::GetInstance());
+    engine.rootContext()->setContextProperty(QStringLiteral("ShareHelper"), &ShareHelper::GetInstance());
+    engine.rootContext()->setContextProperty(QStringLiteral("StoreHelper"), &StoreHelper::GetInstance());
 
     QQuickStyle::setStyle(QStringLiteral("Default"));
 
