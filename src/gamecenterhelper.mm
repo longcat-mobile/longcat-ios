@@ -210,17 +210,17 @@ int GameCenterHelper::playerRank() const
     return PlayerRank;
 }
 
-void GameCenterHelper::authenticate()
+void GameCenterHelper::authenticate() const
 {
     [GameCenterControllerDelegateInstance authenticate];
 }
 
-void GameCenterHelper::showLeaderboard()
+void GameCenterHelper::showLeaderboard() const
 {
     [GameCenterControllerDelegateInstance showLeaderboard];
 }
 
-void GameCenterHelper::reportScore(int score)
+void GameCenterHelper::reportScore(int score) const
 {
     [GameCenterControllerDelegateInstance reportScore:score];
 }

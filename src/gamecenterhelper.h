@@ -35,9 +35,9 @@ public:
     int playerScore() const;
     int playerRank() const;
 
-    Q_INVOKABLE void authenticate();
-    Q_INVOKABLE void showLeaderboard();
-    Q_INVOKABLE void reportScore(int score);
+    Q_INVOKABLE void authenticate() const;
+    Q_INVOKABLE void showLeaderboard() const;
+    Q_INVOKABLE void reportScore(int score) const;
 
     void setGameCenterEnabled(bool enabled);
     void setPlayerScore(int score);
