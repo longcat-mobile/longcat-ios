@@ -1,8 +1,6 @@
 #import <UIKit/UIKit.h>
 #import <GameKit/GameKit.h>
 
-#include <cstdlib>
-
 #include <QtCore/QDebug>
 
 #include "gamecenterhelper.h"
@@ -57,54 +55,50 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
 
     GKLocalPlayer *local_player = GKLocalPlayer.localPlayer;
 
-    if (@available(iOS 7, *)) {
-        local_player.authenticateHandler = ^(UIViewController *view_controller, NSError *error) {
-            if (error != nil) {
-                qWarning() << QString::fromNSString(error.localizedDescription);
+    local_player.authenticateHandler = ^(UIViewController *view_controller, NSError *error) {
+        if (error != nil) {
+            qWarning() << QString::fromNSString(error.localizedDescription);
 
+            GameCenterEnabled = NO;
+
+            if (GameCenterHelperInstance != nullptr) {
+                GameCenterHelperInstance->setGameCenterEnabled(GameCenterEnabled);
+            }
+        } else {
+            if (view_controller != nil) {
+                [root_view_controller presentViewController:view_controller animated:YES completion:nil];
+            } else if (local_player.isAuthenticated) {
+                GameCenterEnabled = YES;
+
+                if (GameCenterHelperInstance != nullptr) {
+                    GameCenterHelperInstance->setGameCenterEnabled(GameCenterEnabled);
+                }
+
+                GKLeaderboard *leaderboard = [[GKLeaderboard alloc] init];
+
+                leaderboard.identifier = GameCenterHelper::GC_LEADERBOARD_ID.toNSString();
+
+                [leaderboard loadScoresWithCompletionHandler:^(NSArray*, NSError *error) {
+                    if (error != nil) {
+                        qWarning() << QString::fromNSString(error.localizedDescription);
+                    } else {
+                        if (GameCenterHelperInstance != nullptr && leaderboard.localPlayerScore != nil) {
+                            GameCenterHelperInstance->setPlayerScore(static_cast<int>(leaderboard.localPlayerScore.value));
+                            GameCenterHelperInstance->setPlayerRank(static_cast<int>(leaderboard.localPlayerScore.rank));
+                        }
+                    }
+
+                    [leaderboard autorelease];
+                }];
+            } else {
                 GameCenterEnabled = NO;
 
                 if (GameCenterHelperInstance != nullptr) {
                     GameCenterHelperInstance->setGameCenterEnabled(GameCenterEnabled);
                 }
-            } else {
-                if (view_controller != nil) {
-                    [root_view_controller presentViewController:view_controller animated:YES completion:nil];
-                } else if (local_player.isAuthenticated) {
-                    GameCenterEnabled = YES;
-
-                    if (GameCenterHelperInstance != nullptr) {
-                        GameCenterHelperInstance->setGameCenterEnabled(GameCenterEnabled);
-                    }
-
-                    GKLeaderboard *leaderboard = [[GKLeaderboard alloc] init];
-
-                    leaderboard.identifier = GameCenterHelper::GC_LEADERBOARD_ID.toNSString();
-
-                    [leaderboard loadScoresWithCompletionHandler:^(NSArray*, NSError *error) {
-                        if (error != nil) {
-                            qWarning() << QString::fromNSString(error.localizedDescription);
-                        } else {
-                            if (GameCenterHelperInstance != nullptr && leaderboard.localPlayerScore != nil) {
-                                GameCenterHelperInstance->setPlayerScore(static_cast<int>(leaderboard.localPlayerScore.value));
-                                GameCenterHelperInstance->setPlayerRank(static_cast<int>(leaderboard.localPlayerScore.rank));
-                            }
-                        }
-
-                        [leaderboard autorelease];
-                    }];
-                } else {
-                    GameCenterEnabled = NO;
-
-                    if (GameCenterHelperInstance != nullptr) {
-                        GameCenterHelperInstance->setGameCenterEnabled(GameCenterEnabled);
-                    }
-                }
             }
-        };
-    } else {
-        abort();
-    }
+        }
+    };
 }
 
 - (void)showLeaderboard
@@ -118,17 +112,13 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
             *stop = (root_view_controller != nil);
         }];
 
-        if (@available(iOS 7, *)) {
-            GKGameCenterViewController *gc_view_controller = [[[GKGameCenterViewController alloc] init] autorelease];
+        GKGameCenterViewController *gc_view_controller = [[[GKGameCenterViewController alloc] init] autorelease];
 
-            gc_view_controller.gameCenterDelegate    = self;
-            gc_view_controller.viewState             = GKGameCenterViewControllerStateLeaderboards;
-            gc_view_controller.leaderboardIdentifier = GameCenterHelper::GC_LEADERBOARD_ID.toNSString();
+        gc_view_controller.gameCenterDelegate    = self;
+        gc_view_controller.viewState             = GKGameCenterViewControllerStateLeaderboards;
+        gc_view_controller.leaderboardIdentifier = GameCenterHelper::GC_LEADERBOARD_ID.toNSString();
 
-            [root_view_controller presentViewController:gc_view_controller animated:YES completion:nil];
-        } else {
-            abort();
-        }
+        [root_view_controller presentViewController:gc_view_controller animated:YES completion:nil];
     }
 }
 
@@ -139,32 +129,28 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
 
         score.value = value;
 
-        if (@available(iOS 7, *)) {
-            [GKScore reportScores:@[score] withCompletionHandler:^(NSError *error) {
-                if (error != nil) {
-                    qWarning() << QString::fromNSString(error.localizedDescription);
-                } else {
-                    GKLeaderboard *leaderboard = [[GKLeaderboard alloc] init];
+        [GKScore reportScores:@[score] withCompletionHandler:^(NSError *error) {
+            if (error != nil) {
+                qWarning() << QString::fromNSString(error.localizedDescription);
+            } else {
+                GKLeaderboard *leaderboard = [[GKLeaderboard alloc] init];
 
-                    leaderboard.identifier = GameCenterHelper::GC_LEADERBOARD_ID.toNSString();
+                leaderboard.identifier = GameCenterHelper::GC_LEADERBOARD_ID.toNSString();
 
-                    [leaderboard loadScoresWithCompletionHandler:^(NSArray*, NSError *error) {
-                        if (error != nil) {
-                            qWarning() << QString::fromNSString(error.localizedDescription);
-                        } else {
-                            if (GameCenterHelperInstance != nullptr && leaderboard.localPlayerScore != nil) {
-                                GameCenterHelperInstance->setPlayerScore(static_cast<int>(leaderboard.localPlayerScore.value));
-                                GameCenterHelperInstance->setPlayerRank(static_cast<int>(leaderboard.localPlayerScore.rank));
-                            }
+                [leaderboard loadScoresWithCompletionHandler:^(NSArray*, NSError *error) {
+                    if (error != nil) {
+                        qWarning() << QString::fromNSString(error.localizedDescription);
+                    } else {
+                        if (GameCenterHelperInstance != nullptr && leaderboard.localPlayerScore != nil) {
+                            GameCenterHelperInstance->setPlayerScore(static_cast<int>(leaderboard.localPlayerScore.value));
+                            GameCenterHelperInstance->setPlayerRank(static_cast<int>(leaderboard.localPlayerScore.rank));
                         }
+                    }
 
-                        [leaderboard autorelease];
-                    }];
-                }
-            }];
-        } else {
-            abort();
-        }
+                    [leaderboard autorelease];
+                }];
+            }
+        }];
     }
 }
 
