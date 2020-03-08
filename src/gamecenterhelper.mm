@@ -53,7 +53,7 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
         *stop = (root_view_controller != nil);
     }];
 
-    GKLocalPlayer *local_player = GKLocalPlayer.localPlayer;
+    GKLocalPlayer * __block local_player = GKLocalPlayer.localPlayer;
 
     local_player.authenticateHandler = ^(UIViewController *view_controller, NSError *error) {
         if (error != nil) {
@@ -74,7 +74,7 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
                     GameCenterHelperInstance->setGameCenterEnabled(GameCenterEnabled);
                 }
 
-                GKLeaderboard *leaderboard = [[GKLeaderboard alloc] init];
+                GKLeaderboard * __block leaderboard = [[[GKLeaderboard alloc] init] autorelease];
 
                 leaderboard.identifier = GameCenterHelper::GC_LEADERBOARD_ID.toNSString();
 
@@ -87,8 +87,6 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
                             GameCenterHelperInstance->setPlayerRank(static_cast<int>(leaderboard.localPlayerScore.rank));
                         }
                     }
-
-                    [leaderboard autorelease];
                 }];
             } else {
                 GameCenterEnabled = NO;
@@ -133,7 +131,7 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
             if (error != nil) {
                 qWarning() << QString::fromNSString(error.localizedDescription);
             } else {
-                GKLeaderboard *leaderboard = [[GKLeaderboard alloc] init];
+                GKLeaderboard * __block leaderboard = [[[GKLeaderboard alloc] init] autorelease];
 
                 leaderboard.identifier = GameCenterHelper::GC_LEADERBOARD_ID.toNSString();
 
@@ -146,8 +144,6 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
                             GameCenterHelperInstance->setPlayerRank(static_cast<int>(leaderboard.localPlayerScore.rank));
                         }
                     }
-
-                    [leaderboard autorelease];
                 }];
             }
         }];
