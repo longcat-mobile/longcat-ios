@@ -62,7 +62,7 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
             GameCenterEnabled = NO;
 
             if (GameCenterHelperInstance != nullptr) {
-                GameCenterHelperInstance->setGameCenterEnabled(GameCenterEnabled);
+                GameCenterHelperInstance->SetGameCenterEnabled(GameCenterEnabled);
             }
         } else {
             if (view_controller != nil) {
@@ -71,7 +71,7 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
                 GameCenterEnabled = YES;
 
                 if (GameCenterHelperInstance != nullptr) {
-                    GameCenterHelperInstance->setGameCenterEnabled(GameCenterEnabled);
+                    GameCenterHelperInstance->SetGameCenterEnabled(GameCenterEnabled);
                 }
 
                 GKLeaderboard * __block leaderboard = [[[GKLeaderboard alloc] init] autorelease];
@@ -83,8 +83,8 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
                         qWarning() << QString::fromNSString(error.localizedDescription);
                     } else {
                         if (GameCenterHelperInstance != nullptr && leaderboard.localPlayerScore != nil) {
-                            GameCenterHelperInstance->setPlayerScore(static_cast<int>(leaderboard.localPlayerScore.value));
-                            GameCenterHelperInstance->setPlayerRank(static_cast<int>(leaderboard.localPlayerScore.rank));
+                            GameCenterHelperInstance->SetPlayerScore(static_cast<int>(leaderboard.localPlayerScore.value));
+                            GameCenterHelperInstance->SetPlayerRank(static_cast<int>(leaderboard.localPlayerScore.rank));
                         }
                     }
                 }];
@@ -92,7 +92,7 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
                 GameCenterEnabled = NO;
 
                 if (GameCenterHelperInstance != nullptr) {
-                    GameCenterHelperInstance->setGameCenterEnabled(GameCenterEnabled);
+                    GameCenterHelperInstance->SetGameCenterEnabled(GameCenterEnabled);
                 }
             }
         }
@@ -140,8 +140,8 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
                         qWarning() << QString::fromNSString(error.localizedDescription);
                     } else {
                         if (GameCenterHelperInstance != nullptr && leaderboard.localPlayerScore != nil) {
-                            GameCenterHelperInstance->setPlayerScore(static_cast<int>(leaderboard.localPlayerScore.value));
-                            GameCenterHelperInstance->setPlayerRank(static_cast<int>(leaderboard.localPlayerScore.rank));
+                            GameCenterHelperInstance->SetPlayerScore(static_cast<int>(leaderboard.localPlayerScore.value));
+                            GameCenterHelperInstance->SetPlayerRank(static_cast<int>(leaderboard.localPlayerScore.rank));
                         }
                     }
                 }];
@@ -157,12 +157,13 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
 
 @end
 
-GameCenterHelper::GameCenterHelper(QObject *parent) : QObject(parent)
+GameCenterHelper::GameCenterHelper(QObject *parent) :
+    QObject                             (parent),
+    GameCenterEnabled                   (false),
+    PlayerScore                         (0),
+    PlayerRank                          (0),
+    GameCenterControllerDelegateInstance([[GameCenterControllerDelegate alloc] initWithHelper:this])
 {
-    GameCenterEnabled                    = false;
-    PlayerScore                          = 0;
-    PlayerRank                           = 0;
-    GameCenterControllerDelegateInstance = [[GameCenterControllerDelegate alloc] initWithHelper:this];
 }
 
 GameCenterHelper::~GameCenterHelper() noexcept
@@ -207,7 +208,7 @@ void GameCenterHelper::reportScore(int score) const
     [GameCenterControllerDelegateInstance reportScore:score];
 }
 
-void GameCenterHelper::setGameCenterEnabled(bool enabled)
+void GameCenterHelper::SetGameCenterEnabled(bool enabled)
 {
     if (GameCenterEnabled != enabled) {
         GameCenterEnabled = enabled;
@@ -216,7 +217,7 @@ void GameCenterHelper::setGameCenterEnabled(bool enabled)
     }
 }
 
-void GameCenterHelper::setPlayerScore(int score)
+void GameCenterHelper::SetPlayerScore(int score)
 {
     if (PlayerScore != score) {
         PlayerScore = score;
@@ -225,7 +226,7 @@ void GameCenterHelper::setPlayerScore(int score)
     }
 }
 
-void GameCenterHelper::setPlayerRank(int rank)
+void GameCenterHelper::SetPlayerRank(int rank)
 {
     if (PlayerRank != rank) {
         PlayerRank = rank;

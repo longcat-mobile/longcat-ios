@@ -39,9 +39,9 @@ public:
     Q_INVOKABLE void showLeaderboard() const;
     Q_INVOKABLE void reportScore(int score) const;
 
-    void setGameCenterEnabled(bool enabled);
-    void setPlayerScore(int score);
-    void setPlayerRank(int rank);
+    void SetGameCenterEnabled(bool enabled);
+    void SetPlayerScore(int score);
+    void SetPlayerRank(int rank);
 
 signals:
     void gameCenterEnabledChanged(bool gameCenterEnabled);

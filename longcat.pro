@@ -6,7 +6,9 @@ CONFIG += c++11
 
 DEFINES += QT_DEPRECATED_WARNINGS QT_NO_CAST_FROM_ASCII QT_NO_CAST_TO_ASCII
 
-SOURCES += src/main.cpp
+SOURCES += \
+    src/contextguard.cpp \
+    src/main.cpp
 
 OBJECTIVE_SOURCES += \
     src/admobhelper.mm \
@@ -17,6 +19,7 @@ OBJECTIVE_SOURCES += \
 
 HEADERS += \
     src/admobhelper.h \
+    src/contextguard.h \
     src/gamecenterhelper.h \
     src/reachabilityhelper.h \
     src/sharehelper.h \
