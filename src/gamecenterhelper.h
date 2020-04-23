@@ -6,7 +6,7 @@
 
 #ifdef __OBJC__
 @class GameCenterControllerDelegate;
-#endif // __OBJC__
+#endif
 
 class GameCenterHelper : public QObject
 {
@@ -55,7 +55,7 @@ private:
     GameCenterControllerDelegate *GameCenterControllerDelegateInstance;
 #else
     void                         *GameCenterControllerDelegateInstance;
-#endif // __OBJC__
+#endif
 };
 
 #endif // GAMECENTERHELPER_H
