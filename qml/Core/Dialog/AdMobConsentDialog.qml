@@ -49,8 +49,8 @@ Popup {
             }
 
             Rectangle {
-                width:            UtilScript.dp(personalizedAdsButtonImage.sourceSize.width)
-                height:           UtilScript.dp(personalizedAdsButtonImage.sourceSize.height)
+                implicitWidth:    UtilScript.dp(personalizedAdsButtonImage.sourceSize.width)
+                implicitHeight:   UtilScript.dp(personalizedAdsButtonImage.sourceSize.height)
                 color:            "transparent"
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
@@ -87,8 +87,8 @@ Popup {
             }
 
             Rectangle {
-                width:            UtilScript.dp(nonPersonalizedAdsButtonImage.sourceSize.width)
-                height:           UtilScript.dp(nonPersonalizedAdsButtonImage.sourceSize.height)
+                implicitWidth:    UtilScript.dp(nonPersonalizedAdsButtonImage.sourceSize.width)
+                implicitHeight:   UtilScript.dp(nonPersonalizedAdsButtonImage.sourceSize.height)
                 color:            "transparent"
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
