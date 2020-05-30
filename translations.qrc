@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/tr">
-        <file alias="longcat_ru.qm">translations/longcat_ru.qm</file>
         <file alias="longcat_ja.qm">translations/longcat_ja.qm</file>
+        <file alias="longcat_ru.qm">translations/longcat_ru.qm</file>
     </qresource>
 </RCC>
