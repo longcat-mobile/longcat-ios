@@ -11,7 +11,7 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithHelper:(GameCenterHelper *)helper NS_DESIGNATED_INITIALIZER;
-- (void)removeHelperAndAutorelease;
+- (void)cleanupAndAutorelease;
 - (void)authenticate;
 - (void)showLeaderboard;
 - (void)reportScore:(int)value;
@@ -36,7 +36,7 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
     return self;
 }
 
-- (void)removeHelperAndAutorelease
+- (void)cleanupAndAutorelease
 {
     GameCenterHelperInstance = nullptr;
 
@@ -168,7 +168,7 @@ GameCenterHelper::GameCenterHelper(QObject *parent) :
 
 GameCenterHelper::~GameCenterHelper() noexcept
 {
-    [GameCenterControllerDelegateInstance removeHelperAndAutorelease];
+    [GameCenterControllerDelegateInstance cleanupAndAutorelease];
 }
 
 GameCenterHelper &GameCenterHelper::GetInstance()
