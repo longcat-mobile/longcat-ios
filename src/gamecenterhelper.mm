@@ -11,6 +11,7 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithHelper:(GameCenterHelper *)helper NS_DESIGNATED_INITIALIZER;
+- (void)dealloc;
 - (void)cleanupAndAutorelease;
 - (void)authenticate;
 - (void)showLeaderboard;
@@ -20,8 +21,9 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
 
 @implementation GameCenterControllerDelegate
 {
-    BOOL              GameCenterEnabled;
-    GameCenterHelper *GameCenterHelperInstance;
+    BOOL                        GameCenterEnabled;
+    GKGameCenterViewController *GameCenterViewController;
+    GameCenterHelper           *GameCenterHelperInstance;
 }
 
 - (instancetype)initWithHelper:(GameCenterHelper *)helper
@@ -30,10 +32,20 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
 
     if (self != nil) {
         GameCenterEnabled        = NO;
+        GameCenterViewController = nil;
         GameCenterHelperInstance = helper;
     }
 
     return self;
+}
+
+- (void)dealloc
+{
+    GameCenterViewController.gameCenterDelegate = nil;
+
+    [GameCenterViewController release];
+
+    [super dealloc];
 }
 
 - (void)cleanupAndAutorelease
@@ -102,6 +114,10 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
 - (void)showLeaderboard
 {
     if (GameCenterEnabled) {
+        GameCenterViewController.gameCenterDelegate = nil;
+
+        [GameCenterViewController release];
+
         UIViewController * __block root_view_controller = nil;
 
         [UIApplication.sharedApplication.windows enumerateObjectsUsingBlock:^(UIWindow * _Nonnull window, NSUInteger, BOOL * _Nonnull stop) {
@@ -110,13 +126,13 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
             *stop = (root_view_controller != nil);
         }];
 
-        GKGameCenterViewController *gc_view_controller = [[[GKGameCenterViewController alloc] init] autorelease];
+        GameCenterViewController = [[GKGameCenterViewController alloc] init];
 
-        gc_view_controller.gameCenterDelegate    = self;
-        gc_view_controller.viewState             = GKGameCenterViewControllerStateLeaderboards;
-        gc_view_controller.leaderboardIdentifier = GameCenterHelper::GC_LEADERBOARD_ID.toNSString();
+        GameCenterViewController.gameCenterDelegate    = self;
+        GameCenterViewController.viewState             = GKGameCenterViewControllerStateLeaderboards;
+        GameCenterViewController.leaderboardIdentifier = GameCenterHelper::GC_LEADERBOARD_ID.toNSString();
 
-        [root_view_controller presentViewController:gc_view_controller animated:YES completion:nil];
+        [root_view_controller presentViewController:GameCenterViewController animated:YES completion:nil];
     }
 }
 
