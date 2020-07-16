@@ -32,8 +32,13 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
 
     if (self != nil) {
         GameCenterEnabled        = NO;
-        GameCenterViewController = nil;
         GameCenterHelperInstance = helper;
+
+        GameCenterViewController = [[GKGameCenterViewController alloc] init];
+
+        GameCenterViewController.gameCenterDelegate    = self;
+        GameCenterViewController.viewState             = GKGameCenterViewControllerStateLeaderboards;
+        GameCenterViewController.leaderboardIdentifier = GameCenterHelper::GC_LEADERBOARD_ID.toNSString();
     }
 
     return self;
@@ -113,11 +118,7 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
 
 - (void)showLeaderboard
 {
-    if (GameCenterEnabled) {
-        GameCenterViewController.gameCenterDelegate = nil;
-
-        [GameCenterViewController release];
-
+    if (GameCenterEnabled && GameCenterViewController != nil) {
         UIViewController * __block root_view_controller = nil;
 
         [UIApplication.sharedApplication.windows enumerateObjectsUsingBlock:^(UIWindow * _Nonnull window, NSUInteger, BOOL * _Nonnull stop) {
@@ -125,12 +126,6 @@ const QString GameCenterHelper::GC_LEADERBOARD_ID(QStringLiteral("longcat.leader
 
             *stop = (root_view_controller != nil);
         }];
-
-        GameCenterViewController = [[GKGameCenterViewController alloc] init];
-
-        GameCenterViewController.gameCenterDelegate    = self;
-        GameCenterViewController.viewState             = GKGameCenterViewControllerStateLeaderboards;
-        GameCenterViewController.leaderboardIdentifier = GameCenterHelper::GC_LEADERBOARD_ID.toNSString();
 
         [root_view_controller presentViewController:GameCenterViewController animated:YES completion:nil];
     }
