@@ -10,13 +10,6 @@ SOURCES += \
     src/contextguard.cpp \
     src/main.cpp
 
-OBJECTIVE_SOURCES += \
-    src/admobhelper.mm \
-    src/gamecenterhelper.mm \
-    src/reachabilityhelper.mm \
-    src/sharehelper.mm \
-    src/storehelper.mm
-
 HEADERS += \
     src/admobhelper.h \
     src/contextguard.h \
@@ -49,6 +42,13 @@ ios {
 
     INCLUDEPATH += ios/frameworks
     DEPENDPATH += ios/frameworks
+
+    OBJECTIVE_SOURCES += \
+        src/admobhelper.mm \
+        src/gamecenterhelper.mm \
+        src/reachabilityhelper.mm \
+        src/sharehelper.mm \
+        src/storehelper.mm
 
     LIBS += -F $$PWD/ios/frameworks \
             -framework GoogleAppMeasurement \
