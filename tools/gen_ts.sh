@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PATH="$PATH:$HOME/Qt/5.13.0/ios/bin"
+PATH="$PATH:$HOME/Qt/5.12.9/ios/bin"
 
 lupdate -locations absolute ../longcat.pro -ts ../translations/longcat_ja.src.ts
 lupdate -locations absolute ../qml         -ts ../translations/longcat_ja.qml.ts
