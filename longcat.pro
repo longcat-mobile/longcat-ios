@@ -7,12 +7,10 @@ CONFIG += c++17
 DEFINES += QT_DEPRECATED_WARNINGS QT_NO_CAST_FROM_ASCII QT_NO_CAST_TO_ASCII
 
 SOURCES += \
-    src/contextguard.cpp \
     src/main.cpp
 
 HEADERS += \
     src/admobhelper.h \
-    src/contextguard.h \
     src/gamecenterhelper.h \
     src/reachabilityhelper.h \
     src/sharehelper.h \
