@@ -3,21 +3,11 @@ import QtQuick.Window 2.12
 import QtQuick.Controls 2.5
 import QtQuick.LocalStorage 2.12
 
-import "Core/Dialog"
-
 ApplicationWindow {
     id:         mainWindow
     title:      qsTr("Longcat")
     visibility: Window.FullScreen
     visible:    true
-
-    property string adMobConsent: ""
-
-    onAdMobConsentChanged: {
-        setSetting("AdMobConsent", adMobConsent);
-
-        updateFeatures();
-    }
 
     function setSetting(key, value) {
         var db = LocalStorage.openDatabaseSync("LongcatDB", "1.0", "LongcatDB", 1000000);
@@ -44,20 +34,6 @@ ApplicationWindow {
         });
 
         return value;
-    }
-
-    function updateFeatures() {
-        if (adMobConsent === "PERSONALIZED" || adMobConsent === "NON_PERSONALIZED") {
-            AdMobHelper.setPersonalization(adMobConsent === "PERSONALIZED");
-
-            AdMobHelper.initAds();
-        }
-
-        if (mainStackView.depth > 0 && typeof mainStackView.currentItem.bannerViewHeight === "number") {
-            AdMobHelper.showBannerView();
-        } else {
-            AdMobHelper.hideBannerView();
-        }
     }
 
     StackView {
@@ -93,22 +69,8 @@ ApplicationWindow {
         enabled:      mainStackView.busy
     }
 
-    AdMobConsentDialog {
-        id: adMobConsentDialog
-
-        onPersonalizedAdsSelected: {
-            mainWindow.adMobConsent = "PERSONALIZED";
-        }
-
-        onNonPersonalizedAdsSelected: {
-            mainWindow.adMobConsent = "NON_PERSONALIZED";
-        }
-    }
-
     Component.onCompleted: {
-        adMobConsent = getSetting("AdMobConsent", "");
-
-        updateFeatures();
+        AdMobHelper.initAds();
 
         var component = Qt.createComponent("Core/MainPage.qml");
 
@@ -116,10 +78,6 @@ ApplicationWindow {
             mainStackView.push(component);
         } else {
             console.error(component.errorString());
-        }
-
-        if (adMobConsent !== "PERSONALIZED" && adMobConsent !== "NON_PERSONALIZED") {
-            adMobConsentDialog.open();
         }
     }
 }

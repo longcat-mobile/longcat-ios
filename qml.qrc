@@ -4,7 +4,6 @@
         <file>qml/main.qml</file>
         <file>qml/Core/GamePage.qml</file>
         <file>qml/Core/MainPage.qml</file>
-        <file>qml/Core/Dialog/AdMobConsentDialog.qml</file>
         <file>qml/Core/Game/AnimatedLayer.qml</file>
         <file>qml/Core/Game/AnimatedObjectsLayer.qml</file>
         <file>qml/Core/Game/Cat.qml</file>
