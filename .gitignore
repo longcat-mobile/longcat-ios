@@ -1,6 +1,7 @@
 .DS_Store
 /.qmake.stash
 /Makefile
+/longcat.pro.user
 /longcat_plugin_import.cpp
 /longcat_qml_plugin_import.cpp
 /moc_*.cpp
