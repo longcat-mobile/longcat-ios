@@ -9,7 +9,7 @@ additional information.
 
 ---
 
-[![Build Status](https://github.com/longcat-mobile/longcat-ios/workflows/Build/badge.svg)](https://github.com/longcat-mobile/longcat-ios/actions?query=workflow%3A%22Build%22)
+[![Build Status](https://github.com/longcat-mobile/longcat-ios/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/longcat-mobile/longcat-ios/actions/workflows/build.yml?query=branch%3Amaster)
 [![Xcode Analysis Status](https://github.com/longcat-mobile/longcat-ios/workflows/Xcode%20Analysis/badge.svg)](https://github.com/longcat-mobile/longcat-ios/actions?query=workflow%3A%22Xcode%20Analysis%22)
 [![SonarCloud Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=longcat-mobile_longcat-ios&metric=alert_status)](https://sonarcloud.io/dashboard?id=longcat-mobile_longcat-ios)
 
